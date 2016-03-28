@@ -1,0 +1,20 @@
+{
+    "name": "asmbs/wp-schedule-builder",
+    "description": "Build interactive agendas for scientific meetings",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kyle Tucker",
+            "email": "kyleatucker@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "ASMBS\\ScheduleBuilder\\": "src/"
+        }
+    }
+}
