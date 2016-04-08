@@ -1,0 +1,32 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "1dd86fa8d0688e382bdb7736808df1dc",
+    "content-hash": "bc6449ec8441bac6a08c8bd8ae0f54f3",
+    "packages": [
+        {
+            "name": "asmbs-wp-plugin/acf-pro",
+            "version": "5.3.7",
+            "dist": {
+                "type": "tar",
+                "url": "http://packagist.asmbs.org/dist/asmbs-wp-plugin-acf-pro-5.3.7.tar",
+                "reference": null,
+                "shasum": "bedc88e2bc9c90382821b41ee24045f172caaff3"
+            },
+            "type": "wordpress-plugin"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^5.5"
+    },
+    "platform-dev": []
+}
