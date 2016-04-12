@@ -30,8 +30,9 @@ class Acf
     public function addLoadLocation($paths)
     {
         $paths[] = Loader::$root .'/resources/acf';
-
-        var_dump($paths);
+        foreach (glob(Loader::$root .'/resources/acf/*/') as $dir) {
+            $paths[] = $dir;
+        }
 
         return $paths;
     }
