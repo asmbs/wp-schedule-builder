@@ -2,23 +2,24 @@
 
 namespace ASMBS\ScheduleBuilder;
 
-use ASMBS\ScheduleBuilder\PostType;
-
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
 class Loader
 {
-    private $root;
+    public static $root;
 
     /**
      * Wire up the plugin.
      */
     public function __construct()
     {
-        $this->root = dirname(dirname(__FILE__));
+        self::$root = dirname(dirname(__FILE__));
 
         // Load post types
         PostType\Session::load();
+        
+        // Load extensions
+        Extension\Acf::load();
     }
 }
