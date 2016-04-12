@@ -1,0 +1,32 @@
+{
+    "key": "session__test",
+    "title": "Test Group",
+    "fields": [
+        {
+            "key": "test__field1",
+            "label": "Field One",
+            "name": "field1",
+            "type": "text"
+        },
+        {
+            "key": "test__field2",
+            "label": "Field Two",
+            "name": "field2",
+            "type": "radio",
+            "choices": {
+                "x": "X",
+                "y": "Y"
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "active": 1
+}
