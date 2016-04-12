@@ -22,7 +22,6 @@ class Acf
 
     protected function __construct()
     {
-        var_dump('shit');
         add_filter('acf/settings/load_json', [$this, 'addLoadLocation']);
         self::$loaded = true;
     }
