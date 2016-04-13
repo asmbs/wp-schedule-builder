@@ -15,11 +15,19 @@ class Acf
     /** @var  bool  Flag denoting whether the extension has been loaded. */
     protected static $loaded = false;
 
+    /**
+     * Load the extension.
+     *
+     * @return  Acf
+     */
     public static function load()
     {
         return new self();
     }
 
+    /**
+     * Extension constructor.
+     */
     protected function __construct()
     {
         // Register plugin options page
@@ -36,6 +44,9 @@ class Acf
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Register the plugin options page.
+     */
     public function registerOptionsPage()
     {
         acf_add_options_page([
@@ -49,6 +60,12 @@ class Acf
         ]);
     }
 
+    /**
+     * Regiser JSON load paths for the plugin.
+     *
+     * @param   array  $paths
+     * @return  array
+     */
     public function addLoadPaths($paths)
     {
         $paths[] = Loader::$root .'/resources/acf';
@@ -59,6 +76,12 @@ class Acf
         return $paths;
     }
 
+    /**
+     * Use the `event_details/dates` options field to populate the session date choices.
+     *
+     * @param   array  $field
+     * @return  array
+     */
     public function loadDateChoices($field)
     {
         if (isset($field['choices'])) {
