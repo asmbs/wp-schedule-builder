@@ -22,11 +22,30 @@ class Acf
 
     protected function __construct()
     {
-        add_filter('acf/settings/load_json', [$this, 'addLoadLocation']);
+        // Register plugin options page
+        add_action('init', [$this, 'registerOptionsPage']);
+
+        // Register JSON read locations
+        add_filter('acf/settings/load_json', [$this, 'addLoadPaths']);
         self::$loaded = true;
     }
 
-    public function addLoadLocation($paths)
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public function registerOptionsPage()
+    {
+        acf_add_options_page([
+            'page_title' => 'Schedule Builder Settings',
+            'menu_title' => 'Schedule Settings',
+            'menu_slug'  => 'sb_options',
+            'post_id'    => 'sb_options',
+            'capability' => 'manage_options',
+            'position'   => 31,
+            'icon_url'   => 'dashicons-admin-generic',
+        ]);
+    }
+
+    public function addLoadPaths($paths)
     {
         $paths[] = Loader::$root .'/resources/acf';
         foreach (glob(Loader::$root .'/resources/acf/*/') as $dir) {
