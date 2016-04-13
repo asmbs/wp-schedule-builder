@@ -27,6 +27,10 @@ class Acf
 
         // Register JSON read locations
         add_filter('acf/settings/load_json', [$this, 'addLoadPaths']);
+
+        // Register dynamic data hooks
+        add_filter('acf/load_field/key=scheduling--date', [$this, 'loadDateChoices']);
+
         self::$loaded = true;
     }
 
@@ -53,5 +57,20 @@ class Acf
         }
 
         return $paths;
+    }
+
+    public function loadDateChoices($field)
+    {
+        if (isset($field['choices'])) {
+            $choicesToAdd = [];
+            while (have_rows('event_details/dates', 'sb_options')) {
+                the_row();
+                $choicesToAdd[get_sub_field('value')] = get_sub_field('label');
+            }
+
+            $field['choices'] = array_merge($field['choices'], $choicesToAdd);
+        }
+
+        return $field;
     }
 }
