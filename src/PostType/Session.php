@@ -35,10 +35,15 @@ class Session extends AbstractPostType
     public function getArgs()
     {
         return [
-            'labels' => [
+            'labels'          => [
                 'menu_name' => 'Schedule',
             ],
-            'menu_icon' => 'dashicons-calendar-alt',
+            'menu_position'   => 30,
+            'menu_icon'       => 'dashicons-calendar-alt',
+            'has_archive'     => 'schedule',
+            'supports'        => ['title', 'editor', 'author', 'revisions'],
+            'capability_type' => ['session', 'sessions'],
+            'map_meta_cap'    => true,
         ];
     }
 }
