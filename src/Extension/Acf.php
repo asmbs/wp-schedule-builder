@@ -55,7 +55,7 @@ class Acf
             'menu_slug'  => 'sb_options',
             'post_id'    => 'sb_options',
             'capability' => 'manage_options',
-            'position'   => 31,
+            'position'   => 32,
             'icon_url'   => 'dashicons-admin-generic',
         ]);
     }

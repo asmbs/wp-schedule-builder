@@ -38,7 +38,7 @@ class Session extends AbstractPostType
             'labels'          => [
                 'menu_name' => 'Schedule',
             ],
-            'menu_position'   => 30,
+            'menu_position'   => 31,
             'menu_icon'       => 'dashicons-calendar-alt',
             'has_archive'     => 'schedule',
             'supports'        => ['title', 'editor', 'author', 'revisions'],

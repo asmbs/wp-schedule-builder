@@ -18,7 +18,10 @@ class Loader
 
         // Load post types
         PostType\Session::load();
-        
+        PostType\Speaker::load();
+        PostType\ResearchAbstract::load();
+        PostType\Author::load();
+
         // Load extensions
         Extension\Acf::load();
     }
