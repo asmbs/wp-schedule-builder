@@ -24,5 +24,19 @@ class Loader
 
         // Load extensions
         Extension\Acf::load();
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
+    }
+
+    /**
+     * Enqueue admin scripts and styles.
+     *
+     * @param  string  $hook
+     */
+    public function enqueueAdminScripts($hook)
+    {
+        $baseUrl = plugin_dir_url(__DIR__ .'/../assets/dist') .'dist/';
+
+        wp_enqueue_style('schedule_builder/admin_css', $baseUrl .'styles/admin.min.css');
     }
 }
