@@ -46,4 +46,39 @@ class Session extends AbstractPostType
             'map_meta_cap'    => true,
         ];
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    protected function __construct()
+    {
+        parent::__construct();
+
+        add_filter(sprintf('manage_%s_posts_columns', self::SLUG), [$this, 'setPostTableColumns']);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Define the post manager column list.
+     *
+     * @param   array  $columns
+     * @return  array
+     */
+    public function setPostTableColumns($columns)
+    {
+        $newColumns = [];
+        foreach ($columns as $id => $title) {
+            switch ($id) {
+                case 'title':
+                    $newColumns['datetime'] = 'Date/Time';
+                    $newColumns[$id] = $title;
+                    $newColumns['location'] = 'Location';
+                    break;
+                default:
+                    $newColumns[$id] = $title;
+            }
+        }
+
+        return $newColumns;
+    }
 }
