@@ -1,0 +1,9 @@
+{
+    "name": "wp-schedule-builder",
+    "private": true,
+    "authors": [
+        "Kyle Tucker <kyleatucker@gmail.com>"
+    ],
+    "license": "MIT",
+    "dependencies": {}
+}

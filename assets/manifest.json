@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+        "admin.css": {
+            "files": ["styles/admin/_main.less"]
+        }
+    },
+    "paths": {
+        "source": "assets/src/",
+        "dist": "assets/dist/"
+    }
+}
