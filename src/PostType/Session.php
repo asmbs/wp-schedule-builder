@@ -53,7 +53,8 @@ class Session extends AbstractPostType
     {
         parent::__construct();
 
-        add_filter(sprintf('manage_%s_posts_columns', self::SLUG), [$this, 'setPostTableColumns']);
+        add_filter(sprintf('manage_edit-%s_columns', self::SLUG), [$this, 'setPostTableColumns']);
+        add_filter(sprintf('manage_edit-%s_sortable_columns', self::SLUG), [$this, 'setSortableColumns']);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -80,5 +81,18 @@ class Session extends AbstractPostType
         }
 
         return $newColumns;
+    }
+
+    /**
+     * Add column sort designations.
+     * 
+     * @param   array  $columns
+     * @return  array
+     */
+    public function setSortableColumns($columns)
+    {
+        $columns['datetime'] = 'datetime';
+
+        return $columns;
     }
 }
