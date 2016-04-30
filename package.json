@@ -1,0 +1,34 @@
+{
+  "name": "wp-schedule-builder",
+  "version": "1.0.0-dev",
+  "private": true,
+  "description": "Build interactive agendas for scientific meetings",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmbs/wp-schedule-builder.git"
+  },
+  "author": "Kyle Tucker <kyleatucker@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asmbs/wp-schedule-builder/issues"
+  },
+  "homepage": "https://github.com/asmbs/wp-schedule-builder#readme",
+  "devDependencies": {
+    "asset-builder": "^1.1.0",
+    "chalk": "^1.1.1",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-less": "^3.0.5",
+    "gulp-livereload": "^3.8.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "lazypipe": "^1.0.1",
+    "run-sequence": "^1.1.5"
+  }
+}
