@@ -10,7 +10,7 @@
             "type": "select",
             "multiple": 0,
             "choices": {
-                "tba": "TBA"
+                "tba": "(TBA)"
             },
             "ui": 1,
             "default_value": "tba"
@@ -22,11 +22,10 @@
             "type": "select",
             "multiple": 0,
             "choices": {
-                "_": "(None)",
-                "tba": "TBA"
+                "tba": "(TBA)"
             },
             "ui": 1,
-            "default_value": "_",
+            "default_value": "tba",
             "allow_null": 0
         }
     ],
