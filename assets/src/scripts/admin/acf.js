@@ -35,9 +35,11 @@
                     action: 'sb/load_rooms',
                     nonce: w.sb_acf.nonce,
                     venue: self.$venue.val(),
+                    post: w.sb_acf.post,
                 },
                 dataType: 'json',
             }).done(function(data) {
+                console.log(data);
                 self.$room.empty();
                 self.$room.append(self.defaultChoices);
                 $.each(data, function(i, room) {
@@ -55,6 +57,9 @@
                 $option = $(d.createElement('option'))
                     .attr('value', room.name)
                     .text(room.name);
+                if (room.selected) {
+                    $option.attr('selected', 'selected');
+                }
             }
 
             this.$room.append($option);

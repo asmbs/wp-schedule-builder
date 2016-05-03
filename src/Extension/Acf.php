@@ -59,7 +59,10 @@ class Acf
     public function enqueueScripts()
     {
         wp_enqueue_script('sb/acf_js', AssetManager::getUrl('scripts/acf.min.js'), ['sb/main_js'], null);
-        wp_localize_script('sb/acf_js', 'sb_acf', ['nonce' => wp_create_nonce('sb/acf_js')]);
+        wp_localize_script('sb/acf_js', 'sb_acf', [
+            'nonce' => wp_create_nonce('sb/acf_js'),
+            'post' => $_REQUEST['post'],
+        ]);
     }
 
     /**
@@ -139,6 +142,8 @@ class Acf
 
     public function loadAvailableRoomChoices()
     {
+        $val = get_field('location--room', $_REQUEST['post']);
+
         $venues = get_field('event_details--locations', 'sb_options');
         $rooms = [];
         while (have_rows('event_details--locations', 'sb_options')) {
@@ -147,7 +152,13 @@ class Acf
             if ($location == $_REQUEST['venue']) {
                 while (have_rows('location_rooms')) {
                     the_row();
-                    $rooms[] = ['name' => get_sub_field('room_name')];
+                    $name = get_sub_field('room_name');
+                    $rooms[] = [
+                        'name' => $name,
+                        'selected' => ($name == $val),
+                        'val' => $val,
+                        'id' => $_REQUEST['post'],
+                    ];
                 }
             }
         }
