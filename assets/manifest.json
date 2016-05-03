@@ -6,6 +6,13 @@
         "main.js": {
             "files": ["scripts/admin/main.js"],
             "main": true
+        },
+        "acf.js": {
+            "files": ["scripts/admin/acf.js"],
+            "bower": ["jquery.inputmask"]
+        },
+        "jquery.js": {
+            "bower": ["jquery"]
         }
     },
     "paths": {
