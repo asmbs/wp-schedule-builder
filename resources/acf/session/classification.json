@@ -1,0 +1,38 @@
+{
+    "key": "session--classification",
+    "title": "Session Classification",
+    "description": "Manage session taxomonies.",
+    "fields": [
+        {
+            "key": "classification--session_type",
+            "name": "session_type",
+            "label": "Session Type",
+            "type": "taxonomy",
+            "taxonomy": "session-type",
+            "field_type": "select",
+            "save_terms": 1,
+            "add_term": 1
+        },
+        {
+            "key": "classification--session_tags",
+            "name": "session_tags",
+            "label": "Tags",
+            "type": "taxonomy",
+            "taxonomy": "session-tag",
+            "field_type": "multi_select",
+            "save_terms": 1,
+            "add_term": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 20,
+    "position": "side"
+}
