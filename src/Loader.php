@@ -30,13 +30,10 @@ class Loader
 
     /**
      * Enqueue admin scripts and styles.
-     *
-     * @param  string  $hook
      */
-    public function enqueueAdminScripts($hook)
+    public function enqueueAdminScripts()
     {
-        $baseUrl = plugin_dir_url(__DIR__ .'/../assets/dist') .'dist/';
-
-        wp_enqueue_style('schedule_builder/admin_css', $baseUrl .'styles/admin.min.css');
+        wp_enqueue_style('sb/admin_css', AssetManager::getUrl('styles/admin.min.css'), [], null);
+        wp_enqueue_script('sb/main_js', AssetManager::getUrl('scripts/main.min.js'), ['jquery'], null);
     }
 }
