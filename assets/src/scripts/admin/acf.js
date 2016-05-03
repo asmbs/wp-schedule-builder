@@ -24,10 +24,10 @@
 
             this.defaultChoices = this.$room.children();
 
-            this.$venue.on('change', this.loadRooms).trigger('change', [true]);
+            this.$venue.on('change init', this.loadRooms).trigger('init');
         },
 
-        loadRooms: function(e, first) {
+        loadRooms: function() {
             var self = _acf.VenueManager;
 
             $.ajax(w.ajaxurl, {
@@ -48,10 +48,6 @@
                     acf.select2.init(self.$room);
                 }
             });
-
-            if (first) {
-                return false;
-            }
         },
 
         addRoom: function(room) {
