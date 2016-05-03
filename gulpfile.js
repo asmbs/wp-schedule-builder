@@ -10,6 +10,7 @@ var imagemin     = require('gulp-imagemin');
 var lazypipe     = require('lazypipe');
 var less         = require('gulp-less');
 var livereload   = require('gulp-livereload');
+var plumber      = require('gulp-plumber');
 var rename       = require('gulp-rename');
 var runSequence  = require('run-sequence');
 var uglify       = require('gulp-uglify');
@@ -18,6 +19,13 @@ var uglify       = require('gulp-uglify');
 var manifest = require('asset-builder')('assets/manifest.json');
 var paths     = manifest.paths;
 var config    = manifest.config || {};
+
+// ---
+
+var onError = function(err) {
+    gutil.log(err);
+    this.emit('end');
+}
 
 // Pre-wire tasks ------------------------------------------------------
 
@@ -74,7 +82,11 @@ gulp.task('clean', del.bind(null, [paths.dist]));
 // Run script tasks
 gulp.task('scripts', function() {
     manifest.forEachDependency('js', function(d) {
-        gulp.src(d.globs).pipe(scriptTasks(d.name));
+        gulp.src(d.globs)
+            .pipe(plumber({
+                onError: onError
+            }))
+            .pipe(scriptTasks(d.name));
         gutil.log('Created script', gutil.colors.yellow(d.name));
     });
 });
