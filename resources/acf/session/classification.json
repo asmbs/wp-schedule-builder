@@ -4,6 +4,16 @@
     "description": "Manage session taxomonies.",
     "fields": [
         {
+            "key": "classification--society",
+            "name": "society",
+            "label": "Society",
+            "type": "taxonomy",
+            "taxonomy": "society",
+            "field_type": "checkbox",
+            "save_terms": 1,
+            "add_term": 0
+        },
+        {
             "key": "classification--session_type",
             "name": "session_type",
             "label": "Session Type",
@@ -11,7 +21,7 @@
             "taxonomy": "session-type",
             "field_type": "select",
             "save_terms": 1,
-            "add_term": 1
+            "add_term": 0
         },
         {
             "key": "classification--session_tags",
@@ -34,5 +44,6 @@
         ]
     ],
     "menu_order": 20,
-    "position": "side"
+    "position": "side",
+    "private": 1
 }
