@@ -12,6 +12,7 @@
             "choices": {
                 "tba": "TBA"
             },
+            "ui": 1,
             "default_value": "tba"
         },
         {
@@ -24,6 +25,7 @@
                 "_": "(None)",
                 "tba": "TBA"
             },
+            "ui": 1,
             "default_value": "_",
             "allow_null": 0
         }

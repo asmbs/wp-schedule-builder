@@ -17,13 +17,21 @@
             "key": "scheduling--start",
             "name": "start_time",
             "label": "Start Time",
-            "type": "text"
+            "type": "text",
+            "instructions": "Use 24-hour <code>HH:MM</code> format.",
+            "wrapper": {
+                "class": "acf-time"
+            }
         },
         {
             "key": "scheduling--end",
             "name": "end_time",
             "label": "End Time",
-            "type": "text"
+            "type": "text",
+            "instructions": "Use 24-hour <code>HH:MM</code> format.",
+            "wrapper": {
+                "class": "acf-time"
+            }
         }
     ],
     "location": [
