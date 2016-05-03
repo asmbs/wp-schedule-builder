@@ -39,7 +39,6 @@
                 },
                 dataType: 'json',
             }).done(function(data) {
-                console.log(data);
                 self.$room.empty();
                 self.$room.append(self.defaultChoices);
                 $.each(data, function(i, room) {
