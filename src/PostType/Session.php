@@ -55,6 +55,7 @@ class Session extends AbstractPostType
 
         add_filter(sprintf('manage_edit-%s_columns', self::SLUG), [$this, 'setPostTableColumns']);
         add_filter(sprintf('manage_edit-%s_sortable_columns', self::SLUG), [$this, 'setSortableColumns']);
+        add_action(sprintf('manage_%s_posts_custom_column', self::SLUG), [$this, 'renderColumn']);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -94,5 +95,46 @@ class Session extends AbstractPostType
         $columns['datetime'] = 'datetime';
 
         return $columns;
+    }
+
+    /**
+     * Render custom column content.
+     *
+     * @param  string  $column
+     */
+    public function renderColumn($column)
+    {
+        switch ($column) {
+            case 'datetime':
+                $date = get_field('date');
+                $start = get_field('start_time');
+                $end = get_field('end_time');
+                if ($date && $start && $end) {
+                    $tz = new \DateTimeZone('America/Chicago');
+                    $start = new \DateTime($date .' '. $start, $tz);
+                    $end = new \DateTime($date .' '. $end, $tz);
+
+                    printf(
+                        '<b>%s</b><br>%s - %s',
+                        $start->format('n/j (l)'),
+                        $start->format('g:ia'),
+                        $end->format('g:ia')
+                    );
+                } else {
+                    printf('<b>%s</b>', 'TBA');
+                }
+
+                break;
+            case 'location':
+                $venue = get_field('venue');
+                $room = get_field('room');
+                
+                printf(
+                    '<b>%s</b><br>%s',
+                    $venue == 'tba' ? 'Venue TBA' : $venue,
+                    $room == 'tba' ? 'Room TBA' : $room
+                );
+                break;
+        }
     }
 }
