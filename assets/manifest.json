@@ -2,6 +2,10 @@
     "dependencies": {
         "admin.css": {
             "files": ["styles/admin/_main.less"]
+        },
+        "main.js": {
+            "files": ["scripts/admin/main.js"],
+            "main": true
         }
     },
     "paths": {
