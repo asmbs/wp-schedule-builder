@@ -2,6 +2,8 @@
 
 namespace ASMBS\ScheduleBuilder\PostType;
 
+use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
+
 
 /**
  * This post type represents any session in the conference program -- pre-conference courses, plenary sessions,
@@ -75,6 +77,10 @@ class Session extends AbstractPostType
                     $newColumns['datetime'] = 'Date/Time';
                     $newColumns[$id] = $title;
                     $newColumns['location'] = 'Location';
+                    break;
+                case 'taxonomy-'. SessionType::SLUG:
+                    $labels = SessionType::getLabels();
+                    $newColumns[$id] = $labels->singular_name;
                     break;
                 default:
                     $newColumns[$id] = $title;
