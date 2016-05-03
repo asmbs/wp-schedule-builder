@@ -45,6 +45,22 @@
                     "name": "location_name",
                     "label": "Name",
                     "type": "text"
+                },
+                {
+                    "key": "event_details--locations--rooms",
+                    "name": "location_rooms",
+                    "label": "Rooms",
+                    "type": "repeater",
+                    "layout": "table",
+                    "button_label": "+ Room",
+                    "sub_fields": [
+                        {
+                            "key": "event_details--locations--rooms--name",
+                            "name": "room_name",
+                            "label": "Room",
+                            "type": "text"
+                        }
+                    ]
                 }
             ]
         }
