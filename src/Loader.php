@@ -22,6 +22,10 @@ class Loader
         PostType\ResearchAbstract::load();
         PostType\Author::load();
 
+        // Load taxonomies
+        Taxonomy\SessionTag::load();
+        Taxonomy\SessionType::load();
+
         // Load extensions
         Extension\Acf::load();
 
