@@ -24,10 +24,10 @@
 
             this.defaultChoices = this.$room.children();
 
-            this.$venue.on('change', this.loadRooms).trigger('change');
+            this.$venue.on('change', this.loadRooms).trigger('change', [true]);
         },
 
-        loadRooms: function() {
+        loadRooms: function(e, first) {
             var self = _acf.VenueManager;
 
             $.ajax(w.ajaxurl, {
@@ -48,6 +48,10 @@
                     acf.select2.init(self.$room);
                 }
             });
+
+            if (first) {
+                return false;
+            }
         },
 
         addRoom: function(room) {
@@ -84,6 +88,7 @@
     };
 
     $(d).ready(function() {
+        // acf.unload.active = 0;
         _acf.VenueManager.init();
         _acf.InputMask.init();
     });
