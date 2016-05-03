@@ -10,7 +10,7 @@ namespace ASMBS\ScheduleBuilder\PostType;
 interface PostTypeInterface
 {
     /** The singular post type slug. */
-    const SLUG = '_unknown';
+    const SLUG = '_post-type';
 
     /**
      * @return  PostTypeInterface
@@ -55,12 +55,12 @@ interface PostTypeInterface
     /**
      * @return  object
      */
-    public static function getDefinitionObject();
+    public static function getDefinition();
 
     /**
      * @return  object
      */
-    public static function getLabelObject();
+    public static function getLabels();
 
     /**
      * Get the archive permalink.

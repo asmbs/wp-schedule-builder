@@ -9,7 +9,6 @@ namespace ASMBS\ScheduleBuilder\PostType;
  */
 abstract class AbstractPostType implements PostTypeInterface
 {
-
     /**
      * {@inheritdoc}
      */
@@ -24,7 +23,7 @@ abstract class AbstractPostType implements PostTypeInterface
     protected function __construct()
     {
         add_action('init', [$this, 'register']);
-        add_action('schedule_builder/activate', [$this, 'register']);
+        add_action('sb/activate', [$this, 'register']);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -92,7 +91,7 @@ abstract class AbstractPostType implements PostTypeInterface
     /**
      * {@inheritdoc}
      */
-    final public static function getDefinitionObject()
+    final public static function getDefinition()
     {
         return get_post_type_object(static::SLUG);
     }
@@ -100,9 +99,9 @@ abstract class AbstractPostType implements PostTypeInterface
     /**
      * {@inheritdoc}
      */
-    final public static function getLabelObject()
+    final public static function getLabels()
     {
-        return get_post_type_labels(self::getDefinitionObject());
+        return get_post_type_labels(static::getDefinition());
     }
 
     /**
