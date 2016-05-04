@@ -55,9 +55,14 @@ class Session extends AbstractPostType
     {
         parent::__construct();
 
+        // Customize post manager columns
         add_filter(sprintf('manage_edit-%s_columns', self::SLUG), [$this, 'setPostTableColumns']);
         add_filter(sprintf('manage_edit-%s_sortable_columns', self::SLUG), [$this, 'setSortableColumns']);
         add_action(sprintf('manage_%s_posts_custom_column', self::SLUG), [$this, 'renderColumn']);
+
+        // Handle custom post manager ordering
+        add_filter('posts_join_paged', [$this, 'getJoinSql'], 10, 2);
+        add_filter('posts_orderby', [$this, 'getOrderBySql'], 10, 2);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -142,5 +147,86 @@ class Session extends AbstractPostType
                 );
                 break;
         }
+    }
+
+    /**
+     * Add JOIN clauses to the post table query for datetime ordering.
+     *
+     * @param   string     $sql
+     * @param   \WP_Query  $query
+     * @return  string
+     */
+    public function getJoinSql($sql, \WP_Query $query)
+    {
+        if (!$this->isPostListQuery($query)) {
+            return $sql;
+        }
+
+        $orderby = $query->get('orderby');
+
+        if ($orderby === 'datetime') {
+            global $wpdb;
+            $newSql = sprintf(
+                'LEFT JOIN %1$s date_ ON date_.post_id = %2$s.ID AND date_.meta_key = "date" '
+                .'LEFT JOIN %1$s start_ ON start_.post_id = %2$s.ID AND start_.meta_key = "start_time" '
+                .'LEFT JOIN %1$s end_ ON end_.post_id = %2$s.ID AND end_.meta_key = "end_time"',
+                $wpdb->postmeta,
+                $wpdb->posts
+            );
+
+            return $newSql;
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Add ORDER BY clauses to the post table query for datetime ordering.
+     *
+     * @param   string     $sql
+     * @param   \WP_Query  $query
+     * @return  string
+     */
+    public function getOrderBySql($sql, \WP_Query $query)
+    {
+        if (!$this->isPostListQuery($query)) {
+            return $sql;
+        }
+
+        $orderby = $query->get('orderby');
+        $order = $query->get('order', 'ASC');
+
+        if ($orderby === 'datetime') {
+            global $wpdb;
+            $newSql = sprintf(
+                'STR_TO_DATE(CONCAT(date_.meta_value, " ", start_.meta_value), "%2$s %3$s") %1$s, '
+                .'STR_TO_DATE(CONCAT(date_.meta_value, " ", end_.meta_value), "%2$s %3$s") %1$s, '
+                .'post_title ASC',
+                $order,
+                '%m/%d/%y',
+                '%H:%i'
+            );
+
+            return $newSql;
+        }
+
+        return $sql;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Determine whether the given query is a post manager query.
+     *
+     * @param   \WP_Query  $query
+     * @return  bool
+     */
+    protected function isPostListQuery(\WP_Query $query)
+    {
+        return (
+            is_admin() &&
+            $query->is_main_query() &&
+            $query->get('post_type') === self::SLUG
+        );
     }
 }
