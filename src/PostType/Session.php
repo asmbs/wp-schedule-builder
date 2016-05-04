@@ -79,13 +79,18 @@ class Session extends AbstractPostType
         foreach ($columns as $id => $title) {
             switch ($id) {
                 case 'title':
-                    $newColumns['datetime'] = 'Date/Time';
                     $newColumns[$id] = $title;
+                    $newColumns['datetime'] = 'Date/Time';
                     $newColumns['location'] = 'Location';
+                    break;
+                case 'author':
                     break;
                 case 'taxonomy-'. SessionType::SLUG:
                     $labels = SessionType::getLabels();
                     $newColumns[$id] = $labels->singular_name;
+                    break;
+                case 'date':
+                    $newColumns['date-adv'] = 'Last Modified';
                     break;
                 default:
                     $newColumns[$id] = $title;
@@ -104,6 +109,7 @@ class Session extends AbstractPostType
     public function setSortableColumns($columns)
     {
         $columns['datetime'] = 'datetime';
+        $columns['date-adv'] = 'modified';
 
         return $columns;
     }
@@ -115,6 +121,8 @@ class Session extends AbstractPostType
      */
     public function renderColumn($column)
     {
+        $post = get_post();
+
         switch ($column) {
             case 'datetime':
                 $date = get_field('date');
@@ -144,6 +152,17 @@ class Session extends AbstractPostType
                     '<b>%s</b><br>%s',
                     $venue == 'tba' ? 'Venue TBA' : $venue,
                     $room == 'tba' ? 'Room TBA' : $room
+                );
+                break;
+            case 'date-adv':
+                $date = new \DateTime($post->post_modified);
+                $author = get_user_by('id', $post->post_author);
+
+                printf(
+                    '<b>%s</b>|%s<br><span style="color:#777"><i>by %s</i></span>',
+                    $date->format('m/d/Y'),
+                    $date->format('g:ia'),
+                    $author->display_name
                 );
                 break;
         }
