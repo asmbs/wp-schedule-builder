@@ -1,10 +1,10 @@
 {
-    "key": "options--event_details",
-    "title": "Event Details",
+    "key": "options--logistics",
+    "title": "Event Logistics",
     "description": "",
     "fields": [
         {
-            "key": "event_details--dates",
+            "key": "logistics--dates",
             "name": "dates",
             "label": "Event Dates",
             "instructions": "Enter each date of the meeting that can be programmed with sessions. They'll be shown in the session editor <em>in the order shown here.</em>",
@@ -12,7 +12,7 @@
             "button_label": "+ Date",
             "sub_fields": [
                 {
-                    "key": "event_details--dates--value",
+                    "key": "logistics--dates--value",
                     "name": "value",
                     "label": "Value",
                     "type": "text",
@@ -22,7 +22,7 @@
                     }
                 },
                 {
-                    "key": "event_details--dates--label",
+                    "key": "logistics--dates--label",
                     "name": "label",
                     "label": "Label",
                     "type": "text",
@@ -32,7 +32,7 @@
             "min": 1
         },
         {
-            "key": "event_details--locations",
+            "key": "logistics--locations",
             "name": "locations",
             "label": "Location Venues",
             "instructions": "",
@@ -41,13 +41,13 @@
             "button_label": "+ Venue",
             "sub_fields": [
                 {
-                    "key": "event_details--locations--name",
+                    "key": "logistics--locations--name",
                     "name": "location_name",
                     "label": "Name",
                     "type": "text"
                 },
                 {
-                    "key": "event_details--locations--rooms",
+                    "key": "logistics--locations--rooms",
                     "name": "location_rooms",
                     "label": "Rooms",
                     "type": "repeater",
@@ -55,7 +55,7 @@
                     "button_label": "+ Room",
                     "sub_fields": [
                         {
-                            "key": "event_details--locations--rooms--name",
+                            "key": "logistics--locations--rooms--name",
                             "name": "room_name",
                             "label": "Room",
                             "type": "text"

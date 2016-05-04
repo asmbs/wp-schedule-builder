@@ -54,7 +54,9 @@ class Acf
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Load ACF extension scripts
+     * Load ACF extension scripts.
+     *
+     * @param  string  $hook
      */
     public function enqueueScripts($hook)
     {
@@ -99,8 +101,10 @@ class Acf
         return $paths;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
-     * Use the `event_details--dates` options field to populate the session date choices.
+     * Use the `logistics--dates` options field to populate the session date choices.
      *
      * @param   array  $field
      * @return  array
@@ -109,7 +113,7 @@ class Acf
     {
         if (isset($field['choices'])) {
             $choicesToAdd = [];
-            while (have_rows('event_details--dates', 'sb_options')) {
+            while (have_rows('logistics--dates', 'sb_options')) {
                 the_row();
                 $choicesToAdd[get_sub_field('value')] = get_sub_field('label');
             }
@@ -121,7 +125,7 @@ class Acf
     }
 
     /**
-     * Populate the venue list with the values of `event_details--locations`.
+     * Populate the venue list with the values of `logistics--locations`.
      *
      * @param   array  $field
      * @return  array
@@ -130,7 +134,7 @@ class Acf
     {
         if (isset($field['choices'])) {
             $choicesToAdd = [];
-            while (have_rows('event_details--locations', 'sb_options')) {
+            while (have_rows('logistics--locations', 'sb_options')) {
                 the_row();
                 $venue = get_sub_field('location_name');
                 $choicesToAdd[$venue] = $venue;
@@ -142,13 +146,17 @@ class Acf
         return $field;
     }
 
+    /**
+     * Repopulate the room list from the selected venue.
+     *
+     * Called via XHR.
+     */
     public function loadAvailableRoomChoices()
     {
         $val = get_field('location--room', $_REQUEST['post']);
 
-        $venues = get_field('event_details--locations', 'sb_options');
         $rooms = [];
-        while (have_rows('event_details--locations', 'sb_options')) {
+        while (have_rows('logistics--locations', 'sb_options')) {
             the_row();
             $location = get_sub_field('location_name');
             if ($location == $_REQUEST['venue']) {
