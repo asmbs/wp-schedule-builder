@@ -24,6 +24,8 @@ abstract class AbstractPostType implements PostTypeInterface
     {
         add_action('init', [$this, 'register']);
         add_action('sb/activate', [$this, 'register']);
+
+        add_filter('default_hidden_meta_boxes', [$this, 'filterDefaultHiddenMetaBoxes'], 25, 2);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -144,5 +146,43 @@ abstract class AbstractPostType implements PostTypeInterface
     public function register()
     {
         register_post_type(static::SLUG, $this->processArgs());
+    }
+
+    /**
+     * Set the meta boxes that are hidden by default.
+     *
+     * @param   array       $metaboxes
+     * @param   \WP_Screen  $screen
+     * @return  array
+     */
+    public function filterDefaultHiddenMetaBoxes(array $metaboxes, \WP_Screen $screen)
+    {
+        if ($screen->post_type === static::SLUG) {
+            return $this->getDefaultHiddenMetaboxes();
+        }
+
+        return $metaboxes;
+    }
+
+    /**
+     * List the default meta box IDs that should be hidden when editing a post of this post type.
+     *
+     * Override this method rather than {@see filterDefaultHiddenMetaBoxes} to quickly set your own.
+     *
+     * @see filterDefaultHiddenMetaboxes()
+     *
+     * @return  array
+     */
+    protected function getDefaultHiddenMetaboxes()
+    {
+        return [
+            'authordiv',
+            'commentsdiv',
+            'commentstatusdiv',
+            'postcustom',
+            'revisionsdiv',
+            'slugdiv',
+            'trackbacksdiv'
+        ];
     }
 }
