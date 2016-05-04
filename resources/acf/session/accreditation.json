@@ -1,0 +1,41 @@
+{
+    "key": "session--credits",
+    "title": "Accreditation",
+    "description": "Set session credits.",
+    "fields": [
+        {
+            "key": "credits--available",
+            "name": "credits_available",
+            "label": "Credits Available",
+            "type": "number",
+            "min": 0,
+            "step": 0.25,
+            "wrapper": {
+                "width": 20
+            }
+        },
+        {
+            "key": "credits--types",
+            "name": "credit_types",
+            "label": "Credit Types",
+            "type": "checkbox",
+            "choices": {},
+            "layout": "horizontal",
+            "wrapper": {
+                "width": 80
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 20,
+    "position": "normal",
+    "private": 1
+}

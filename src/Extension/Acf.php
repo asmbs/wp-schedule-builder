@@ -43,7 +43,7 @@ class Acf
         // Register dynamic data hooks
         add_filter('acf/load_field/key=scheduling--date', [$this, 'loadDateChoices']);
         add_filter('acf/load_field/key=location--venue', [$this, 'loadVenueChoices']);
-        // add_filter('acf/load_field/key=location--room', [$this, 'loadRoomChoices']);
+        add_filter('acf/load_field/key=credits--types', [$this, 'loadCreditChoices']);
 
         // Register AJAX actions
         add_action('wp_ajax_sb/load_rooms', [$this, 'loadAvailableRoomChoices']);
@@ -176,5 +176,29 @@ class Acf
         echo json_encode($rooms);
 
         exit;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Load the available credit choices from the schedule settings.
+     *
+     * @param   array  $field
+     * @return  array
+     */
+    public function loadCreditChoices($field)
+    {
+        if (isset($field['choices'])) {
+            $credits = [];
+            while (have_rows('accreditation--types', 'sb_options')) {
+                the_row();
+                $type = get_sub_field('type');
+                $credits[$type] = $type;
+            }
+
+            $field['choices'] = array_merge($field['choices'], $credits);
+        }
+
+        return $field;
     }
 }
