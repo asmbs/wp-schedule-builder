@@ -147,7 +147,7 @@ gulp.task('watch', function() {
         runSequence('build');
     });
     // Watch theme templates and code library
-    gulp.watch(['*.php', 'templates/*.php', 'lib/**/*.php'], function(e) {
+    gulp.watch(['*.php', 'resources/acf/**/*.json', 'src/**/*.php'], function(e) {
         gutil.log('Theme template or source file changed - reloading');
         gulp.src(e.path)
             .pipe(livereload());
