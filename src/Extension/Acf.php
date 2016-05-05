@@ -60,13 +60,15 @@ class Acf
      */
     public function enqueueScripts($hook)
     {
-        if ($hook == 'post.php') {
-            wp_enqueue_script('sb/acf_js', AssetManager::getUrl('scripts/acf.min.js'), ['sb/main_js'], null);
-            wp_localize_script('sb/acf_js', 'sb_acf', [
-                'nonce' => wp_create_nonce('sb/acf_js'),
-                'post' => $_REQUEST['post'],
-            ]);
-        }
+        wp_enqueue_script('sb/acf_js', AssetManager::getUrl('scripts/acf.min.js'), [
+            'sb/main_js',
+            'acf-input',
+            'acf-pro-input',
+        ], null);
+        wp_localize_script('sb/acf_js', 'sb_acf', [
+            'nonce' => wp_create_nonce('sb/acf_js'),
+            'post' => isset($_REQUEST['post']) ? $_REQUEST['post'] : null,
+        ]);
     }
 
     /**
