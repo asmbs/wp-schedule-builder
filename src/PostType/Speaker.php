@@ -21,16 +21,15 @@ class Speaker extends Faculty
 
     public function getArgs()
     {
-        return [
+        return array_replace_recursive(parent::getArgs(), [
             'labels'          => [
                 'all_items' => 'Speakers',
             ],
             'public'          => false,
             'show_in_menu'    => 'edit.php?post_type='. Session::SLUG,
             'has_archive'     => false,
-            'supports'        => ['editor', 'revisions'],
             'capability_type' => ['speaker', 'speakers'],
             'map_meta_cap'    => true,
-        ];
+        ]);
     }
 }
