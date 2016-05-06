@@ -20,7 +20,7 @@
             "type": "text",
             "instructions": "Use 24-hour <code>HH:MM</code> format.",
             "wrapper": {
-                "class": "acf-time"
+                "class": "acf-field-time"
             }
         },
         {
@@ -30,7 +30,7 @@
             "type": "text",
             "instructions": "Use 24-hour <code>HH:MM</code> format.",
             "wrapper": {
-                "class": "acf-time"
+                "class": "acf-field-time"
             }
         }
     ],
