@@ -42,6 +42,7 @@ class Acf
 
         // Register dynamic data hooks
         add_filter('acf/load_field/key=scheduling--date', [$this, 'loadDateChoices']);
+        add_filter('acf/load_field/key=embargo--date', [$this, 'loadDateChoices']);
         add_filter('acf/load_field/key=location--venue', [$this, 'loadVenueChoices']);
         add_filter('acf/load_field/key=credits--types', [$this, 'loadCreditChoices']);
 
