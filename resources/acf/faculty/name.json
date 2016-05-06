@@ -1,0 +1,79 @@
+{
+    "key": "faculty--name",
+    "title": "Name",
+    "fields": [
+        {
+            "key": "name--prefix",
+            "name": "prefix",
+            "label": "Prefix",
+            "type": "text",
+            "wrapper": {
+                "width": 15
+            }
+        },
+        {
+            "key": "name--first",
+            "name": "first",
+            "label": "First",
+            "type": "text",
+            "wrapper": {
+                "width": 30
+            },
+            "required": 1
+        },
+        {
+            "key": "name--mi",
+            "name": "mi",
+            "label": "MI",
+            "type": "text",
+            "wrapper": {
+                "width": 10
+            }
+        },
+        {
+            "key": "name--last",
+            "name": "last",
+            "label": "Last",
+            "type": "text",
+            "wrapper": {
+                "width": 30
+            },
+            "required": 1
+        },
+        {
+            "key": "name--suffix",
+            "name": "suffix",
+            "label": "Suffix",
+            "type": "text",
+            "wrapper": {
+                "width": 15
+            }
+        },
+        {
+            "key": "name--credentials",
+            "name": "credentials",
+            "label": "Credentials",
+            "instructions": "Separate with spaces or commas.",
+            "type": "text"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "speaker"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "author"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "private": 1
+}

@@ -1,0 +1,45 @@
+{
+    "key": "faculty--profile",
+    "title": "Profile",
+    "fields": [
+        {
+            "key": "profile--photo",
+            "name": "photo",
+            "label": "Photo",
+            "type": "image",
+            "preview_size": "medium",
+            "wrapper": {
+                "width": 30
+            }
+        },
+        {
+            "key": "profile--bio",
+            "name": "bio",
+            "label": "Biography",
+            "type": "textarea",
+            "rows": 12,
+            "wrapper": {
+                "width": 70
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "speaker"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "author"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "normal",
+    "private": 1
+}

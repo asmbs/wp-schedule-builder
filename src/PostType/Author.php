@@ -8,6 +8,8 @@ namespace ASMBS\ScheduleBuilder\PostType;
  */
 class Author extends Faculty
 {
+    const SLUG = 'author';
+
     public function getSingularLabel()
     {
         return 'Author';
@@ -20,16 +22,15 @@ class Author extends Faculty
 
     public function getArgs()
     {
-        return [
+        return array_replace_recursive(parent::getArgs(), [
             'labels'          => [
                 'all_items' => 'Authors',
             ],
             'public'          => false,
             'show_in_menu'    => 'edit.php?post_type='. ResearchAbstract::SLUG,
             'has_archive'     => false,
-            'supports'        => ['editor', 'revisions'],
             'capability_type' => ['author', 'authors'],
             'map_meta_cap'    => true,
-        ];
+        ]);
     }
 }
