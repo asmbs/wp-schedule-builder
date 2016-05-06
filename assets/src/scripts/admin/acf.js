@@ -99,6 +99,18 @@
     };
 
     // -----------------------------------------------------------------------------------------------------------------
+    
+    sb.agenda = {};
+
+    /**
+     * Abstract agenda-item manager
+     * 
+     * This extension helps make sure that the presenter list for an abstract is limited to the list of authors
+     * that have already been assigned to it.
+     */
+    sb.agenda.abstracts = {};
+    
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Inputmask extension -- helper for adding input masks to arbitrary
