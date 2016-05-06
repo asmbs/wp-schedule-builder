@@ -35,7 +35,7 @@ class ResearchAbstract extends AbstractPostType
             'menu_position'   => 30,
             'menu_icon'       => 'dashicons-media-text',
             'has_archive'     => 'abstracts',
-            'supports'        => ['title', 'editor', 'author', 'revisions'],
+            'supports'        => ['author', 'revisions'],
             'capability_type' => ['abstract', 'abstracts'],
             'map_meta_cap'    => true,
         ];

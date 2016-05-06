@@ -26,6 +26,8 @@ class Loader
         Taxonomy\SessionTag::load();
         Taxonomy\SessionType::load();
         Taxonomy\Society::load();
+        Taxonomy\ResearchAbstractType::load();
+        Taxonomy\ResearchAbstractKeyword::load();
 
         // Load extensions
         Extension\Acf::load();

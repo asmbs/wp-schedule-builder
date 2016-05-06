@@ -1,0 +1,57 @@
+{
+    "key": "abstract--body",
+    "title": "Abstract Body",
+    "fields": [
+        {
+            "key": "body--_message",
+            "name": "_message",
+            "label": "",
+            "type": "message",
+            "message": "<b>NOTE:</b> All four of the sections below support Markdown, but will not be syntax-highlighted like the standard editor."
+        },
+        {
+            "key": "body--introduction",
+            "name": "introduction",
+            "label": "Introduction",
+            "type": "textarea",
+            "rows": 6,
+            "new_lines": ""
+        },
+        {
+            "key": "body--method",
+            "name": "method",
+            "label": "Method",
+            "type": "textarea",
+            "rows": 6,
+            "new_lines": ""
+        },
+        {
+            "key": "body--results",
+            "name": "results",
+            "label": "Results",
+            "type": "textarea",
+            "rows": 6,
+            "new_lines": ""
+        },
+        {
+            "key": "body--conclusions",
+            "name": "conclusions",
+            "label": "Conclusions",
+            "type": "textarea",
+            "rows": 6,
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "abstract"
+            }
+        ]
+    ],
+    "menu_order": 5,
+    "position": "normal",
+    "private": 1
+}
