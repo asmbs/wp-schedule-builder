@@ -1,0 +1,32 @@
+{
+    "key": "session--staff_use",
+    "title": "Staff Use",
+    "fields": [
+        {
+            "key": "staff_use--progress",
+            "name": "progress",
+            "label": "Progress",
+            "type": "checkbox",
+            "choices": {
+                "datetime": "Date & Time",
+                "location": "Location",
+                "objectives": "Objectives",
+                "outline": "Outline/Agenda",
+                "speakers": "Speakers"
+            },
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "private": 1
+}
