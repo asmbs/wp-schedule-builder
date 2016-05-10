@@ -4,12 +4,21 @@
 
 ### Faculty
 
-- [ ] Add post-save filter to set title using name fields
+- [x] Add post-save filter to set title using name fields
 
 ### Abstracts
 
-- [ ] Add post-save filter to set title using abstract ID/title fields
+- [x] Add post-save filter to set title using abstract ID/title fields
 
 ## Imports
 
-- [ ] Figure out how to use the import library's `Writer` and `Workflow` objects to translate CSVs into posts
+- [x] Figure out how to use the import library's `Writer` and `Workflow` objects to translate CSVs into posts
+- [ ] Build importers for sessions, session faculty and session agendas
+- [ ] Build importer for speakers
+- [ ] Build importers for abstracts and authors
+
+## Models
+
+- [ ] Build speaker/author model
+- [ ] Build abstract model
+- [ ] Build session model
