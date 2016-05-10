@@ -31,6 +31,7 @@ class Loader
 
         // Load extensions
         Extension\Acf::load();
+        Extension\Import\SessionImporter::load();
 
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
     }
