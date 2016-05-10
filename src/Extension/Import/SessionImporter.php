@@ -44,8 +44,18 @@ class SessionImporter extends AbstractImporter
     public function getColumns()
     {
         return [
-            'id',
+            'session_id',
             'title',
+            'date',
+            'start_time',
+            'end_time',
+            'venue',
+            'room',
+            'type',
+            'societies',
+            'tags',
+            'credits',
+            'credit_types',
         ];
     }
 
@@ -63,7 +73,7 @@ class SessionImporter extends AbstractImporter
 
         $workflow = new Workflow($reader, null, $this->getPageTitle());
         $workflow->addWriter(new CallbackWriter(function($row) use ($self) {
-            $self->addNotice(print_r($row, true));
+            $self->addNotice('<pre>'. print_r($row, true) .'</pre>');
         }));
 
         return $workflow;
