@@ -40,4 +40,52 @@ class ResearchAbstract extends AbstractPostType
             'map_meta_cap'    => true,
         ];
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    protected function __construct()
+    {
+        parent::__construct();
+
+        add_filter('wp_insert_post_data', [$this, 'syncTitle'], 100, 2);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Use ID and title fields to generate the post title on save.
+     *
+     * @param   array  $newData
+     * @param   array  $oldData
+     * @return  array
+     */
+    public function syncTitle($newData, $oldData)
+    {
+        if ($newData['post_type'] !== static::SLUG) {
+            return $newData;
+        }
+
+        $ID = isset($oldData['ID']) ? $oldData['ID'] : 0;
+
+        $abstractID = $title = '(none)';
+
+        if (isset($_POST['acf'])) {
+            // Use field input for normal edits
+            $acf = &$_POST['acf'];
+            if (isset($acf['basic--id'])) {
+                $abstractID = $acf['basic--id'];
+            }
+            if (isset($acf['basic--title'])) {
+                $title = $acf['basic--title'];
+            }
+        } elseif ($ID !== 0) {
+            // Use existing fields for bulk/quick edits
+            $abstractID = get_field('abstract_id', $ID);
+            $title = get_field('title', $ID);
+        }
+
+        $newData['post_title'] = sprintf('%s | %s', $abstractID, $title);
+
+        return $newData;
+    }
 }
