@@ -26,6 +26,10 @@ abstract class AbstractPostType implements PostTypeInterface
         add_action('sb/activate', [$this, 'register']);
 
         add_filter('default_hidden_meta_boxes', [$this, 'filterDefaultHiddenMetaBoxes'], 25, 2);
+
+        add_filter(sprintf('manage_edit-%s_columns', static::SLUG), [$this, 'addAdvancedDateColumn'], 100);
+        add_filter(sprintf('manage_edit-%s_sortable_columns', static::SLUG), [$this, 'setAdvancedDateOrdering'], 100);
+        add_action(sprintf('manage_%s_posts_custom_column', static::SLUG), [$this, 'renderAdvancedDateColumn'], 100);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -148,6 +152,8 @@ abstract class AbstractPostType implements PostTypeInterface
         register_post_type(static::SLUG, $this->processArgs());
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Set the meta boxes that are hidden by default.
      *
@@ -184,5 +190,45 @@ abstract class AbstractPostType implements PostTypeInterface
             'slugdiv',
             'trackbacksdiv'
         ];
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Add the "advanced date" column in place of the core date and author columns.
+     *
+     * @param   array  $columns
+     * @return  array
+     */
+    public function addAdvancedDateColumn($columns)
+    {
+        unset($columns['author'], $columns['date']);
+        $columns['date-adv'] = 'Last Modified';
+
+        return $columns;
+    }
+
+    public function setAdvancedDateOrdering($columns)
+    {
+        $columns['date-adv'] = 'modified';
+
+        return $columns;
+    }
+
+    public function renderAdvancedDateColumn($column)
+    {
+        $post = get_post();
+
+        if ($column === 'date-adv') {
+            // Get and print modified date
+            $date = new \DateTime($post->post_modified);
+            printf('<b>%s</b> %s', $date->format('m/d/Y'), $date->format('g:iA'));
+
+            // Get and print author if applicable
+            if (static::supports('author')) {
+                $author = get_user_by('id', $post->post_author);
+                printf('<br><span class="author">by %s</span>', $author->display_name);
+            }
+        }
     }
 }
