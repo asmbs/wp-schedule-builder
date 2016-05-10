@@ -15,6 +15,15 @@
                 "speakers": "Speakers"
             },
             "layout": "horizontal"
+        },
+        {
+            "key": "staff_use--session_id",
+            "name": "session_id",
+            "label": "Session ID",
+            "type": "text",
+            "wrapper": {
+                "width": 20
+            }
         }
     ],
     "location": [
