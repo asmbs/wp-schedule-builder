@@ -24,7 +24,7 @@ class ResearchAbstractKeyword extends AbstractTaxonomy
     public function getArgs()
     {
         return [
-            'show_admin_column'  => true,
+            'show_admin_column'  => false,
             'show_in_quick_edit' => false,
             'meta_box_cb'        => false,
         ];
