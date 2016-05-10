@@ -2,6 +2,8 @@
 
 namespace ASMBS\ScheduleBuilder\PostType;
 
+use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractType;
+
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -48,6 +50,8 @@ class ResearchAbstract extends AbstractPostType
         parent::__construct();
 
         add_filter('wp_insert_post_data', [$this, 'syncTitle'], 100, 2);
+
+        add_filter(sprintf('manage_edit-%s_columns', static::SLUG), [$this, 'setPostTableColumns']);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -87,5 +91,30 @@ class ResearchAbstract extends AbstractPostType
         $newData['post_title'] = sprintf('%s | %s', $abstractID, $title);
 
         return $newData;
+    }
+
+    /**
+     * Adjust the post table columns.
+     *
+     * @param   array  $columns
+     * @return  array
+     */
+    public function setPostTableColumns($columns)
+    {
+        $newColumns = [];
+        foreach ($columns as $id => $title) {
+            switch ($id) {
+                case 'taxonomy-'. ResearchAbstractType::SLUG:
+                    break;
+                default:
+                    $newColumns[$id] = $title;
+            }
+        }
+        $key = 'taxonomy-'. ResearchAbstractType::SLUG;
+        if (isset($columns[$key])) {
+            $columns[$key] = ResearchAbstractType::getLabels()->singular_name;
+        }
+
+        return $columns;
     }
 }
