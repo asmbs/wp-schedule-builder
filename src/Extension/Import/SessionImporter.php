@@ -14,33 +14,21 @@ class SessionImporter extends AbstractImporter
 {
     const SLUG = 'session_importer';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMenuTitle()
     {
         return 'Import Sessions';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPageTitle()
     {
         return 'Session Importer';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPostType()
     {
         return Session::SLUG;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getColumns()
     {
         return [
