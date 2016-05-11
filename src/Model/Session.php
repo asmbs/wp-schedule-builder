@@ -2,6 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Model;
 
+use ASMBS\ScheduleBuilder\Model\Helper;
 use ASMBS\ScheduleBuilder\PostType;
 use ASMBS\ScheduleBuilder\Taxonomy\SessionTag;
 use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
@@ -39,7 +40,7 @@ class Session extends AbstractModel
     /** @var  string[] */
     protected $creditTypes = [];
 
-    /** @var  null */
+    /** @var  Helper\FacultyGroup[] */
     protected $facultyGroups = [];
     
     /** @var  null */
@@ -202,10 +203,19 @@ class Session extends AbstractModel
     }
 
     /**
-     * TODO
+     * @return  Helper\FacultyGroup[]
      */
     public function getFacultyGroups()
-    {}
+    {
+        return $this->lazyLoad('facultyGroups', function(Session $s) {
+            $groups = [];
+            foreach ($s->loadField('faculty_groups') as $group) {
+                $groups[] = new Helper\FacultyGroup($group['label'], $group['people']);
+            }
+
+            return $groups;
+        }, $this);
+    }
 
     /**
      * TODO
