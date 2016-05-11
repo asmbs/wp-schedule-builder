@@ -223,4 +223,17 @@ abstract class AbstractModel implements ModelInterface
             return false;
         }
     }
+
+    /**
+     * Load and format an image field.
+     *
+     * @param   string  $fieldName
+     * @return  Helper\Image
+     */
+    protected function loadImageField($fieldName)
+    {
+        $field = $this->loadField($fieldName);
+        
+        return new Helper\Image($field);
+    }
 }
