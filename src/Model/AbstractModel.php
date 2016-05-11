@@ -114,6 +114,8 @@ abstract class AbstractModel implements ModelInterface
         if ($datetime instanceof \DateTime) {
             return ($format === false) ? $datetime : $datetime->format($format);
         }
+
+        return null;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -152,6 +154,8 @@ abstract class AbstractModel implements ModelInterface
         if (isset($this->post->{$property})) {
             return $this->post->{$property};
         }
+
+        return null;
     }
 
     /**
