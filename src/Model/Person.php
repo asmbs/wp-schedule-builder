@@ -190,6 +190,10 @@ class Person extends AbstractModel
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * @param   bool  $lastFirst
+     * @return  string
+     */
     public function getFormalName($lastFirst = false)
     {
         // Get all name components
@@ -240,4 +244,10 @@ class Person extends AbstractModel
         return sprintf($format, $prefix, $first, $mi, $last, $suffix, implode(' ', $credentials));
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public function __toString()
+    {
+        return $this->getFormalName();
+    }
 }
