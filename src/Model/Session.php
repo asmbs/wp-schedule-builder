@@ -37,25 +37,25 @@ class Session extends AbstractModel
     protected $credits;
     
     /** @var  string[] */
-    protected $creditTypes;
+    protected $creditTypes = [];
 
     /** @var  null */
-    protected $facultyGroups;
+    protected $facultyGroups = [];
     
     /** @var  null */
     protected $agendaItems;
 
     /** @var  \WP_Term[] */
-    protected $societies;
+    protected $societies = [];
 
     /** @var  \WP_Term */
     protected $sessionType;
 
     /** @var  \WP_Term[] */
-    protected $tags;
+    protected $tags = [];
 
     /** @var  string[] */
-    protected $progress;
+    protected $progress = [];
 
     /**
      * @return  array

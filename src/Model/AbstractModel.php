@@ -130,7 +130,7 @@ abstract class AbstractModel implements ModelInterface
      */
     protected function lazyLoad($prop, callable $callback, $arg = null)
     {
-        if ($this->{$prop} !== null) {
+        if (!empty($this->{$prop}) || $this->{$prop} === false) {
             return $this->{$prop};
         }
 
