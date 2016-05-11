@@ -86,6 +86,7 @@ class Session extends AbstractModel
         $title = $this->lazyLoad('title', [$this, 'loadPostProperty'], 'post_title');
 
         if ($filtered) {
+            // Run standard the_content filter
             $title = apply_filters('the_title', $title);
 
             /**
@@ -94,9 +95,7 @@ class Session extends AbstractModel
              * @param   string  $title
              * @return  string
              */
-            $title = apply_filters('session_title', $title);
-
-            return $title;
+            $title = apply_filters('sb/session_title', $title);
         }
 
         return $title;
@@ -111,6 +110,7 @@ class Session extends AbstractModel
         $content = $this->lazyLoad('content', [$this, 'loadPostProperty'], 'post_content');
 
         if ($filtered) {
+            // Run standard the_content filter
             $content = apply_filters('the_content', $content);
 
             /**
@@ -119,9 +119,7 @@ class Session extends AbstractModel
              * @param   string  $content
              * @return  string
              */
-            $content = apply_filters('session_content', $content);
-
-            return $content;
+            $content = apply_filters('sb/session_content', $content);
         }
 
         return $content;
