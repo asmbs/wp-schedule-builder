@@ -137,6 +137,8 @@ class Session extends AbstractModel
         if ($datetime instanceof \DateTime) {
             return ($format === false) ? $datetime : $datetime->format($format);
         }
+
+        return null;
     }
 
     /**
@@ -158,6 +160,8 @@ class Session extends AbstractModel
         if ($datetime instanceof \DateTime) {
             return ($format === false) ? $datetime : $datetime->format($format);
         }
+
+        return null;
     }
 
     /**
