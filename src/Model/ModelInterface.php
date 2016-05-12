@@ -17,6 +17,13 @@ interface ModelInterface
     public function __construct($post = null);
 
     /**
+     * Get the wrapped post's ID.
+     *
+     * @return  int
+     */
+    public function getPostID();
+
+    /**
      * Get the list of post types supported by this model.
      *
      * @return  array

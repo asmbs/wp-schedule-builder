@@ -61,6 +61,21 @@ abstract class AbstractModel implements ModelInterface
     }
 
     /**
+     * Add an error.
+     *
+     * @param   string|int  $code
+     * @param   string      $message
+     * @param   mixed       $data
+     * @return  $this
+     */
+    public function addError($code, $message, $data = null)
+    {
+        $this->errors->add($code, $message, $data);
+
+        return $this;
+    }
+
+    /**
      * Merge errors from another WP_Error object into the one dedicated to this model object.
      *
      * @param  \WP_Error  $otherErrors
@@ -160,11 +175,14 @@ abstract class AbstractModel implements ModelInterface
 
     /**
      * Load the terms from the given taxonomy associated with the underlying post.
+     * If the `$field` parameter is specified, only that property from each term
+     * will be returned.
      *
-     * @param   string  $taxonomy
-     * @return  \WP_Term[]
+     * @param   string       $taxonomy
+     * @param   string|bool  $field
+     * @return  \WP_Term[]|mixed[]
      */
-    protected function loadPostTerms($taxonomy)
+    protected function loadPostTerms($taxonomy, $field = false)
     {
         $terms = get_the_terms($this->post, $taxonomy);
         if ($terms instanceof \WP_Error) {
@@ -172,6 +190,12 @@ abstract class AbstractModel implements ModelInterface
         }
 
         if (is_array($terms)) {
+            if ($field && is_string($field)) {
+                return array_map(function(\WP_Term $term) use ($field) {
+                    return $term->{$field};
+                }, $terms);
+            }
+
             return $terms;
         }
 
@@ -181,13 +205,14 @@ abstract class AbstractModel implements ModelInterface
     /**
      * Load a _single_ term associated with the post.
      *
-     * @param   string  $taxonomy
-     * @param   int     $index
+     * @param   string       $taxonomy
+     * @param   string|bool  $field
+     * @param   int          $index
      * @return  \WP_Term
      */
-    protected function loadSingleTerm($taxonomy, $index = 0)
+    protected function loadSingleTerm($taxonomy, $field = false, $index = 0)
     {
-        $terms = $this->loadPostTerms($taxonomy);
+        $terms = $this->loadPostTerms($taxonomy, $field);
 
         if ($index > 0 && !array_key_exists($index, $terms)) {
             $index = 0;
@@ -221,6 +246,10 @@ abstract class AbstractModel implements ModelInterface
             $str .= ' '. get_field($timeField, $this->postID);
         }
 
+        if (empty(trim($str))) {
+            return false;
+        }
+        
         try {
             return new \DateTime($str);
         } catch (\Exception $e) {
