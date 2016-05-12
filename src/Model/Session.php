@@ -58,6 +58,9 @@ class Session extends AbstractModel
     /** @var  string[] */
     protected $progress = [];
 
+    /** @var  array */
+    protected $progressChoices = [];
+
     /**
      * @return  array
      */
@@ -278,14 +281,6 @@ class Session extends AbstractModel
         return $this->lazyLoad('tags', [$this, 'loadPostTerms'], SessionTag::SLUG, $field);
     }
 
-    /**
-     * @return  string[]
-     */
-    public function getProgress()
-    {
-        return (array) $this->lazyLoad('progress', [$this, 'loadField'], 'progress');
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -299,12 +294,57 @@ class Session extends AbstractModel
     }
 
     /**
+     * Get the list of progess milestones that still need to be completed.
+     *
+     * @return  string[]
+     */
+    public function getProgressRemaining()
+    {
+        $choices = $this->getProgressChoices();
+        $current = $this->getProgress();
+
+        $diff = array_diff(array_keys($choices), $current);
+
+        $remaining = [];
+        foreach ($diff as $key) {
+            $remaining[] = $choices[$key];
+        }
+
+        return $remaining;
+    }
+
+    /**
      * Determine whether the session is editorially complete.
      *
      * @return  bool
      */
     public function isComplete()
     {
-        return (count($this->getProgress()) === 5);
+        return (count($this->getProgressRemaining()) === 0);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @return  string[]
+     */
+    protected function getProgress()
+    {
+        return (array) $this->lazyLoad('progress', [$this, 'loadField'], 'progress');
+    }
+
+    /**
+     * @return  array
+     */
+    protected function getProgressChoices()
+    {
+        return $this->lazyLoad('progressChoices', function($ID) {
+            $field = get_field_object('progress', $ID);
+            if (isset($field['choices'])) {
+                return $field['choices'];
+            }
+
+            return [];
+        }, $this->postID);
     }
 }
