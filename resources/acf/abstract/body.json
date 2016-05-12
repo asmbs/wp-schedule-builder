@@ -18,9 +18,9 @@
             "new_lines": ""
         },
         {
-            "key": "body--method",
-            "name": "method",
-            "label": "Method",
+            "key": "body--methods",
+            "name": "methods",
+            "label": "Methods",
             "type": "textarea",
             "rows": 6,
             "new_lines": ""

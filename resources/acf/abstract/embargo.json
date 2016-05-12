@@ -5,6 +5,7 @@
         {
             "key": "embargo--_message",
             "name": "_message",
+            "label": "",
             "type": "message",
             "message": "Choose the meeting date that this abstract will be presented on. The embargo will lift officially at <b>7:00AM</b> in the timezone where the event is being held."
         },

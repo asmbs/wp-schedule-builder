@@ -43,9 +43,9 @@
                             }
                         },
                         {
-                            "key": "agenda--items--simple--description",
-                            "name": "description",
-                            "label": "Description",
+                            "key": "agenda--items--simple--title",
+                            "name": "title",
+                            "label": "Title/Description",
                             "type": "textarea",
                             "new_lines": "",
                             "rows": 2,
@@ -90,6 +90,7 @@
                             "type": "post_object",
                             "post_type": ["speaker"],
                             "multiple": 1,
+                            "allow_null": 1,
                             "wrapper": {
                                 "width": 80
                             }
@@ -139,6 +140,7 @@
                             "type": "post_object",
                             "post_type": ["speaker"],
                             "multiple": 0,
+                            "allow_null": 1,
                             "wrapper": {
                                 "width": 25
                             }
@@ -178,6 +180,7 @@
                             "type": "post_object",
                             "post_type": ["abstract"],
                             "multiple": 0,
+                            "allow_null": 1,
                             "wrapper": {
                                 "width": 70
                             }
@@ -189,6 +192,7 @@
                             "type": "post_object",
                             "post_type": ["author"],
                             "multiple": 0,
+                            "allow_null": 1,
                             "wrapper": {
                                 "width": 25
                             }
@@ -200,8 +204,52 @@
                             "type": "post_object",
                             "post_type": ["speaker"],
                             "multiple": 1,
+                            "allow_null": 1,
                             "wrapper": {
                                 "width": 75
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "agenda--items--break",
+                    "name": "item_break",
+                    "label": "Break/Adjourn",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "agenda--items--break--start_time",
+                            "name": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--break--end_time",
+                            "name": "end_time",
+                            "label": "End Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--break--type",
+                            "name": "break_type",
+                            "label": "Break Type",
+                            "type": "radio",
+                            "choices": {
+                                "break": "Break",
+                                "lunch": "Lunch",
+                                "adjourn": "Adjourn"
+                            },
+                            "layout": "horizontal",
+                            "wrapper": {
+                                "width": 70
                             }
                         }
                     ]
