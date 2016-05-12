@@ -3,7 +3,6 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
-use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
 
 
@@ -31,8 +30,6 @@ class AuthorImporter extends FacultyImporter
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected function buildWorkflow(ReaderInterface $reader)
-    {
-        return new Workflow($reader, null, $this->getPageTitle());
-    }
+    protected function setWriter(Workflow $workflow)
+    {}
 }

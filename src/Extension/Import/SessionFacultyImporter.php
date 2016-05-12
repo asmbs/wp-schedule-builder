@@ -2,6 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
+use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
 use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
@@ -47,6 +48,11 @@ class SessionFacultyImporter extends AbstractImporter
      */
     public function buildWorkflow(ReaderInterface $reader)
     {
-        return new Workflow($reader, null, $this->getPageTitle());
+        $workflow = new Workflow($reader, null, $this->getPageTitle());
+
+        $commaSplitter = new CommaSplitter();
+        $workflow->addValueConverter('speaker_ids', $commaSplitter);
+        
+        return $workflow;
     }
 }

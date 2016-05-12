@@ -3,7 +3,6 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\PostType\Session;
-use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
 
 
@@ -31,8 +30,6 @@ class SpeakerImporter extends FacultyImporter
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected function buildWorkflow(ReaderInterface $reader)
-    {
-        return new Workflow($reader, null, $this->getPageTitle());
-    }
+    protected function setWriter(Workflow $workflow)
+    {}
 }
