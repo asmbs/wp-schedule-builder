@@ -2,49 +2,48 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
-use ASMBS\ScheduleBuilder\PostType\Session;
+use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Writer\CallbackWriter;
 
+
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionImporter extends AbstractImporter
+class ResearchAbstractImporter extends AbstractImporter
 {
-    const SLUG = 'session_importer';
+    const SLUG = 'abstract_importer';
 
     public function getMenuTitle()
     {
-        return 'Import Sessions';
+        return 'Import Abstracts';
     }
 
     public function getPageTitle()
     {
-        return 'Session Importer';
+        return 'Abstract Importer';
     }
 
     public function getPostType()
     {
-        return Session::SLUG;
+        return ResearchAbstract::SLUG;
     }
 
     public function getColumns()
     {
         return [
-            'session_id',
-            'date',
-            'start_time',
-            'end_time',
+            'abstract_id',
             'title',
-            'venue',
-            'room',
-            'credits_available',
-            'credit_types',
-            'session_type',
-            'societies',
-            'tags',
-            'content',
+            'author_ids',
+            'introduction',
+            'methods',
+            'results',
+            'conclusions',
+            'embargo_date',
+            'type',
+            'society',
+            'keywords',
         ];
     }
 

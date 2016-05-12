@@ -6,21 +6,22 @@ use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
 
+
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionFacultyImporter extends AbstractImporter
+class SpeakerImporter extends FacultyImporter
 {
-    const SLUG = 'session_faculty_importer';
+    const SLUG = 'speaker_importer';
 
     public function getMenuTitle()
     {
-        return 'Import Session Faculty';
+        return 'Import Speakers';
     }
 
     public function getPageTitle()
     {
-        return 'Session Faculty Importer';
+        return 'Speaker Importer';
     }
 
     public function getPostType()
@@ -28,24 +29,9 @@ class SessionFacultyImporter extends AbstractImporter
         return Session::SLUG;
     }
 
-    public function getColumns()
-    {
-        return [
-            'session_id',
-            'label',
-            'speaker_ids',
-        ];
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Build the session faculty importer workflow.
-     *
-     * @param   ReaderInterface  $reader
-     * @return  Workflow
-     */
-    public function buildWorkflow(ReaderInterface $reader)
+    protected function buildWorkflow(ReaderInterface $reader)
     {
         return new Workflow($reader, null, $this->getPageTitle());
     }

@@ -30,7 +30,17 @@ class SessionAgendaImporter extends AbstractImporter
 
     public function getColumns()
     {
-        return [];
+        return [
+            'session_id',
+            'type',
+            'start_time',
+            'end_time',
+            'talk_title',
+            'speaker_id',
+            'abstract_id',
+            'presenter_id',
+            'discussant_ids',
+        ];
     }
 
     // -----------------------------------------------------------------------------------------------------------------

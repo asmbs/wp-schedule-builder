@@ -34,6 +34,9 @@ class Loader
         Extension\Import\SessionImporter::load();
         Extension\Import\SessionFacultyImporter::load();
         Extension\Import\SessionAgendaImporter::load();
+        Extension\Import\SpeakerImporter::load();
+        Extension\Import\ResearchAbstractImporter::load();
+        Extension\Import\AuthorImporter::load();
 
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
     }
