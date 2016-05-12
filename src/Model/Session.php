@@ -209,8 +209,9 @@ class Session extends AbstractModel
     {
         return $this->lazyLoad('facultyGroups', function(Session $s) {
             $groups = [];
-            foreach ($s->loadField('faculty_groups') as $group) {
-                $groups[] = new Helper\FacultyGroup($group['label'], $group['people']);
+            while (have_rows('faculty_groups', $s->postID)) {
+                the_row();
+                $groups[] = new Helper\FacultyGroup(get_sub_field('label'), get_sub_field('people'));
             }
 
             return $groups;
@@ -218,33 +219,63 @@ class Session extends AbstractModel
     }
 
     /**
-     * TODO
+     * @return  Helper\AgendaItem[]
      */
     public function getAgendaItems()
-    {}
-
-    /**
-     * @return  \WP_Term[]
-     */
-    public function getSocieties()
     {
-        return $this->lazyLoad('societies', [$this, 'loadPostTerms'], Society::SLUG);
+        return $this->lazyLoad('agendaItems', function(Session $s) {
+
+            $items = [];
+
+            // Create a map to translate ACF layout labels to agenda item types
+            $layoutMap = [
+                'item_simple'   => Helper\AgendaItemType::SIMPLE,
+                'item_header'   => Helper\AgendaItemType::HEADER,
+                'item_talk'     => Helper\AgendaItemType::TALK,
+                'item_abstract' => Helper\AgendaItemType::_ABSTRACT,
+                'item_break'    => Helper\AgendaItemType::_BREAK,
+            ];
+
+            while (have_rows('agenda_items', $s->getPostID())) {
+                the_row();
+                // Map item type
+                $layout = get_row_layout();
+                $itemType = array_key_exists($layout, $layoutMap)
+                    ? $layoutMap[$layout]
+                    : Helper\AgendaItemType::SIMPLE;
+
+                $items[] = new Helper\AgendaItem($itemType, $s);
+            }
+
+            return $items;
+        }, $this);
     }
 
     /**
+     * @param   string|bool  $field
+     * @return  \WP_Term[]
+     */
+    public function getSocieties($field = false)
+    {
+        return $this->lazyLoad('societies', [$this, 'loadPostTerms'], Society::SLUG, $field);
+    }
+
+    /**
+     * @param   string|bool  $field
      * @return  \WP_Term
      */
-    public function getSessionType()
+    public function getSessionType($field = false)
     {
-        return $this->lazyLoad('sessionType', [$this, 'loadSingleTerm'], SessionType::SLUG);
+        return $this->lazyLoad('sessionType', [$this, 'loadSingleTerm'], SessionType::SLUG, $field);
     }
 
     /**
+     * @param   string|bool  $field
      * @return  \WP_Term[]
      */
-    public function getTags()
+    public function getTags($field = false)
     {
-        return $this->lazyLoad('tags', [$this, 'loadPostTerms'], SessionTag::SLUG);
+        return $this->lazyLoad('tags', [$this, 'loadPostTerms'], SessionTag::SLUG, $field);
     }
 
     /**
