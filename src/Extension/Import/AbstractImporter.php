@@ -222,8 +222,6 @@ abstract class AbstractImporter implements ImporterInterface
             return null;
         }
 
-        $this->addNotice('Upload is valid; continuing.');
-
         return new \SplFileInfo($file['tmp_name']);
     }
 
