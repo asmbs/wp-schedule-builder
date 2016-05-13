@@ -141,13 +141,15 @@ abstract class AbstractPostWriter extends AbstractWriter
     /**
      * Add a term to the storage queue.
      *
-     * @param   string  $taxonomy
-     * @param   string  $term
+     * @param   string        $taxonomy
+     * @param   string|array  $term
      * @return  $this
      */
     final protected function addTerm($taxonomy, $term)
     {
-        $this->terms[$taxonomy][] = $term;
+        foreach ((array) $term as $t) {
+            $this->terms[$taxonomy][] = $t;
+        }
 
         return $this;
     }
