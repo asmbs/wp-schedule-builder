@@ -17,6 +17,9 @@ abstract class AbstractPostWriter extends AbstractWriter
     /** @var  bool */
     protected $replace = false;
 
+    /** @var  bool */
+    protected $addNew = true;
+
     /** @var  array */
     protected $metaFields = [];
 
@@ -26,11 +29,13 @@ abstract class AbstractPostWriter extends AbstractWriter
     /**
      * @param  ImporterInterface  $importer
      * @param  bool               $replace
+     * @param  bool               $addNew
      */
-    public function __construct(ImporterInterface $importer, $replace = false)
+    public function __construct(ImporterInterface $importer, $replace, $addNew = true)
     {
         $this->importer = $importer;
         $this->replace = (bool) $replace;
+        $this->addNew = (bool) $addNew;
     }
 
     /**
@@ -43,13 +48,18 @@ abstract class AbstractPostWriter extends AbstractWriter
         if ($post && !$this->replace) {
             // If it exists and the overwrite flag is off, skip processing
             return $this;
-        } elseif (!$post) {
-            // Otherwise, initialize a new post object.
+        } elseif (!$post && $this->addNew) {
+            // Otherwise, if the add-new flag is set, initialize a new post object
             $post = new \WP_Post((object) [
                 'post_title'  => '(Untitled)',
                 'post_type'   => $this->getPostType(),
                 'post_status' => 'publish',
             ]);
+        }
+
+        if (!($post instanceof \WP_Post)) {
+            // If we don't have a post object by now, skip the row
+            return $this;
         }
 
         // Build the post and queue meta fields and terms
