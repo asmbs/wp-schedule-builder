@@ -31,5 +31,9 @@ class SpeakerImporter extends FacultyImporter
     // -----------------------------------------------------------------------------------------------------------------
 
     protected function setWriter(Workflow $workflow)
-    {}
+    {
+        $workflow->addWriter($this->getDebugWriter());
+
+        return $this;
+    }
 }

@@ -4,6 +4,7 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
+use Ddeboer\DataImport\Writer\CallbackWriter;
 
 
 /**
@@ -225,4 +226,17 @@ abstract class AbstractImporter implements ImporterInterface
      * @return  Workflow
      */
     abstract protected function buildWorkflow(ReaderInterface $reader);
+
+    /**
+     * Return a callback writer that dumps the contents of the row into an admin notice block.
+     *
+     * @return  CallbackWriter
+     */
+    protected function getDebugWriter()
+    {
+        $self = $this;
+        return new CallbackWriter(function($row) use ($self) {
+            $self->addNotice(sprintf('<pre>%s</pre>', print_r($row, true)), 'info');
+        });
+    }
 }

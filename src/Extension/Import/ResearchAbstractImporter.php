@@ -5,9 +5,7 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
 use Ddeboer\DataImport\Reader\ReaderInterface;
-use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 use Ddeboer\DataImport\Workflow;
-use Ddeboer\DataImport\Writer\CallbackWriter;
 
 
 /**
@@ -59,8 +57,6 @@ class ResearchAbstractImporter extends AbstractImporter
      */
     protected function buildWorkflow(ReaderInterface $reader)
     {
-        $self = $this;
-
         $commaSplitter = new ValueConverter\CommaSplitter();
 
         $workflow = new Workflow($reader, null, $this->getPageTitle());
@@ -72,9 +68,7 @@ class ResearchAbstractImporter extends AbstractImporter
             ->addValueConverter('keywords', $commaSplitter);
 
         // Add writer
-        $workflow->addWriter(new CallbackWriter(function($row) use ($self) {
-            $self->addNotice('<pre>'. print_r($row, true) .'</pre>');
-        }));
+        $workflow->addWriter($this->getDebugWriter());
 
         return $workflow;
     }

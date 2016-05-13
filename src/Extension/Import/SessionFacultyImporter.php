@@ -52,6 +52,8 @@ class SessionFacultyImporter extends AbstractImporter
 
         $commaSplitter = new CommaSplitter();
         $workflow->addValueConverter('speaker_ids', $commaSplitter);
+
+        $workflow->addWriter($this->getDebugWriter());
         
         return $workflow;
     }

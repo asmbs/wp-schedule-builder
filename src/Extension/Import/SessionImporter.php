@@ -6,7 +6,6 @@ use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
 use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
-use Ddeboer\DataImport\Writer\CallbackWriter;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -59,8 +58,6 @@ class SessionImporter extends AbstractImporter
      */
     protected function buildWorkflow(ReaderInterface $reader)
     {
-        $self = $this;
-
         $workflow = new Workflow($reader, null, $this->getPageTitle());
 
         // Add value converters
@@ -70,9 +67,7 @@ class SessionImporter extends AbstractImporter
             ->addValueConverter('tags', $commaSplitter);
         
         // Add writer
-        $workflow->addWriter(new CallbackWriter(function($row) use ($self) {
-            $self->addNotice('<pre>'. print_r($row, true) .'</pre>');
-        }));
+        $workflow->addWriter($this->getDebugWriter());
 
         return $workflow;
     }

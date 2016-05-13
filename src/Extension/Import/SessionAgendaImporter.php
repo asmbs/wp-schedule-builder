@@ -58,6 +58,8 @@ class SessionAgendaImporter extends AbstractImporter
 
         $commaSplitter = new CommaSplitter();
         $workflow->addValueConverter('discussant_ids', $commaSplitter);
+
+        $workflow->addWriter($this->getDebugWriter());
         
         return $workflow;
     }
