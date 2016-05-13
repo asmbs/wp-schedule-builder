@@ -3,6 +3,7 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Reader\ReaderInterface;
+use Ddeboer\DataImport\Result;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Writer\CallbackWriter;
 
@@ -14,8 +15,14 @@ abstract class AbstractImporter implements ImporterInterface
 {
     const FILE_INPUT = 'import_csv';
 
-    /** @var  array  */
+    /** @var  bool */
+    protected $replace = false;
+
+    /** @var  array */
     protected $notices = [];
+
+    /** @var  Result */
+    protected $result;
 
     /**
      * {@inheritdoc}
@@ -51,13 +58,42 @@ abstract class AbstractImporter implements ImporterInterface
     }
 
     /**
+     * Return a callback writer that dumps the contents of the row into an admin notice block.
+     *
+     * @return  CallbackWriter
+     */
+    protected function getDebugWriter()
+    {
+        $self = $this;
+        return new CallbackWriter(function($row) use ($self) {
+            $self->addNotice(sprintf('<pre>%s</pre>', print_r($row, true)), 'info');
+        });
+    }
+
+    /**
+     * Process the workflow's result object.
+     */
+    protected function processResult()
+    {
+        $succeeded = $this->result->getSuccessCount();
+        $failed = $this->result->getTotalProcessedCount() - $succeeded;
+
+        if ($succeeded > 0) {
+            $this->addNotice(sprintf('Successfully imported %s records.', $succeeded), 'success');
+        }
+        if ($failed > 0) {
+            $this->addNotice(sprintf('%s records contained errors and were skipped.'), 'warning');
+        }
+    }
+
+    /**
      * Enqueue an admin notice.
      *
      * @param   string  $message
      * @param   string  $context
      * @return  $this
      */
-    protected function addNotice($message, $context = 'info')
+    public function addNotice($message, $context = 'info')
     {
         $this->notices[$context][] = $message;
 
@@ -147,8 +183,9 @@ abstract class AbstractImporter implements ImporterInterface
         $file = $this->handleUpload($_FILES[static::FILE_INPUT]);
 
         if ($file) {
-            $replace = isset($_POST['replace']) && $_POST['replace'] == 1 ? true : false;
-            $this->processFile($file, $replace);
+            $this->replace = isset($_POST['replace']) && $_POST['replace'] == 1 ? true : false;
+            $this->processFile($file);
+            $this->processResult();
         }
     }
 
@@ -200,9 +237,10 @@ abstract class AbstractImporter implements ImporterInterface
             ->setHeaderRowNumber(0)
             ->setColumnHeaders($this->getColumns());
 
-        $workflow = $this->buildWorkflow($reader);
+        $workflow = $this->buildWorkflow($reader)
+            ->setSkipItemOnFailure(true);
 
-        $workflow->process();
+        $this->result = $workflow->process();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -219,6 +257,8 @@ abstract class AbstractImporter implements ImporterInterface
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Build a workflow object for processing the import.
      *
@@ -226,17 +266,4 @@ abstract class AbstractImporter implements ImporterInterface
      * @return  Workflow
      */
     abstract protected function buildWorkflow(ReaderInterface $reader);
-
-    /**
-     * Return a callback writer that dumps the contents of the row into an admin notice block.
-     *
-     * @return  CallbackWriter
-     */
-    protected function getDebugWriter()
-    {
-        $self = $this;
-        return new CallbackWriter(function($row) use ($self) {
-            $self->addNotice(sprintf('<pre>%s</pre>', print_r($row, true)), 'info');
-        });
-    }
 }

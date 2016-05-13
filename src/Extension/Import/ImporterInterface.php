@@ -63,6 +63,13 @@ interface ImporterInterface
      */
     public function processFile(\SplFileInfo $file, $replace = false);
 
+    /**
+     * @param   string  $message
+     * @param   string  $context
+     * @return  $this
+     */
+    public function addNotice($message, $context);
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**

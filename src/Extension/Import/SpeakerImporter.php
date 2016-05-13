@@ -2,6 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
+use ASMBS\ScheduleBuilder\Extension\Import\Writer\SpeakerWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Workflow;
 
@@ -32,7 +33,7 @@ class SpeakerImporter extends FacultyImporter
 
     protected function setWriter(Workflow $workflow)
     {
-        $workflow->addWriter($this->getDebugWriter());
+        $workflow->addWriter(new SpeakerWriter($this, $this->replace));
 
         return $this;
     }
