@@ -97,6 +97,17 @@ abstract class AbstractPostWriter extends AbstractWriter
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Determine whether the item already exists; if so, return it.
+     *
+     * @param   array  $item
+     * @return  \WP_Post|bool
+     */
+    protected function findExisting(array $item)
+    {
+        return (is_array($posts = $this->queryPosts($item))) ? reset($posts) : false;
+    }
+
+    /**
      * Set post properties.
      *
      * @param   \WP_Post  $post
@@ -234,12 +245,12 @@ abstract class AbstractPostWriter extends AbstractWriter
     abstract public function getPostType();
 
     /**
-     * Determine whether the item already exists; if so, return it.
+     * Query for posts matching the current item.
      *
      * @param   array  $item
-     * @return  \WP_Post|bool
+     * @return  \WP_Post[]
      */
-    abstract protected function findExisting(array $item);
+    abstract protected function queryPosts(array $item);
 
     /**
      * Build the meta fields that should be attached to this post once
