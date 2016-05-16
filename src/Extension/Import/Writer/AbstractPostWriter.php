@@ -282,6 +282,42 @@ abstract class AbstractPostWriter extends AbstractWriter
         return $this;
     }
 
+    /**
+     * Find posts of the given post type that match the given meta queries.
+     *
+     * @see  \WP_Meta_Query
+     *
+     * @param   string  $postType
+     * @param   array   $metaQuery
+     * @param   bool    $multiple
+     * @return  \WP_Post|\WP_Post[]
+     */
+    protected function findPostsWithMeta($postType, array $metaQuery, $multiple = false)
+    {
+        $posts = get_posts([
+            'post_type'   => $postType,
+            'post_status' => 'any',
+            'meta_query'  => $metaQuery,
+        ]);
+
+        if (count($posts) > 0) {
+            return $multiple ? $posts : reset($posts);
+        }
+
+        return $multiple ? [] : null;
+    }
+
+    /**
+     * Array map callback; returns the ID of a post object.
+     *
+     * @param   \WP_Post  $post
+     * @return  int
+     */
+    protected function getPostID(\WP_Post $post)
+    {
+        return $post->ID;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**

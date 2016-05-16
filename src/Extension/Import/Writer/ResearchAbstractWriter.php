@@ -40,7 +40,7 @@ class ResearchAbstractWriter extends AbstractPostWriter
         return $this;
     }
 
-    public function buildMetaFields(array $item)
+    public function buildMetaFields(\WP_Post $post, array $item)
     {
         // Add fields
         $this->addMeta('abstract_id', $item['abstract_id'])
@@ -52,17 +52,13 @@ class ResearchAbstractWriter extends AbstractPostWriter
             ->addMeta('embargo_date', $item['embargo_date']);
 
         // Find authors matching the given IDs
-        $authors = get_posts([
-            'post_type' => Author::SLUG,
-            'post_status' => 'any',
-            'meta_query' => [
-                [
-                    'key'     => 'author_id',
-                    'compare' => 'IN',
-                    'value'   => $item['author_ids'],
-                ],
+        $authors = $this->findPostsWithMeta(Author::SLUG, [
+            [
+                'key'     => 'author_id',
+                'compare' => 'IN',
+                'value'   => $item['author_ids'],
             ],
-        ]);
+        ], true);
 
         if (count($authors) > 0) {
             $this->addMeta('authors', array_map([$this, 'getPostID'], $authors));
@@ -71,23 +67,12 @@ class ResearchAbstractWriter extends AbstractPostWriter
         return $this;
     }
 
-    public function buildTerms(array $item)
+    public function buildTerms(\WP_Post $post, array $item)
     {
         $this->addTerm(ResearchAbstractType::SLUG, $item['type'])
             ->addTerm(Society::SLUG, $item['societies'])
             ->addTerm(ResearchAbstractKeyword::SLUG, $item['keywords']);
 
         return $this;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * @param   \WP_Post  $post
-     * @return  int
-     */
-    protected function getPostID(\WP_Post $post)
-    {
-        return $post->ID;
     }
 }
