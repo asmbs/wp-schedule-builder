@@ -30,6 +30,8 @@ abstract class AbstractPostType implements PostTypeInterface
         add_filter(sprintf('manage_edit-%s_columns', static::SLUG), [$this, 'addAdvancedDateColumn'], 100);
         add_filter(sprintf('manage_edit-%s_sortable_columns', static::SLUG), [$this, 'setAdvancedDateOrdering'], 100);
         add_action(sprintf('manage_%s_posts_custom_column', static::SLUG), [$this, 'renderAdvancedDateColumn'], 100);
+
+        add_action('pre_get_posts', [$this, 'setDefaultOrderBy']);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -230,5 +232,37 @@ abstract class AbstractPostType implements PostTypeInterface
                 printf('<br><span class="author">by %s</span>', $author->display_name);
             }
         }
+    }
+
+    /**
+     * Set the default orderby parameter.
+     *
+     * @param  \WP_Query  $query
+     */
+    public function setDefaultOrderBy(\WP_Query $query)
+    {
+        if ($this->isPostListQuery($query)) {
+            if (!$query->get('orderby', null)) {
+                $query->set('orderby', 'modified');
+                $query->set('order', 'DESC');
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Determine whether the given query is a post manager query.
+     *
+     * @param   \WP_Query  $query
+     * @return  bool
+     */
+    protected function isPostListQuery(\WP_Query $query)
+    {
+        return (
+            is_admin() &&
+            $query->is_main_query() &&
+            $query->get('post_type') === static::SLUG
+        );
     }
 }

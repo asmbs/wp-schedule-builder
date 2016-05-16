@@ -214,21 +214,4 @@ class Session extends AbstractPostType
 
         return $sql;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Determine whether the given query is a post manager query.
-     *
-     * @param   \WP_Query  $query
-     * @return  bool
-     */
-    protected function isPostListQuery(\WP_Query $query)
-    {
-        return (
-            is_admin() &&
-            $query->is_main_query() &&
-            $query->get('post_type') === self::SLUG
-        );
-    }
 }
