@@ -2,6 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
+use ASMBS\ScheduleBuilder\Extension\Import\Writer\AuthorWriter;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
 use Ddeboer\DataImport\Workflow;
 
@@ -32,7 +33,7 @@ class AuthorImporter extends FacultyImporter
 
     protected function setWriter(Workflow $workflow)
     {
-        $workflow->addWriter($this->getDebugWriter());
+        $workflow->addWriter(new AuthorWriter($this, $this->replace));
 
         return $this;
     }
