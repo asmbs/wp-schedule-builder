@@ -1,9 +1,9 @@
 {
-    "key": "abstract--classification",
+    "key": "abstract--taxonomy",
     "title": "Classification",
     "fields": [
         {
-            "key": "classification--type",
+            "key": "taxonomy--type",
             "name": "abstract_type",
             "label": "Abstract Type",
             "type": "taxonomy",
@@ -13,9 +13,9 @@
             "add_term": 0
         },
         {
-            "key": "classification--society",
+            "key": "taxonomy--society",
             "name": "society",
-            "label": "Society",
+            "label": "Societies",
             "type": "taxonomy",
             "taxonomy": "society",
             "field_type": "checkbox",
@@ -23,8 +23,8 @@
             "add_term": 0
         },
         {
-            "key": "classification--keywords",
-            "name": "keywords",
+            "key": "taxonomy--keyword",
+            "name": "keyword",
             "label": "Keywords",
             "type": "taxonomy",
             "taxonomy": "keyword",

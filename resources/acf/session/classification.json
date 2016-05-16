@@ -1,12 +1,12 @@
 {
-    "key": "session--classification",
-    "title": "Session Classification",
+    "key": "session--taxonomy",
+    "title": "Session Taxonomies",
     "description": "Manage session taxomonies.",
     "fields": [
         {
-            "key": "classification--society",
+            "key": "taxonomy--society",
             "name": "society",
-            "label": "Society",
+            "label": "Societies",
             "type": "taxonomy",
             "taxonomy": "society",
             "field_type": "checkbox",
@@ -14,7 +14,7 @@
             "add_term": 0
         },
         {
-            "key": "classification--session_type",
+            "key": "taxonomy--session_type",
             "name": "session_type",
             "label": "Session Type",
             "type": "taxonomy",
@@ -24,8 +24,8 @@
             "add_term": 0
         },
         {
-            "key": "classification--session_tags",
-            "name": "session_tags",
+            "key": "taxonomy--session_tag",
+            "name": "session_tag",
             "label": "Tags",
             "type": "taxonomy",
             "taxonomy": "session-tag",
