@@ -15,6 +15,7 @@
                     "key": "logistics--dates--value",
                     "name": "value",
                     "label": "Value",
+                    "instructions": "<code>YYYY/MM/DD</code> format",
                     "type": "text",
                     "placeholder": "ex. 3\/31\/2016",
                     "wrapper": {
