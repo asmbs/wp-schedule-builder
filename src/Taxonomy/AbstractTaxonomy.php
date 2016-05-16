@@ -69,7 +69,7 @@ abstract class AbstractTaxonomy implements TaxonomyInterface
             'show_admin_column'  => false,
             'description'        => '',
             'hierarchical'       => false,
-            'query_var'          => self::SLUG,
+            'query_var'          => static::SLUG,
             'rewrite'            => ['slug' => $singularSlug, 'with_front' => true],
             'capabilities'       => [
                 'manage_terms' => 'manage_categories',
