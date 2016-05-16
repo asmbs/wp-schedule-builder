@@ -27,7 +27,7 @@ abstract class FacultyWriter extends AbstractPostWriter
         return parent::buildPost($post, $item);
     }
 
-    protected function buildMetaFields(array $item)
+    protected function buildMetaFields(\WP_Post $post, array $item)
     {
         $this->addMeta($this->getIDKey(), $item['id'])
             ->addMeta('prefix', $item['prefix'])
@@ -46,7 +46,7 @@ abstract class FacultyWriter extends AbstractPostWriter
         return $this;
     }
 
-    protected function buildTerms(array $item)
+    protected function buildTerms(\WP_Post $post, array $item)
     {
         return $this;
     }

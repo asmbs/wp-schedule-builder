@@ -68,8 +68,8 @@ abstract class AbstractPostWriter extends AbstractWriter
 
         // Build the post and queue meta fields and terms
         $this->buildPost($post, $item)
-            ->buildMetaFields($item)
-            ->buildTerms($item);
+            ->buildMetaFields($post, $item)
+            ->buildTerms($post, $item);
 
         // Save the post
         $ID = $this->savePost($post);
@@ -305,17 +305,19 @@ abstract class AbstractPostWriter extends AbstractWriter
      *
      * @see  addMeta()
      *
-     * @param   array  $item
+     * @param   \WP_Post  $post
+     * @param   array     $item
      * @return  $this
      */
-    abstract protected function buildMetaFields(array $item);
+    abstract protected function buildMetaFields(\WP_Post $post, array $item);
 
     /**
      * Build the list of taxonomy terms that should be attached to this post
      * once it has been saved or updated.
      *
-     * @param   array  $item
+     * @param   \WP_Post  $post
+     * @param   array     $item
      * @return  $this
      */
-    abstract protected function buildTerms(array $item);
+    abstract protected function buildTerms(\WP_Post $post, array $item);
 }

@@ -42,7 +42,7 @@ class SessionWriter extends AbstractPostWriter
         return $this;
     }
 
-    protected function buildMetaFields(array $item)
+    protected function buildMetaFields(\WP_Post $post, array $item)
     {
         $this->addMeta('session_id', $item['session_id']);
         
@@ -62,7 +62,7 @@ class SessionWriter extends AbstractPostWriter
         return $this;
     }
 
-    protected function buildTerms(array $item)
+    protected function buildTerms(\WP_Post $post, array $item)
     {
         $this->terms = [];
 
