@@ -1,0 +1,48 @@
+{
+    "key": "abstract--taxonomy",
+    "title": "Classification",
+    "fields": [
+        {
+            "key": "taxonomy--type",
+            "name": "abstract_type",
+            "label": "Abstract Type",
+            "type": "taxonomy",
+            "taxonomy": "abstract-type",
+            "field_type": "select",
+            "save_terms": 1,
+            "add_term": 0
+        },
+        {
+            "key": "taxonomy--society",
+            "name": "society",
+            "label": "Societies",
+            "type": "taxonomy",
+            "taxonomy": "society",
+            "field_type": "checkbox",
+            "save_terms": 1,
+            "add_term": 0
+        },
+        {
+            "key": "taxonomy--keyword",
+            "name": "keyword",
+            "label": "Keywords",
+            "type": "taxonomy",
+            "taxonomy": "keyword",
+            "field_type": "multi_select",
+            "save_terms": 1,
+            "add_term": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "abstract"
+            }
+        ]
+    ],
+    "menu_order": 5,
+    "position": "side",
+    "private": 1
+}

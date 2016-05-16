@@ -1,0 +1,54 @@
+{
+    "key": "session--scheduling",
+    "title": "Scheduling",
+    "description": "Define the date and time a session takes place.",
+    "fields": [
+        {
+            "key": "scheduling--date",
+            "name": "date",
+            "label": "Meeting Date",
+            "type": "radio",
+            "choices": {
+                "tba": "TBA"
+            },
+            "default_value": "tba"
+        },
+        {
+            "key": "scheduling--start",
+            "name": "start_time",
+            "label": "Start Time",
+            "type": "text",
+            "instructions": "Use 24-hour <code>HH:MM</code> format.",
+            "wrapper": {
+                "class": "acf-field-time"
+            }
+        },
+        {
+            "key": "scheduling--end",
+            "name": "end_time",
+            "label": "End Time",
+            "type": "text",
+            "instructions": "Use 24-hour <code>HH:MM</code> format.",
+            "wrapper": {
+                "class": "acf-field-time"
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "private": 1
+}

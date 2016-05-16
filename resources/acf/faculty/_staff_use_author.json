@@ -1,0 +1,27 @@
+{
+    "key": "author--staff_use",
+    "title": "Staff Use",
+    "fields": [
+        {
+            "key": "author--staff_use--id",
+            "name": "author_id",
+            "label": "Author ID",
+            "type": "text",
+            "wrapper": {
+                "width": 20
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "author"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "private": 1
+}

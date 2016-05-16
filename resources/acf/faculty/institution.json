@@ -1,0 +1,70 @@
+{
+    "key": "faculty--institution",
+    "title": "Institution",
+    "fields": [
+        {
+            "key": "institution--organization",
+            "name": "organization",
+            "label": "Organization",
+            "type": "text",
+            "wrapper": {
+                "width": 50
+            }
+        },
+        {
+            "key": "institution--title",
+            "name": "title",
+            "label": "Title",
+            "type": "text",
+            "wrapper": {
+                "width": 50
+            }
+        },
+        {
+            "key": "institution--city",
+            "name": "city",
+            "label": "City",
+            "type": "text",
+            "wrapper": {
+                "width": 60
+            }
+        },
+        {
+            "key": "institution--state",
+            "name": "state",
+            "label": "State",
+            "type": "text",
+            "wrapper": {
+                "width": 20
+            }
+        },
+        {
+            "key": "institution--country",
+            "name": "country",
+            "label": "Country",
+            "type": "text",
+            "wrapper": {
+                "width": 20
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "speaker"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "author"
+            }
+        ]
+    ],
+    "menu_order": 5,
+    "position": "normal",
+    "private": 1
+}

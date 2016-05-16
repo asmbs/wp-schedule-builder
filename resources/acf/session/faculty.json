@@ -1,0 +1,49 @@
+{
+    "key": "session--faculty",
+    "title": "Session Faculty",
+    "fields": [
+        {
+            "key": "faculty--groups",
+            "name": "faculty_groups",
+            "label": "Faculty Groups",
+            "instructions": "Add faculty listings like course directors, session chairs, moderators, etc.",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "+ Add Group",
+            "sub_fields": [
+                {
+                    "key": "faculty--groups--label",
+                    "name": "label",
+                    "label": "Label",
+                    "type": "text",
+                    "wrapper": {
+                        "width": 25
+                    }
+                },
+                {
+                    "key": "faculty--groups--people",
+                    "name": "people",
+                    "label": "People",
+                    "type": "post_object",
+                    "post_type": ["speaker"],
+                    "multiple": 1,
+                    "wrapper": {
+                        "width": 75
+                    }
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 25,
+    "position": "normal",
+    "private": 1
+}

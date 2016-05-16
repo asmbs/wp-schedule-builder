@@ -9,8 +9,15 @@
             "email": "kyleatucker@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packagist.asmbs.org"
+        }
+    ],
     "require": {
-        "php": "^5.5"
+        "php": "^5.5",
+        "ddeboer/data-import": "@stable"
     },
     "autoload": {
         "psr-4": {

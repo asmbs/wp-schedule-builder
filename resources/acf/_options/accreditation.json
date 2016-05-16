@@ -1,0 +1,42 @@
+{
+    "key": "options--accreditation",
+    "title": "Accreditation",
+    "fields": [
+        {
+            "key": "accreditation--types",
+            "name": "credit_types",
+            "label": "Credit Types",
+            "type": "repeater",
+            "button_label": "+ Add Type",
+            "sub_fields": [
+                {
+                    "key": "accreditation--types--type",
+                    "name": "type",
+                    "label": "Type",
+                    "type": "text",
+                    "placeholder": "ex. CME"
+                }
+            ]
+        },
+        {
+            "key": "accreditation--statement",
+            "name": "accreditation_statement",
+            "label": "Statement",
+            "instructions": "Enter the official meeting accreditation statement here. Markdown is supported, but won't be syntax-highlighted like it is in the post editor.",
+            "type": "textarea",
+            "rows": 16
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "sb_options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "private": 1
+}

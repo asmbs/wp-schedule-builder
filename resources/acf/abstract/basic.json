@@ -1,0 +1,46 @@
+{
+    "key": "abstract--basic",
+    "title": "Basic Information",
+    "fields": [
+        {
+            "key": "basic--id",
+            "name": "abstract_id",
+            "label": "ID",
+            "type": "text",
+            "wrapper": {
+                "width": 15
+            },
+            "required": 1
+        },
+        {
+            "key": "basic--title",
+            "name": "title",
+            "label": "Title",
+            "type": "text",
+            "wrapper": {
+                "width": 85
+            },
+            "required": 1
+        },
+        {
+            "key": "basic--authors",
+            "name": "authors",
+            "label": "Authors",
+            "type": "post_object",
+            "post_type": ["author"],
+            "multiple": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "abstract"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "private": 1
+}

@@ -1,0 +1,27 @@
+{
+    "key": "speaker--staff_use",
+    "title": "Staff Use",
+    "fields": [
+        {
+            "key": "speaker--staff_use--id",
+            "name": "speaker_id",
+            "label": "Speaker ID",
+            "type": "text",
+            "wrapper": {
+                "width": 20
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "speaker"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "private": 1
+}

@@ -1,0 +1,49 @@
+{
+    "key": "session--taxonomy",
+    "title": "Session Taxonomies",
+    "description": "Manage session taxomonies.",
+    "fields": [
+        {
+            "key": "taxonomy--society",
+            "name": "society",
+            "label": "Societies",
+            "type": "taxonomy",
+            "taxonomy": "society",
+            "field_type": "checkbox",
+            "save_terms": 1,
+            "add_term": 0
+        },
+        {
+            "key": "taxonomy--session_type",
+            "name": "session_type",
+            "label": "Session Type",
+            "type": "taxonomy",
+            "taxonomy": "session-type",
+            "field_type": "select",
+            "save_terms": 1,
+            "add_term": 0
+        },
+        {
+            "key": "taxonomy--session_tag",
+            "name": "session_tag",
+            "label": "Tags",
+            "type": "taxonomy",
+            "taxonomy": "session-tag",
+            "field_type": "multi_select",
+            "save_terms": 1,
+            "add_term": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 20,
+    "position": "side",
+    "private": 1
+}

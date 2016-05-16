@@ -1,0 +1,35 @@
+{
+    "key": "abstract--embargo",
+    "title": "Embargo Settings",
+    "fields": [
+        {
+            "key": "embargo--_message",
+            "name": "_message",
+            "label": "",
+            "type": "message",
+            "message": "Choose the meeting date that this abstract will be presented on. The embargo will lift officially at <b>7:00AM</b> in the timezone where the event is being held."
+        },
+        {
+            "key": "embargo--date",
+            "name": "embargo_date",
+            "label": "Lift Date",
+            "type": "radio",
+            "choices": {
+                "": "(None)"
+            },
+            "default_value": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "abstract"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "private": 1
+}

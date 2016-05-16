@@ -1,0 +1,49 @@
+{
+    "key": "session--location",
+    "title": "Location",
+    "description": "Set the location of a session.",
+    "fields": [
+        {
+            "key": "location--venue",
+            "name": "venue",
+            "label": "Venue",
+            "type": "select",
+            "multiple": 0,
+            "choices": {
+                "tba": "(TBA)"
+            },
+            "ui": 1,
+            "default_value": "tba"
+        },
+        {
+            "key": "location--room",
+            "name": "room",
+            "label": "Room",
+            "type": "select",
+            "multiple": 0,
+            "choices": {
+                "tba": "(TBA)"
+            },
+            "ui": 1,
+            "default_value": "tba",
+            "allow_null": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 20,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "private": 1
+}

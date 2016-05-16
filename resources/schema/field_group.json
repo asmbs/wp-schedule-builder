@@ -1,0 +1,562 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "id": "http://advancedcustomfields.com/json-schema/field_group",
+    "type": "object",
+    "definitions": {
+        "empty": {
+            "type": "string",
+            "maxLength": 0
+        },
+        "intOrEmpty": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/empty"
+                },
+                {
+                    "type": "integer"
+                }
+            ]
+        },
+        "stringArrayOrEmpty": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/empty"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "intBool": {
+            "type": "integer",
+            "enum": [0, 1]
+        },
+        "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9\\-_]*$"
+        },
+        "equality": {
+            "type": "string",
+            "enum": ["==", "!="]
+        },
+        "field": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "$ref": "#/definitions/slug"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "name": {
+                    "$ref": "#/definitions/slug"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "text",
+                        "textarea",
+                        "number",
+                        "email",
+                        "url",
+                        "password",
+                        "wysiwyg",
+                        "oembed",
+                        "image",
+                        "file",
+                        "gallery",
+                        "select",
+                        "checkbox",
+                        "radio",
+                        "true_false",
+                        "post_object",
+                        "page_link",
+                        "relationship",
+                        "taxonomy",
+                        "user",
+                        "google_map",
+                        "date_picker",
+                        "color_picker",
+                        "message",
+                        "tab",
+                        "repeater",
+                        "flexible_content"
+                    ]
+                },
+                "instructions": {
+                    "type": "string"
+                },
+                "required": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "conditional_logic": {
+                    "oneOf": [
+                        {
+                            "type": "integer",
+                            "enum": [0]
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "field": {
+                                            "$ref": "#/definitions/slug"
+                                        },
+                                        "operator": {
+                                            "$ref": "#/definitions/equality"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["field", "operator", "value"]
+                                }
+                            }
+                        }
+                    ]
+                },
+                "wrapper": {
+                    "type": "object",
+                    "properties": {
+                        "width": {
+                            "$ref": "#/definitions/intOrEmpty"
+                        },
+                        "class": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "default_value": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "oneOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "integer"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "placeholder": {
+                    "type": "string"
+                },
+                "prepend": {
+                    "type": "string"
+                },
+                "append": {
+                    "type": "string"
+                },
+                "maxlength": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+                "readonly": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "disabled": {
+                    "$ref": "#/definitions/intBool"
+                },
+
+                "rows": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+                "new_lines": {
+                    "type": "string",
+                    "enum": ["", "br", "wpautop"]
+                },
+
+                "min": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+                "max": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+                "step": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+
+                "tabs": {
+                    "type": "string",
+                    "enum": ["all", "visual", "text"]
+                },
+                "toolbar": {
+                    "type": "string",
+                    "enum": ["full", "basic"]
+                },
+                "media_upload": {
+                    "$ref": "#/definitions/intBool"
+                },
+
+                "width": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+                "height": {
+                    "$ref": "#/definitions/intOrEmpty"
+                },
+
+                "return_format": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "string",
+                            "enum": [
+                                "object",
+                                "array",
+                                "url",
+                                "id"
+                            ]
+                        }
+                    ]
+                },
+                "preview_size": {
+                    "type": "string"
+                },
+                "library": {
+                    "type": "string",
+                    "enum": ["all", "uploadedTo"]
+                },
+                "min_width": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "integer" }
+                    ]
+                },
+                "min_height": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "integer" }
+                    ]
+                },
+                "min_size": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "integer" }
+                    ]
+                },
+                "max_width": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "integer" }
+                    ]
+                },
+                "max_height": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "integer" }
+                    ]
+                },
+                "max_size": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "integer" }
+                    ]
+                },
+                "mime_types": {
+                    "type": "string"
+                },
+
+                "choices": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "allow_null": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "multiple": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "ui": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "ajax": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "other_choice": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "save_other_choice": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "layout": {
+                    "type": "string",
+                    "enum": [
+                        "vertical",
+                        "horizontal",
+                        "table",
+                        "block",
+                        "row"
+                    ]
+                },
+                "toggle": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "message": {
+                    "type": "string"
+                },
+
+                "post_type": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "taxonomy": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9\\-_]+:[a-z0-9\\-_]+$"
+                            }
+                        }
+                    ]
+                },
+                "filters": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": ["search", "post_type", "taxonomy"]
+                    }
+                },
+                "elements": {
+                    "$ref": "#/definitions/stringArrayOrEmpty"
+                },
+                "field_type": {
+                    "type": "string",
+                    "enum": ["checkbox", "multi_select", "radio", "select"]
+                },
+                "add_term": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "save_terms": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "load_terms": {
+                    "$ref": "#/definitions/intBool"
+                },
+                "role": {
+                    "$ref": "#/definitions/stringArrayOrEmpty"
+                },
+
+                "center_lat": {
+                    "oneOf": [
+                        { "type": "integer" },
+                        { "type": "string" }
+                    ]
+                },
+                "center_lng": {
+                    "oneOf": [
+                        { "type": "integer" },
+                        { "type": "string" }
+                    ]
+                },
+                "zoom": {
+                    "oneOf": [
+                        { "type": "integer" },
+                        { "type": "string" }
+                    ]
+                },
+
+                "display_format": {
+                    "type": "string"
+                },
+                "first_day": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 6
+                },
+
+                "esc_html": {
+                    "$ref": "#/definitions/intBool"
+                },
+
+                "placement": {
+                    "type": "string",
+                    "enum": ["top", "left"]
+                },
+                "endpoint": {
+                    "$ref": "#/definitions/intBool"
+                },
+
+                "collapsed": {
+                    "$ref": "#/definitions/slug"
+                },
+                "button_label": {
+                    "type": "string"
+                },
+                "sub_fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/field"
+                    }
+                },
+                "layouts": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "key": {
+                                "$ref": "#/definitions/slug"
+                            },
+                            "label": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "$ref": "#/definitions/slug"
+                            },
+                            "display": {
+                                "type": "string",
+                                "enum": ["table", "block", "row"]
+                            },
+                            "sub_fields": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/field"
+                                }
+                            },
+                            "min": {
+                                "$ref": "#/definitions/intOrEmpty"
+                            },
+                            "max": {
+                                "$ref": "#/definitions/intOrEmpty"
+                            }
+                        },
+                        "required": ["key", "name", "label"]
+                    }
+                }
+            },
+            "required": ["key", "label", "name", "type"]
+        }
+    },
+    "properties": {
+        "key": {
+            "$ref": "#/definitions/slug"
+        },
+        "title": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/field"
+            }
+        },
+        "location": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "param": {
+                            "type": "string",
+                            "enum": [
+                                "post_type",
+                                "post_status",
+                                "post_format",
+                                "post_category",
+                                "post_taxonomy",
+                                "post",
+                                "page_template",
+                                "page_type",
+                                "page_parent",
+                                "page",
+                                "current_user",
+                                "current_user_role",
+                                "user_form",
+                                "user_role",
+                                "attachment",
+                                "taxonomy",
+                                "comment",
+                                "widget",
+                                "options_page"
+                            ]
+                        },
+                        "operator": {
+                            "$ref": "#/definitions/equality"
+                        },
+                        "value": {
+                            "oneOf": [
+                                { "type": "string" },
+                                { "type": "integer" }
+                            ]
+                        }
+                    },
+                    "required": ["param", "operator", "value"]
+                }
+            }
+        },
+        "menu_order": {
+            "type": "integer"
+        },
+        "position": {
+            "type": "string",
+            "enum": ["normal", "high", "side"]
+        },
+        "style": {
+            "type": "string",
+            "enum": ["default", "seamless"]
+        },
+        "label_placement": {
+            "type": "string",
+            "enum": ["top", "left"]
+        },
+        "instruction_placement": {
+            "type": "string",
+            "enum": ["label", "field"]
+        },
+        "hide_on_screen": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/empty"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "active": {
+            "$ref": "#/definitions/intBool"
+        },
+        "description": {
+            "type": "string"
+        },
+        "private": {
+            "$ref": "#/definitions/intBool"
+        },
+        "modified": {
+            "type": "integer"
+        }
+    },
+    "required": [ "key", "title", "fields" ]
+}

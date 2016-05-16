@@ -1,0 +1,86 @@
+{
+    "key": "options--logistics",
+    "title": "Event Logistics",
+    "description": "",
+    "fields": [
+        {
+            "key": "logistics--dates",
+            "name": "dates",
+            "label": "Event Dates",
+            "instructions": "Enter each date of the meeting that can be programmed with sessions. They'll be shown in the session editor <em>in the order shown here.</em>",
+            "type": "repeater",
+            "button_label": "+ Date",
+            "sub_fields": [
+                {
+                    "key": "logistics--dates--value",
+                    "name": "value",
+                    "label": "Value",
+                    "instructions": "<code>YYYY/MM/DD</code> format",
+                    "type": "text",
+                    "placeholder": "ex. 3\/31\/2016",
+                    "wrapper": {
+                        "width": 20
+                    }
+                },
+                {
+                    "key": "logistics--dates--label",
+                    "name": "label",
+                    "label": "Label",
+                    "type": "text",
+                    "placeholder": "ex. Thursday (3\/31)"
+                }
+            ],
+            "min": 1
+        },
+        {
+            "key": "logistics--locations",
+            "name": "locations",
+            "label": "Location Venues",
+            "instructions": "",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "+ Venue",
+            "sub_fields": [
+                {
+                    "key": "logistics--locations--name",
+                    "name": "location_name",
+                    "label": "Name",
+                    "type": "text"
+                },
+                {
+                    "key": "logistics--locations--rooms",
+                    "name": "location_rooms",
+                    "label": "Rooms",
+                    "type": "repeater",
+                    "layout": "table",
+                    "button_label": "+ Room",
+                    "sub_fields": [
+                        {
+                            "key": "logistics--locations--rooms--name",
+                            "name": "room_name",
+                            "label": "Room",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "sb_options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "private": 1
+}

@@ -1,0 +1,272 @@
+{
+    "key": "session--agenda",
+    "title": "Agenda/Outline",
+    "fields": [
+        {
+            "key": "agenda--_message",
+            "name": "_message",
+            "label": "",
+            "type": "message",
+            "message": "Use the interface below to build a comprehensive agenda for this session."
+        },
+        {
+            "key": "agenda--items",
+            "name": "agenda_items",
+            "label": "Agenda Items",
+            "type": "flexible_content",
+            "button_label": "+ Add Item",
+            "layouts": [
+                {
+                    "key": "agenda--items--simple",
+                    "name": "item_simple",
+                    "label": "Simple Item",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "agenda--items--simple--start_time",
+                            "name": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--simple--end_time",
+                            "name": "end_time",
+                            "label": "End Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--simple--title",
+                            "name": "title",
+                            "label": "Title/Description",
+                            "type": "textarea",
+                            "new_lines": "",
+                            "rows": 2,
+                            "wrapper": {
+                                "width": 70
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "agenda--items--section",
+                    "name": "item_header",
+                    "label": "Section Header",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "agenda--items--section--title",
+                            "name": "section_title",
+                            "label": "Section/Subsession Title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "agenda--items--section--_message",
+                            "name": "_message",
+                            "label": "",
+                            "type": "message",
+                            "message": "The following fields are optional. If this section has faculty (moderators, presenters, etc.), list them here along with the label their designation should be given."
+                        },
+                        {
+                            "key": "agenda--items--section--faculty_label",
+                            "name": "faculty_label",
+                            "label": "Faculty Label",
+                            "type": "text",
+                            "wrapper": {
+                                "width": 20
+                            }
+                        },
+                        {
+                            "key": "agenda--items--section--faculty_people",
+                            "name": "people",
+                            "label": "People",
+                            "type": "post_object",
+                            "post_type": ["speaker"],
+                            "multiple": 1,
+                            "allow_null": 1,
+                            "wrapper": {
+                                "width": 80
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "agenda--items--talk",
+                    "name": "item_talk",
+                    "label": "Talk/Lecture",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "agenda--items--talk--start_time",
+                            "name": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--talk--end_time",
+                            "name": "end_time",
+                            "label": "End Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--talk--title",
+                            "name": "talk_title",
+                            "label": "Talk Title",
+                            "type": "textarea",
+                            "rows": 2,
+                            "wrapper": {
+                                "width": 45
+                            }
+                        },
+                        {
+                            "key": "agenda--items--talk--speaker",
+                            "name": "speaker",
+                            "label": "Speaker",
+                            "type": "post_object",
+                            "post_type": ["speaker"],
+                            "multiple": 0,
+                            "allow_null": 1,
+                            "wrapper": {
+                                "width": 25
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "agenda--items--abstract",
+                    "name": "item_abstract",
+                    "label": "Abstract (Paper/Poster)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "agenda--items--abstract--start_time",
+                            "name": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--abstract--end_time",
+                            "name": "end_time",
+                            "label": "End Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--abstract--abstract",
+                            "name": "abstract",
+                            "label": "Abstract",
+                            "type": "post_object",
+                            "post_type": ["abstract"],
+                            "multiple": 0,
+                            "allow_null": 1,
+                            "wrapper": {
+                                "width": 70
+                            }
+                        },
+                        {
+                            "key": "agenda--items--abstract--presenter",
+                            "name": "presenter",
+                            "label": "Presenter",
+                            "type": "post_object",
+                            "post_type": ["author"],
+                            "multiple": 0,
+                            "allow_null": 1,
+                            "wrapper": {
+                                "width": 25
+                            }
+                        },
+                        {
+                            "key": "agenda--items--abstract--discussants",
+                            "name": "discussants",
+                            "label": "Discussants",
+                            "type": "post_object",
+                            "post_type": ["speaker"],
+                            "multiple": 1,
+                            "allow_null": 1,
+                            "wrapper": {
+                                "width": 75
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "agenda--items--break",
+                    "name": "item_break",
+                    "label": "Break/Adjourn",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "agenda--items--break--start_time",
+                            "name": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--break--end_time",
+                            "name": "end_time",
+                            "label": "End Time",
+                            "type": "text",
+                            "wrapper": {
+                                "class": "acf-field-time",
+                                "width": 15
+                            }
+                        },
+                        {
+                            "key": "agenda--items--break--type",
+                            "name": "break_type",
+                            "label": "Break Type",
+                            "type": "radio",
+                            "choices": {
+                                "break": "Break",
+                                "lunch": "Lunch",
+                                "adjourn": "Adjourn"
+                            },
+                            "layout": "horizontal",
+                            "wrapper": {
+                                "width": 70
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "session"
+            }
+        ]
+    ],
+    "menu_order": 30,
+    "position": "normal",
+    "private": 1
+}
