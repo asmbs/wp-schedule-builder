@@ -29,18 +29,10 @@ class SessionAgendaWriter extends SessionWriter
         $this->startTime = $item['start_time'];
         $this->endTime = $item['end_time'];
         
-        // Load the existing agenda items, if any.
-        // If there are:
-        //   See if there is already an item with the same start end end time.
-        //   If yes:
-        //     Replace that item with this one.
-        // Otherwise:
-        //   Add the item to the list.
-
         // Load the existing agenda if there is one
         $agenda = $this->getExistingAgenda($post);
         if (count($agenda) > 0) {
-            // If the agenda isn't empty, check to see if an item in this timeslot exists
+            // Filter out any items with the current item's time slot
             $agenda = array_filter($agenda, [$this, 'removeMatchingItems']);
         }
 
