@@ -205,8 +205,8 @@ class Session extends AbstractPostType
                 .'STR_TO_DATE(CONCAT(date_.meta_value, " ", end_.meta_value), "%2$s %3$s") %1$s, '
                 .'post_title ASC',
                 $order,
-                '%m/%d/%y',
-                '%H:%i'
+                '%Y/%m/%d',
+                '%H:%s'
             );
 
             return $newSql;

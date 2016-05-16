@@ -2,7 +2,9 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
+use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\AgendaItemTypeConverter;
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
+use ASMBS\ScheduleBuilder\Extension\Import\Writer\SessionAgendaWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
@@ -57,9 +59,12 @@ class SessionAgendaImporter extends AbstractImporter
         $workflow = new Workflow($reader, null, $this->getPageTitle());
 
         $commaSplitter = new CommaSplitter();
-        $workflow->addValueConverter('discussant_ids', $commaSplitter);
+        $workflow
+            ->addValueConverter('type', new AgendaItemTypeConverter())
+            ->addValueConverter('discussant_ids', $commaSplitter);
 
-        $workflow->addWriter($this->getDebugWriter());
+        $workflow->addWriter($this->getDebugWriter())
+            ->addWriter(new SessionAgendaWriter($this, $this->replace, false));
         
         return $workflow;
     }
