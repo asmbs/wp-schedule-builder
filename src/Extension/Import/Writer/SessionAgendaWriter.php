@@ -4,7 +4,6 @@ namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
 use ASMBS\ScheduleBuilder\PostType\Author;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
-use ASMBS\ScheduleBuilder\PostType\Session;
 use ASMBS\ScheduleBuilder\PostType\Speaker;
 
 
@@ -18,6 +17,11 @@ class SessionAgendaWriter extends SessionWriter
 
     /** @var  string */
     protected $endTime;
+
+    protected function buildPost(\WP_Post $post, array $item)
+    {
+        return $this;
+    }
 
     protected function buildMetaFields(\WP_Post $post, array $item)
     {
@@ -41,10 +45,17 @@ class SessionAgendaWriter extends SessionWriter
         }
 
         $agenda[] = $this->buildAgendaItem($post, $item);
-        $this->addMeta('agenda', $agenda);
-        
+        $this->addMeta('agenda--items', $agenda);
+
         return $this;
     }
+
+    protected function buildTerms(\WP_Post $post, array $item)
+    {
+        return $this;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Load existing agenda items if available, or return an empty array.
@@ -68,7 +79,7 @@ class SessionAgendaWriter extends SessionWriter
      */
     protected function removeMatchingItems(array $agendaItem)
     {
-        if ($this->startTime && $this->endTime) {
+        if ($this->startTime && $this->endTime && isset($agendaItem['start_time']) && isset($agendaItem['end_time'])) {
             if ($agendaItem['start_time'] == $this->startTime && $agendaItem['end_time'] == $this->endTime) {
                 return false;
             }
@@ -76,8 +87,6 @@ class SessionAgendaWriter extends SessionWriter
 
         return true;
     }
-    
-    
 
     /**
      * Build an agenda item layout array.
@@ -88,10 +97,10 @@ class SessionAgendaWriter extends SessionWriter
      */
     protected function buildAgendaItem(\WP_Post $post, array $item)
     {
-        $item = [
-            'fc_layout' => $item['type'],
-            'start_time' => $item['start_time'],
-            'end_time'   => $item['end_time'],
+        $agendaItem = [
+            'acf_fc_layout' => $item['type'],
+            'start_time'    => $item['start_time'],
+            'end_time'      => $item['end_time'],
         ];
 
         if ($item['type'] === 'item_talk') {
@@ -105,7 +114,7 @@ class SessionAgendaWriter extends SessionWriter
 
             $speakerID = $speaker ? $this->getPostID($speaker) : null;
 
-            $item = array_merge($item, [
+            $agendaItem = array_merge($agendaItem, [
                 'talk_title' => $item['talk_title'],
                 'speaker'    => $speakerID,
             ]);
@@ -125,7 +134,7 @@ class SessionAgendaWriter extends SessionWriter
                     'key'   => 'author_id',
                     'value' => $item['presenter_id'],
                 ],
-            ], true);
+            ], false);
             $presenter = $presenter ? $this->getPostID($presenter) : null;
 
             // Find discussants
@@ -138,13 +147,13 @@ class SessionAgendaWriter extends SessionWriter
             ], true);
             $discussants = count($discussants) > 0 ? array_map([$this, 'getPostID'], $discussants) : null;
 
-            $item = array_merge($item, [
+            $agendaItem = array_merge($agendaItem, [
                 'abstract'    => $abstract,
                 'presenter'   => $presenter,
                 'discussants' => $discussants,
             ]);
         }
 
-        return $item;
+        return $agendaItem;
     }
 }

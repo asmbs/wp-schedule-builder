@@ -63,8 +63,7 @@ class SessionAgendaImporter extends AbstractImporter
             ->addValueConverter('type', new AgendaItemTypeConverter())
             ->addValueConverter('discussant_ids', $commaSplitter);
 
-        $workflow->addWriter($this->getDebugWriter())
-            ->addWriter(new SessionAgendaWriter($this, $this->replace, false));
+        $workflow->addWriter(new SessionAgendaWriter($this, true, false));
         
         return $workflow;
     }
