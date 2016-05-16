@@ -211,7 +211,11 @@ abstract class AbstractPostWriter extends AbstractWriter
             }
 
             if (count($IDs) > 0) {
-                wp_set_object_terms($post->ID, $IDs, $taxonomy);
+                // Set terms
+                $t = wp_set_post_terms($post->ID, $IDs, $taxonomy);
+
+                // If a corresponding ACF taxonomy field exists, populate it
+                $this->syncTaxonomyMeta($post, $t, $taxonomy);
             }
         }
 
@@ -238,7 +242,44 @@ abstract class AbstractPostWriter extends AbstractWriter
             return (int) $new['term_id'];
         }
 
-        $this->throwException(sprintf('The "%s" term could not be located or inserted.', $term));
+        return $this->throwException(sprintf('The "%s" term could not be located or inserted.', $term));
+    }
+
+    /**
+     * Synchronize ACF field metadata for taxonomy fields.
+     *
+     * ACF's taxonomy fields set term relationships in the same way the core taxonomy API works, but it also
+     * saves those term relationships in post meta fields -- the latter is what ACF uses to set the correct values
+     * in the post editor. Calling this method during {@see saveTerms()} will ensure that if ACF is managing those
+     * taxonomies, the corresponding post fields are updated.
+     *
+     * @param   \WP_Post  $post
+     * @param   array     $terms
+     * @param   string    $taxonomy
+     * @return  $this
+     */
+    protected function syncTaxonomyMeta(\WP_Post $post, array $terms, $taxonomy)
+    {
+        // Build a list of possible field keys
+        $selectors = [
+            sprintf('taxonomy--%s', str_replace('-', '_', $taxonomy)),
+            sprintf('taxonomy--%s', $taxonomy),
+        ];
+
+        foreach ($selectors as &$selector) {
+            // Try to find a field definition for the selector
+            $field = get_field_object($selector, $post->ID);
+
+            if (is_array($field) && $field['type'] === 'taxonomy') {
+                // If the field is defined and is definitely a taxonomy field, set the field
+                // for this post
+                update_field($field['key'], $terms, $post->ID);
+
+                break;
+            }
+        }
+
+        return $this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
