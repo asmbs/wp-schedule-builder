@@ -82,7 +82,7 @@ abstract class AbstractImporter implements ImporterInterface
             $this->addNotice(sprintf('Successfully imported %s records.', $succeeded), 'success');
         }
         if ($failed > 0) {
-            $this->addNotice(sprintf('%s records contained errors and were skipped.'), 'warning');
+            $this->addNotice(sprintf('%s records contained errors and were skipped.', $failed), 'warning');
         }
     }
 
