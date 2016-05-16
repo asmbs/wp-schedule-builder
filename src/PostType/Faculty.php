@@ -96,7 +96,7 @@ abstract class Faculty extends AbstractPostType
         );
 
         // Update the slug
-        $newData['post_name'] = null;
+        $newData['post_name'] = '';
 
         return $newData;
     }
