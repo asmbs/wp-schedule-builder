@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^5.5",
-        "asmbs-wp-plugin/acf-pro": "^5.3",
         "ddeboer/data-import": "@stable"
     },
     "autoload": {
