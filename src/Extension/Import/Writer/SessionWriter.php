@@ -47,17 +47,17 @@ class SessionWriter extends AbstractPostWriter
         $this->addMeta('session_id', $item['session_id']);
         
         // Date & time
-        $this->addMeta('date', $item['date'])
-            ->addMeta('start_time', $item['start_time'])
-            ->addMeta('end_time', $item['end_time']);
+        $this->addMeta('scheduling--date', $item['date'])
+            ->addMeta('scheduling--start', $item['start_time'])
+            ->addMeta('scheduling--end', $item['end_time']);
 
         // Venue & room
-        $this->addMeta('venue', $item['venue'])
-            ->addMeta('room', $item['room']);
+        $this->addMeta('location--venue', $item['venue'])
+            ->addMeta('location--room', $item['room']);
 
         // Credits
-        $this->addMeta('credits_available', $item['credits_available'])
-            ->addMeta('credit_types', $item['credit_types']);
+        $this->addMeta('credits--available', $item['credits_available'])
+            ->addMeta('credits--types', $item['credit_types']);
 
         return $this;
     }
