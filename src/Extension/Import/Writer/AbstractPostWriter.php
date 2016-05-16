@@ -62,6 +62,10 @@ abstract class AbstractPostWriter extends AbstractWriter
             return $this;
         }
 
+        // Clear meta field and term queues
+        $this->metaFields = [];
+        $this->terms = [];
+
         // Build the post and queue meta fields and terms
         $this->buildPost($post, $item)
             ->buildMetaFields($item)
