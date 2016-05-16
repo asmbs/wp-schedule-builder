@@ -37,8 +37,11 @@ class Loader
         Extension\Import\SpeakerImporter::load();
         Extension\Import\ResearchAbstractImporter::load();
         Extension\Import\AuthorImporter::load();
-
+        
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
+        
+        // Register activation hook
+        register_activation_hook(self::$root . '/schedule-builder.php', [$this, 'activate']);
     }
 
     /**
@@ -48,5 +51,14 @@ class Loader
     {
         wp_enqueue_style('sb/admin_css', AssetManager::getUrl('styles/admin.min.css'), [], null);
         wp_enqueue_script('sb/main_js', AssetManager::getUrl('scripts/main.min.js'), ['jquery'], null);
+    }
+
+    /**
+     * Activation hook.
+     */
+    public function activate()
+    {
+        do_action('sb/activate');
+        flush_rewrite_rules();
     }
 }
