@@ -3,6 +3,7 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
+use ASMBS\ScheduleBuilder\Extension\Import\Writer\SessionWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Workflow;
@@ -67,7 +68,7 @@ class SessionImporter extends AbstractImporter
             ->addValueConverter('tags', $commaSplitter);
         
         // Add writer
-        $workflow->addWriter($this->getDebugWriter());
+        $workflow->addWriter(new SessionWriter($this, $this->replace));
 
         return $workflow;
     }
