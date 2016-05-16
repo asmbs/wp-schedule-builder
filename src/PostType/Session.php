@@ -56,9 +56,9 @@ class Session extends AbstractPostType
         parent::__construct();
 
         // Customize post manager columns
-        add_filter(sprintf('manage_edit-%s_columns', self::SLUG), [$this, 'setPostTableColumns']);
-        add_filter(sprintf('manage_edit-%s_sortable_columns', self::SLUG), [$this, 'setSortableColumns']);
-        add_action(sprintf('manage_%s_posts_custom_column', self::SLUG), [$this, 'renderColumn']);
+        add_filter(sprintf('manage_edit-%s_columns', static::SLUG), [$this, 'setPostTableColumns']);
+        add_filter(sprintf('manage_edit-%s_sortable_columns', static::SLUG), [$this, 'setSortableColumns']);
+        add_action(sprintf('manage_%s_posts_custom_column', static::SLUG), [$this, 'renderColumn']);
 
         // Handle custom post manager ordering
         add_filter('posts_join_paged', [$this, 'getJoinSql'], 10, 2);
