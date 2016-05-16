@@ -8,9 +8,9 @@ namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
  */
 abstract class FacultyWriter extends AbstractPostWriter
 {
-    public function findExisting(array $item)
+    public function queryPosts(array $item)
     {
-        $posts = get_posts([
+        return get_posts([
             'post_type'   => $this->getPostType(),
             'post_status' => 'any',
             'meta_query'  => [
@@ -20,12 +20,6 @@ abstract class FacultyWriter extends AbstractPostWriter
                 ],
             ],
         ]);
-
-        if (count($posts) > 0) {
-            return reset($posts);
-        }
-
-        return false;
     }
 
     public function buildPost(\WP_Post $post, array $item)
