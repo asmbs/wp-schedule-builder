@@ -8,7 +8,7 @@ namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
  */
 abstract class FacultyWriter extends AbstractPostWriter
 {
-    public function queryPosts(array $item)
+    protected function queryPosts(array $item)
     {
         return get_posts([
             'post_type'   => $this->getPostType(),
@@ -22,12 +22,12 @@ abstract class FacultyWriter extends AbstractPostWriter
         ]);
     }
 
-    public function buildPost(\WP_Post $post, array $item)
+    protected function buildPost(\WP_Post $post, array $item)
     {
         return parent::buildPost($post, $item);
     }
 
-    public function buildMetaFields(array $item)
+    protected function buildMetaFields(array $item)
     {
         $this->addMeta($this->getIDKey(), $item['id'])
             ->addMeta('prefix', $item['prefix'])
@@ -46,7 +46,7 @@ abstract class FacultyWriter extends AbstractPostWriter
         return $this;
     }
 
-    public function buildTerms(array $item)
+    protected function buildTerms(array $item)
     {
         return $this;
     }

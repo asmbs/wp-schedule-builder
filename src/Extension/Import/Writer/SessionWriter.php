@@ -32,7 +32,7 @@ class SessionWriter extends AbstractPostWriter
         ]);
     }
 
-    public function buildPost(\WP_Post $post, array $item)
+    protected function buildPost(\WP_Post $post, array $item)
     {
         parent::buildPost($post, $item);
 
@@ -42,7 +42,7 @@ class SessionWriter extends AbstractPostWriter
         return $this;
     }
 
-    public function buildMetaFields(array $item)
+    protected function buildMetaFields(array $item)
     {
         $this->addMeta('session_id', $item['session_id']);
         
@@ -62,7 +62,7 @@ class SessionWriter extends AbstractPostWriter
         return $this;
     }
 
-    public function buildTerms(array $item)
+    protected function buildTerms(array $item)
     {
         $this->terms = [];
 

@@ -15,7 +15,7 @@ class AuthorWriter extends FacultyWriter
         return Author::SLUG;
     }
 
-    public function getIDKey()
+    protected function getIDKey()
     {
         return 'author_id';
     }

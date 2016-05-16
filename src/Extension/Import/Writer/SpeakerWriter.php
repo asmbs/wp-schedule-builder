@@ -14,7 +14,7 @@ class SpeakerWriter extends FacultyWriter
         return Speaker::SLUG;
     }
 
-    public function getIDKey()
+    protected function getIDKey()
     {
         return 'speaker_id';
     }
