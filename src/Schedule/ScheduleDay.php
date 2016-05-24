@@ -37,6 +37,16 @@ class ScheduleDay
     }
 
     /**
+     * Count the number of sessions available on this day.
+     * 
+     * @return  int
+     */
+    public function countSessions()
+    {
+        return count($this->sessions);
+    }
+
+    /**
      * Load (lazily) the starting time of the earliest session of
      * the current day, even if that session has been filtered out
      * by search criteria.
