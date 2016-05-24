@@ -326,6 +326,27 @@ class Session extends AbstractModel
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Get the short name for a venue if there is one.
+     * 
+     * @return  string
+     */
+    public function getVenueShortname()
+    {
+        $venues = get_field('locations', 'sb_options');
+        $selectedVenue = $this->getVenue();
+
+        foreach ($venues as $venue) {
+            if (isset($venue['location_name']) && $venue['location_name'] === $selectedVenue) {
+                if (isset($venue['location_shortname'])) {
+                    return $venue['location_shortname'];
+                }
+            }
+        }
+
+        return $selectedVenue;
+    }
+
+    /**
      * @return  string[]
      */
     protected function getProgress()
