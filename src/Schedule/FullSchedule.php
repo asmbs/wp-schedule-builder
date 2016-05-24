@@ -164,6 +164,18 @@ class FullSchedule
         return strcasecmp($a->getTitle(), $b->getTitle());
     }
 
+    /**
+     * Reduction callback to add the session count for the given day to the previous count.
+     *
+     * @param   int          $prevCount
+     * @param   ScheduleDay  $day
+     * @return  mixed
+     */
+    protected function appendSessionCount($prevCount, ScheduleDay $day)
+    {
+        return $prevCount + $day->countSessions();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -174,5 +186,15 @@ class FullSchedule
     public function getDays()
     {
         return $this->days;
+    }
+
+    /**
+     * Count the total number of sessions available for _all_ days.
+     *
+     * @return  int
+     */
+    public function countSessions()
+    {
+        return array_reduce($this->days, [$this, 'appendSessionCount'], 0);
     }
 }
