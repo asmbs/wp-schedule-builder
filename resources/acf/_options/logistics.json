@@ -48,6 +48,12 @@
                     "type": "text"
                 },
                 {
+                    "key": "logistics--locations--shortname",
+                    "name": "location_shortname",
+                    "label": "Short Name",
+                    "type": "text"
+                },
+                {
                     "key": "logistics--locations--rooms",
                     "name": "location_rooms",
                     "label": "Rooms",
