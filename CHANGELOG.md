@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.2.0 (current)
+## 1.3.0 (current)
+#### Updates
+- Added the ability to round day start/end times to the appropriate nearest hour (_floor_ for start time, _ceiling_ for end time).
+- Updated the default string format for day start/end methods to return the time instead of the date.
+
+### 1.2.0
 #### Updates
 - Added counting methods to both the full-schedule listing and per-day listings.
 
