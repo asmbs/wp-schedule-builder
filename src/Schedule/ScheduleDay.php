@@ -20,7 +20,13 @@ class ScheduleDay
     protected $start;
 
     /** @var  \DateTime */
+    protected $startRounded;
+
+    /** @var  \DateTime */
     protected $end;
+
+    /** @var  \DateTime */
+    protected $endRounded;
 
     public function __construct($dateString, array $sessions)
     {
@@ -52,12 +58,21 @@ class ScheduleDay
      * by search criteria.
      *
      * @param   string  $format
+     * @param   bool    $round
      * @return  \DateTime|null|string
      */
-    public function getStart($format = 'n/j/y')
+    public function getStart($format = 'H:i:s', $round = false)
     {
         // Return if existing
         if ($this->start) {
+            if ($round) {
+                if (!$this->startRounded) {
+                    $this->startRounded = $this->roundTime($this->start);
+                }
+
+                return ($format === false) ? $this->startRounded : $this->startRounded->format($format);
+            }
+
             return ($format === false) ? $this->start : $this->start->format($format);
         }
 
@@ -74,6 +89,12 @@ class ScheduleDay
         try {
             $this->start = new \DateTime($string);
 
+            if ($round) {
+                $this->startRounded = $this->roundTime($this->start);
+
+                return ($format === false) ? $this->startRounded : $this->startRounded->format($format);
+            }
+
             return ($format === false) ? $this->start : $this->start->format($format);
         } catch (\Exception $e) {
             return $this->start = null;
@@ -86,12 +107,21 @@ class ScheduleDay
      * by search criteria.
      *
      * @param   string  $format
+     * @param   bool    $round
      * @return  \DateTime|null|string
      */
-    public function getEnd($format = 'n/j/y')
+    public function getEnd($format = 'H:i:s', $round = false)
     {
         // Return if existing
         if ($this->end) {
+            if ($round) {
+                if (!$this->endRounded) {
+                    $this->endRounded = $this->roundTime($this->end, true);
+                }
+
+                return ($format === false) ? $this->endRounded : $this->endRounded->format($format);
+            }
+
             return ($format === false) ? $this->end : $this->end->format($format);
         }
 
@@ -108,9 +138,35 @@ class ScheduleDay
         try {
             $this->end = new \DateTime($string);
 
+            if ($round) {
+                $this->endRounded = $this->roundTime($this->end, true);
+
+                return ($format === false) ? $this->endRounded : $this->endRounded->format($format);
+            }
+
             return ($format === false) ? $this->end : $this->end->format($format);
         } catch (\Exception $e) {
             return $this->end = null;
         }
+    }
+
+    /**
+     * Round the time of a DateTime up or down to the nearest hour.
+     *
+     * @param   \DateTime  $orig
+     * @param   bool       $up
+     * @return  \DateTime
+     */
+    protected function roundTime(\DateTime $orig, $up = false)
+    {
+        $time = explode(':', $orig->format('H:i:s'));
+        if ($up && $time[1] > 0) {
+            $time[0]++;
+        }
+
+        $new = clone $orig;
+        $new->setTime($time[0], 0);
+
+        return $new;
     }
 }
