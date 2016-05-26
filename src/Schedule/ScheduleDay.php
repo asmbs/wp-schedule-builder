@@ -3,6 +3,7 @@
 namespace ASMBS\ScheduleBuilder\Schedule;
 
 use ASMBS\ScheduleBuilder\Model\Session;
+use ASMBS\ScheduleBuilder\PostType\Session as SessionPostType;
 
 
 /**
@@ -81,9 +82,11 @@ class ScheduleDay
         $string = $wpdb->get_var($wpdb->prepare(
             "SELECT MIN(STR_TO_DATE(CONCAT(d_.meta_value, ' ', s_.meta_value), '%%Y/%%m/%%d %%H:%%i')) "
             ."FROM {$wpdb->postmeta} d_ "
-            ."JOIN {$wpdb->postmeta} s_ ON s_.post_id = d_.post_id AND s_.meta_key = 'start_time' "
-            ."WHERE d_.meta_value = '%s'",
-            $this->dateString
+            ."JOIN {$wpdb->postmeta} s_ ON s_.post_id = d_.post_id AND s_.meta_key = 'start_time' AND s_.meta_value <> '' "
+            ."JOIN {$wpdb->posts} p_ ON p_.ID = s_.post_id AND p_.post_type = '%2\$s' AND p_.status = 'publish' "
+            ."WHERE d_.meta_value = '%1\$s'",
+            $this->dateString,
+            SessionPostType::SLUG
         ));
 
         try {
@@ -130,9 +133,11 @@ class ScheduleDay
         $string = $wpdb->get_var($wpdb->prepare(
             "SELECT MAX(STR_TO_DATE(CONCAT(d_.meta_value, ' ', e_.meta_value), '%%Y/%%m/%%d %%H:%%i')) "
             ."FROM {$wpdb->postmeta} d_ "
-            ."JOIN {$wpdb->postmeta} e_ ON e_.post_id = d_.post_id AND e_.meta_key = 'end_time' "
-            ."WHERE d_.meta_value = '%s'",
-            $this->dateString
+            ."JOIN {$wpdb->postmeta} e_ ON e_.post_id = d_.post_id AND e_.meta_key = 'end_time' AND e_.meta_value <> '' "
+            ."JOIN {$wpdb->posts} p_ ON p_.ID = e_.post_id AND p_.post_type = '%2\$s' AND p_.status = 'publish' "
+            ."WHERE d_.meta_value = '%1\$s'",
+            $this->dateString,
+            SessionPostType::SLUG
         ));
 
         try {

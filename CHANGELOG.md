@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.3.2 (current)
+## 1.3.3 (current)
+#### Bugfixes
+- Fixed a [strict-standards error](https://github.com/asmbs/wp-schedule-builder/issues/1) in variable passing.
+- Modified the day start/end time calculation queries to [omit blank and unpublished results](https://github.com/asmbs/wp-schedule-builder/issues/2).
+
+### 1.3.2
 #### Bugfixes
 - Added checks to handle blank dates and times in sessions and their agendas.
 
