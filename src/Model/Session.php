@@ -140,7 +140,7 @@ class Session extends AbstractModel
             return ($format === false) ? $datetime : $datetime->format($format);
         }
 
-        return null;
+        return 'TBA';
     }
 
     /**
@@ -163,7 +163,7 @@ class Session extends AbstractModel
             return ($format === false) ? $datetime : $datetime->format($format);
         }
 
-        return null;
+        return 'TBA';
     }
 
     /**
