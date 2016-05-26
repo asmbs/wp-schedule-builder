@@ -1,6 +1,13 @@
 # Changelog
 
-## 1.3.0 (current)
+## 1.3.1 (current)
+#### Bugfixes
+- The import writers' `addMeta` and `addTerm` methods now ignore any empty values.
+
+#### Updates
+- When errors occur during an import, up to 10 of those errors will be listed on the import results page.
+
+### 1.3.0
 #### Updates
 - Added the ability to round day start/end times to the appropriate nearest hour (_floor_ for start time, _ceiling_ for end time).
 - Updated the default string format for day start/end methods to return the time instead of the date.
