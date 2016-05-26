@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.3.1 (current)
+## 1.3.2 (current)
+#### Bugfixes
+- Added checks to handle blank dates and times in sessions and their agendas.
+
+### 1.3.1
 #### Bugfixes
 - The import writers' `addMeta` and `addTerm` methods now ignore any empty values.
 
