@@ -242,6 +242,10 @@ abstract class AbstractModel implements ModelInterface
     protected function loadFieldAsDateTime($dateField, $timeField = null)
     {
         $str = get_field($dateField, $this->postID);
+        if ($str == 'tba') {
+            return false;
+        }
+
         if ($timeField) {
             $str .= ' '. get_field($timeField, $this->postID);
         }
