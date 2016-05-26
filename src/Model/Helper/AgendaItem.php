@@ -72,12 +72,14 @@ class AgendaItem
         $sessionDate = $this->session->getDate('m/d/Y');
         $startTime = get_sub_field('start_time');
         $endTime = get_sub_field('end_time');
-        
-        try {
-            $this->start = new \DateTime($sessionDate .' '. $startTime);
-            $this->end = new \DateTime($sessionDate .' '. $endTime);
-        } catch (\Exception $e) {}
-        
+
+        if ($sessionDate != 'TBA' && !empty($startTime)) {
+            try {
+                $this->start = new \DateTime($sessionDate .' '. $startTime);
+                $this->end = new \DateTime($sessionDate .' '. $endTime);
+            } catch (\Exception $e) {}
+        }
+
         return $this;
     }
 
@@ -172,6 +174,10 @@ class AgendaItem
      */
     public function getStart($format = 'g:ia')
     {
+        if (!$this->start) {
+            return 'TBA';
+        }
+
         return ($format === false) ? $this->start : $this->start->format($format);
     }
 
@@ -181,6 +187,10 @@ class AgendaItem
      */
     public function getEnd($format = 'g:ia')
     {
+        if (!$this->end) {
+            return 'TBA';
+        }
+        
         return ($format === false) ? $this->end : $this->end->format($format);
     }
 
