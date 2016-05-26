@@ -150,10 +150,14 @@ class FullSchedule
             3 => ['TOS'],
             4 => ['ASMBS', 'TOS']
         ];
-        sort($aSocieties = $a->getSocieties('name'));
-        sort($bSocieties = $b->getSocieties('name'));
+
+        $aSocieties = $a->getSocieties('name');
+        $bSocieties = $b->getSocieties('name');
+        sort($aSocieties);
+        sort($bSocieties);
         $aValue = (int) array_search($aSocieties, $societyMap);
         $bValue = (int) array_search($bSocieties, $societyMap);
+
         if (($societyCmp = $aValue - $bValue) !== 0) {
             return $societyCmp;
         }
