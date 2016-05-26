@@ -1,6 +1,16 @@
 # Changelog
 
-## 1.3.3 (current)
+## 1.3.4 (current)
+
+Literally, three minutes. Come on.
+
+#### Bugfixes
+- Fixed an error in the start/end time query modifications from 1.3.3.
+
+#### Updates
+- Added composer version badges to readme, because why not.
+
+### 1.3.3
 #### Bugfixes
 - Fixed a [strict-standards error](https://github.com/asmbs/wp-schedule-builder/issues/1) in variable passing.
 - Modified the day start/end time calculation queries to [omit blank and unpublished results](https://github.com/asmbs/wp-schedule-builder/issues/2).

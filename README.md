@@ -1,5 +1,8 @@
 # Schedule Builder
 
+[![Latest Stable Version](https://poser.pugx.org/asmbs/wp-schedule-builder/v/stable)](https://packagist.org/packages/asmbs/wp-schedule-builder)
+[![Latest Unstable Version](https://poser.pugx.org/asmbs/wp-schedule-builder/v/unstable)](https://packagist.org/packages/asmbs/wp-schedule-builder)
+
 ## Requirements
 
 - PHP 5.5+
