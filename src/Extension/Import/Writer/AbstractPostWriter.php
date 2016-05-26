@@ -137,7 +137,9 @@ abstract class AbstractPostWriter extends AbstractWriter
      */
     final protected function addMeta($fieldName, $value)
     {
-        $this->metaFields[$fieldName] = $value;
+        if (!empty($value)) {
+            $this->metaFields[$fieldName] = $value;
+        }
 
         return $this;
     }
@@ -151,8 +153,11 @@ abstract class AbstractPostWriter extends AbstractWriter
      */
     final protected function addTerm($taxonomy, $term)
     {
-        foreach ((array) $term as $t) {
-            $this->terms[$taxonomy][] = $t;
+        $terms = array_filter((array) $term);
+        if ($terms) {
+            foreach ($terms as $t) {
+                $this->terms[$taxonomy][] = $t;
+            }
         }
 
         return $this;
