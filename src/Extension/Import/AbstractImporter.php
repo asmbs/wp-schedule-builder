@@ -1,6 +1,7 @@
 <?php
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
+use Ddeboer\DataImport\Exception\WriterException;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Reader\ReaderInterface;
 use Ddeboer\DataImport\Result;
@@ -82,7 +83,35 @@ abstract class AbstractImporter implements ImporterInterface
             $this->addNotice(sprintf('Successfully imported %s records.', $succeeded), 'success');
         }
         if ($failed > 0) {
-            $this->addNotice(sprintf('%s records contained errors and were skipped.', $failed), 'warning');
+            $this->addNotice(sprintf('%s records contained errors and were skipped.', $failed), 'error');
+
+            // Format exception messages for display
+            $messages = [];
+            $i = 0;
+
+            /**
+             * @var int             $row
+             * @var WriterException $exception
+             */
+            foreach ($this->result->getExceptions() as $row => $exception) {
+                $messages[] = sprintf('<b>Row #%s:</b> %s', $row, $exception->getMessage());
+                $i++;
+
+                if ($i === 10) {
+                    // If there are more than 10 errors recorded, stop here and add a line indicating
+                    // that there are more errors that haven't been shown
+                    $remainingErrors = $this->result->getErrorCount() - $i;
+                    $messages[] = sprintf('<i>...and %s more errors</i>', $remainingErrors);
+
+                    break;
+                }
+            }
+
+            // Add an additional notice to display up to 10 of the logged import errors
+            $this->addNotice(sprintf(
+                '<p><b>Errors:</b></p><ul><li>%s</li></ul>',
+                implode('</li><li>', $messages)
+            ), 'warning');
         }
     }
 
