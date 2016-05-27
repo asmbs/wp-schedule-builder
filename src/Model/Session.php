@@ -360,7 +360,7 @@ class Session extends AbstractModel
     protected function getProgressChoices()
     {
         return $this->lazyLoad('progressChoices', function($ID) {
-            $field = get_field_object('progress', $ID);
+            $field = get_field_object('staff_use--progress', $ID);
             if (isset($field['choices'])) {
                 return $field['choices'];
             }
