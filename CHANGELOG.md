@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.3.4 (current)
+## 1.3.5 (current)
+#### Bugfixes
+- Fixed a field reference error causing sessions with _no_ progress markers selected to be marked as complete.
+
+### 1.3.4
 
 Literally, three minutes. Come on.
 
