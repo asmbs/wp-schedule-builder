@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.3.6 (current)
+## 1.4.0 (current)
+#### Updates
+- Separated session taxonomy filters in the schedule grid builder to allow more complex query logic—specifically, ANDing societies and ORing other terms.
+
+### 1.3.6
 #### Bugfixes
 - Fixed a few places where missing or invalid session date/time data slipped through the cracks and caused crashes.
 
