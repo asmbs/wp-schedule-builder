@@ -4,6 +4,9 @@ namespace ASMBS\ScheduleBuilder\Schedule;
 
 use ASMBS\ScheduleBuilder\PostType\Session as SessionPostType;
 use ASMBS\ScheduleBuilder\Model\Session as SessionModel;
+use ASMBS\ScheduleBuilder\Taxonomy\SessionTag;
+use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
+use ASMBS\ScheduleBuilder\Taxonomy\Society;
 
 
 /**
@@ -17,11 +20,14 @@ class FullSchedule
     /** @var  string[] */
     protected $keywords = [];
 
-    /** @var  array */
-    protected $terms = [];
+    /** @var  string[] */
+    protected $sessionTypes = [];
 
-    public function __construct()
-    {}
+    /** @var  string[] */
+    protected $sessionTags = [];
+
+    /** @var  string[] */
+    protected $societies = [];
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -39,17 +45,34 @@ class FullSchedule
     }
 
     /**
-     * Add a term filter.
-     *
-     * @param   string        $taxonomy
-     * @param   string|array  $term
+     * @param   string  $type
      * @return  $this
      */
-    public function addTerm($taxonomy, $term)
+    public function addSessionType($type)
     {
-        foreach ((array) $term as $t) {
-            $this->terms[$taxonomy][] = $t;
-        }
+        $this->sessionTypes[] = $type;
+
+        return $this;
+    }
+
+    /**
+     * @param   string  $tag
+     * @return  $this
+     */
+    public function addSessionTag($tag)
+    {
+        $this->sessionTags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * @param   string  $society
+     * @return  $this
+     */
+    public function addSociety($society)
+    {
+        $this->societies[] = $society;
 
         return $this;
     }
@@ -91,13 +114,42 @@ class FullSchedule
         // Apply keyword query filters
         $queryArgs['s'] = implode(' ', $this->keywords);
 
-        // Apply taxonomy query filters
-        foreach ($this->terms as $taxonomy => $terms) {
+        // Apply session type filters (ORed)
+        if (count($this->getSessionTypes()) > 0) {
             $queryArgs['tax_query'][] = [
-                'taxonomy' => $taxonomy,
+                'taxonomy' => SessionType::SLUG,
                 'field'    => 'slug',
-                'terms'    => $terms,
+                'terms'    => $this->getSessionTypes(),
             ];
+        }
+
+        // Apply session tag filters (ORed)
+        if (count($this->getSessionTags()) > 0) {
+            $queryArgs['tax_query'][] = [
+                'taxonomy' => SessionTag::SLUG,
+                'field'    => 'slug',
+                'terms'    => $this->getSessionTags(),
+            ];
+        }
+
+        // Apply society filters (ANDed)
+        if (count($this->getSocieties()) > 0) {
+            $taxQuery = [
+                'relation' => 'AND',
+            ];
+            foreach ($this->getSocieties() as $society) {
+                $taxQuery[] = [
+                    'taxonomy' => Society::SLUG,
+                    'field'    => 'slug',
+                    'terms'    => $society,
+                ];
+            }
+
+            $queryArgs['tax_query'][] = $taxQuery;
+        }
+
+        if (isset($queryArgs['tax_query'])) {
+            $queryArgs['tax_query']['relation'] = 'AND';
         }
 
         // Run post query
@@ -109,13 +161,6 @@ class FullSchedule
             foreach ($posts as $post)
             {
                 $session = new SessionModel($post);
-                if (in_array('TBA', [
-                    $session->getStartTime(false),
-                    $session->getEndTime(false),
-                ], true)) {
-                    continue;
-                }
-
                 $days[$session->getDate('Y/m/d')][] = $session;
             }
 
@@ -169,8 +214,6 @@ class FullSchedule
             return $societyCmp;
         }
 
-        // TODO: track
-
         // Title (asc)
         return strcasecmp($a->getTitle(), $b->getTitle());
     }
@@ -207,5 +250,52 @@ class FullSchedule
     public function countSessions()
     {
         return array_reduce($this->days, [$this, 'appendSessionCount'], 0);
+    }
+
+    /**
+     * @return  array
+     */
+    public function getKeywords()
+    {
+        return array_values(array_unique($this->keywords));
+    }
+
+    /**
+     * @return  array
+     */
+    public function getSessionTypes()
+    {
+        return array_values(array_unique($this->sessionTypes));
+    }
+
+    /**
+     * @return  array
+     */
+    public function getSessionTags()
+    {
+        return array_values(array_unique($this->sessionTags));
+    }
+
+    /**
+     * @return  array
+     */
+    public function getSocieties()
+    {
+        return array_values(array_unique($this->societies));
+    }
+
+    /**
+     * Determine whether any filters have been applied to this schedule listing.
+     *
+     * @return  bool
+     */
+    public function hasFilters()
+    {
+        return array_sum([
+            count($this->keywords),
+            count($this->sessionTypes),
+            count($this->sessionTags),
+            count($this->societies),
+        ]) > 0;
     }
 }
