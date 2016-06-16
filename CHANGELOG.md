@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.3.5 (current)
+## 1.3.6 (current)
+#### Bugfixes
+- Fixed a few places where missing or invalid session date/time data slipped through the cracks and caused crashes.
+
+### 1.3.5
 #### Bugfixes
 - Fixed a field reference error causing sessions with _no_ progress markers selected to be marked as complete.
 
