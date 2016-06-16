@@ -124,15 +124,21 @@ class Session extends AbstractPostType
                 $end = get_field('end_time');
                 if ($date && $start && $end) {
                     $tz = new \DateTimeZone('America/Chicago');
-                    $start = new \DateTime($date .' '. $start, $tz);
-                    $end = new \DateTime($date .' '. $end, $tz);
 
-                    printf(
-                        '<b>%s</b><br>%s - %s',
-                        $start->format('n/j (l)'),
-                        $start->format('g:ia'),
-                        $end->format('g:ia')
-                    );
+                    try {
+                        $start = @new \DateTime($date .' '. $start, $tz);
+                        $end = @new \DateTime($date .' '. $end, $tz);
+
+                        printf(
+                            '<b>%s</b><br>%s - %s',
+                            $start->format('n/j (l)'),
+                            $start->format('g:ia'),
+                            $end->format('g:ia')
+                        );
+                    } catch (\Exception $e) {
+                        printf('<b style="color:#cc0000">%s</b>', 'Error!');
+                    }
+
                 } else {
                     printf('<b>%s</b>', 'TBA');
                 }
