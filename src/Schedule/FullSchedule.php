@@ -109,6 +109,13 @@ class FullSchedule
             foreach ($posts as $post)
             {
                 $session = new SessionModel($post);
+                if (in_array('TBA', [
+                    $session->getStartTime(false),
+                    $session->getEndTime(false),
+                ], true)) {
+                    continue;
+                }
+
                 $days[$session->getDate('Y/m/d')][] = $session;
             }
 
