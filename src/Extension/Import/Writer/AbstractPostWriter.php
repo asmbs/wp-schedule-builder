@@ -82,6 +82,9 @@ abstract class AbstractPostWriter extends AbstractWriter
         $this->saveMetaFields($post)
             ->saveTerms($post);
 
+        // Flush the cache
+        wp_cache_flush();
+        
         return $this;
     }
 
