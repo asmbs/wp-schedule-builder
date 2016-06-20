@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.4.0 (current)
+## 1.4.1 (current)
+#### Bugfixes
+- Added a call to `wp_cache_flush()` to the import workflow to dump the cache after every record write. This solves an issue with ACF loading a stale field value from the cache instead of reading from the database.
+
+### 1.4.0
 #### Updates
 - Separated session taxonomy filters in the schedule grid builder to allow more complex query logic—specifically, ANDing societies and ORing other terms.
 
