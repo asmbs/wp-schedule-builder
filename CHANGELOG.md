@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.4.1 (current)
+## 1.4.2 (current)
+- Set the data-import version to squash bugs
+
+### 1.4.1
 #### Bugfixes
 - Added a call to `wp_cache_flush()` to the import workflow to dump the cache after every record write. This solves an issue with ACF loading a stale field value from the cache instead of reading from the database.
 
