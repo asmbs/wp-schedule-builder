@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^5.5",
-        "ddeboer/data-import": "@stable"
+        "ddeboer/data-import": "0.18.0"
     },
     "autoload": {
         "psr-4": {
