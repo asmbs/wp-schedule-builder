@@ -1,23 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4e36841aaeb6418f246d96192ee5073",
-    "content-hash": "1ac5f31954a7071a2402a582daa5c6a3",
+    "hash": "6f001e5cdab19906843ccb292b0bde26",
     "packages": [
-        {
-            "name": "asmbs-wp-plugin/acf-pro",
-            "version": "5.3.7",
-            "dist": {
-                "type": "tar",
-                "url": "http://packagist.asmbs.org/dist/asmbs-wp-plugin-acf-pro-5.3.7.tar",
-                "reference": null,
-                "shasum": "bedc88e2bc9c90382821b41ee24045f172caaff3"
-            },
-            "type": "wordpress-plugin"
-        },
         {
             "name": "ddeboer/data-import",
             "version": "0.18.0",
@@ -129,11 +117,8 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "ddeboer/data-import": 0
-    },
+    "stability-flags": [],
     "prefer-stable": false,
-    "prefer-lowest": false,
     "platform": {
         "php": "^5.5"
     },
