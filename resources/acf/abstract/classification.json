@@ -3,7 +3,7 @@
     "title": "Classification",
     "fields": [
         {
-            "key": "taxonomy--type",
+            "key": "taxonomy--abstract-type",
             "name": "abstract_type",
             "label": "Abstract Type",
             "type": "taxonomy",

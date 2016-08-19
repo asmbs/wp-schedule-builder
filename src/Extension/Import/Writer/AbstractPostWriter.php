@@ -306,6 +306,7 @@ abstract class AbstractPostWriter extends AbstractWriter
             'post_type'   => $postType,
             'post_status' => 'any',
             'meta_query'  => $metaQuery,
+            'posts_per_page' => -1,
         ]);
 
         if (count($posts) > 0) {
