@@ -57,6 +57,7 @@ class ResearchAbstractWriter extends AbstractPostWriter
                 'key'     => 'author_id',
                 'compare' => 'IN',
                 'value'   => $item['author_ids'],
+                'posts_per_page' => -1,
             ],
         ], true);
 
