@@ -131,18 +131,18 @@
      * Time field -- extends the basic text field to add a time-formatted
      * input mask.
      */
-    acf.fields.time = acf.field.extend({
-
-        type: 'time',
-
-        events: {
-            'focus input': 'mask_time',
-        },
-
-        mask_time: function(e) {
-            acf.inputmask.mask(e, 'h:s');
-        },
-    });
+    // acf.fields.time = acf.field.extend({
+    //
+    //     type: 'time',
+    //
+        // events: {
+        //     'focus input': 'mask_time'
+        // },
+        //
+        // mask_time: function(e) {
+        //     acf.inputmask.mask(e, 'h:s');
+    //     }
+    // });
 
     // -----------------------------------------------------------------------------------------------------------------
 
