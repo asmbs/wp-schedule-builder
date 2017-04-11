@@ -88,7 +88,7 @@
                             "name": "people",
                             "label": "People",
                             "type": "post_object",
-                            "post_type": ["speaker"],
+                            "post_type": ["person"],
                             "multiple": 1,
                             "allow_null": 1,
                             "wrapper": {
@@ -138,7 +138,7 @@
                             "name": "speaker",
                             "label": "Speaker",
                             "type": "post_object",
-                            "post_type": ["speaker"],
+                            "post_type": ["person"],
                             "multiple": 0,
                             "allow_null": 1,
                             "wrapper": {
@@ -190,7 +190,7 @@
                             "name": "presenter",
                             "label": "Presenter",
                             "type": "post_object",
-                            "post_type": ["author"],
+                            "post_type": ["person"],
                             "multiple": 0,
                             "allow_null": 1,
                             "wrapper": {
@@ -202,7 +202,7 @@
                             "name": "discussants",
                             "label": "Discussants",
                             "type": "post_object",
-                            "post_type": ["speaker"],
+                            "post_type": ["person"],
                             "multiple": 1,
                             "allow_null": 1,
                             "wrapper": {
