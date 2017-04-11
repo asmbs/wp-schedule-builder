@@ -2,7 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
-use ASMBS\ScheduleBuilder\PostType\Speaker;
+use ASMBS\ScheduleBuilder\PostType\Person;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -11,11 +11,11 @@ class SpeakerWriter extends FacultyWriter
 {
     public function getPostType()
     {
-        return Speaker::SLUG;
+        return Person::SLUG;
     }
 
     protected function getIDKey()
     {
-        return 'speaker_id';
+        return 'person_id';
     }
 }

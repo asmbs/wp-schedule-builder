@@ -2,9 +2,9 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
-use ASMBS\ScheduleBuilder\PostType\Author;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
-use ASMBS\ScheduleBuilder\PostType\Speaker;
+use ASMBS\ScheduleBuilder\PostType\Person;
+
 
 
 /**
@@ -96,10 +96,10 @@ class SessionAgendaWriter extends SessionWriter
         ];
 
         if ($item['type'] === 'item_talk') {
-            // If a speaker ID was given, try to find the corresponding post
-            $speaker = $this->findPostsWithMeta(Speaker::SLUG, [
+            // If a person ID was given, try to find the corresponding post
+            $speaker = $this->findPostsWithMeta(Person::SLUG, [
                 [
-                    'key'   => 'speaker_id',
+                    'key'   => 'person_id',
                     'value' => $item['speaker_id'],
                 ],
             ], false);
@@ -130,9 +130,9 @@ class SessionAgendaWriter extends SessionWriter
             $presenter = $presenter ? $this->getPostID($presenter) : null;
 
             // Find discussants
-            $discussants = $this->findPostsWithMeta(Speaker::SLUG, [
+            $discussants = $this->findPostsWithMeta(Person::SLUG, [
                 [
-                    'key'     => 'speaker_id',
+                    'key'     => 'person_id',
                     'compare' => 'IN',
                     'value'   => $item['discussant_ids'],
                 ],
