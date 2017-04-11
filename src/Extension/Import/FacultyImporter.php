@@ -27,6 +27,7 @@ abstract class FacultyImporter extends AbstractImporter
             'state',
             'country',
             'bio',
+            'photo',
         ];
     }
 
