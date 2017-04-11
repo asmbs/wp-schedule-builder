@@ -121,9 +121,9 @@ class SessionAgendaWriter extends SessionWriter
             $abstract = $abstract ? $this->getPostID($abstract) : null;
 
             // Find the presenter
-            $presenter = $this->findPostsWithMeta(Author::SLUG, [
+            $presenter = $this->findPostsWithMeta(Person::SLUG, [
                 [
-                    'key'   => 'author_id',
+                    'key'   => 'person_id',
                     'value' => $item['presenter_id'],
                 ],
             ], false);
