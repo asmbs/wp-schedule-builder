@@ -62,6 +62,13 @@
                 "operator": "==",
                 "value": "author"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "person"
+            }
         ]
     ],
     "menu_order": 5,

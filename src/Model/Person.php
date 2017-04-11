@@ -54,8 +54,9 @@ class Person extends AbstractModel
     public function getSupportedPostTypes()
     {
         return [
-            PostType\Speaker::SLUG,
-            PostType\Author::SLUG,
+            // PostType\Speaker::SLUG,
+            // PostType\Author::SLUG,
+            PostType\Person::SLUG,
         ];
     }
 

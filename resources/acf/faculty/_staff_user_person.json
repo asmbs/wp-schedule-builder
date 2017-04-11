@@ -1,0 +1,27 @@
+{
+    "key": "person--staff_use",
+    "title": "Staff Use",
+    "fields": [
+        {
+            "key": "person--staff_use--id",
+            "name": "person_id",
+            "label": "Person ID",
+            "type": "text",
+            "wrapper": {
+                "width": 20
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "person"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "private": 1
+}

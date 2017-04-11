@@ -35,7 +35,7 @@ class SessionFacultyImporter extends AbstractImporter
         return [
             'session_id',
             'label',
-            'speaker_ids',
+            'person_ids',
         ];
     }
 
@@ -52,7 +52,7 @@ class SessionFacultyImporter extends AbstractImporter
         $workflow = new Workflow($reader, null, $this->getPageTitle());
 
         $commaSplitter = new CommaSplitter();
-        $workflow->addValueConverter('speaker_ids', $commaSplitter);
+        $workflow->addValueConverter('person_ids', $commaSplitter);
 
         $workflow->addWriter(new SessionFacultyWriter($this, true, false));
         

@@ -1,12 +1,19 @@
 # Changelog
+## 2.0.0 (current)
+- Add people entity, replacing speakers and authors
+- Add support for person photo (download to WP media library)
 
-## 1.4.4 (current)
+___ 
+
+
+
+### 1.4.4
 - Remove limit on author relationships when importing and replacing abstracts
 
-## 1.4.3
+### 1.4.3
 - Remove limit on author relationships when importing abstracts
 
-## 1.4.2
+### 1.4.2
 - Set the data-import version to squash bugs
 
 ### 1.4.1
