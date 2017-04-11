@@ -27,7 +27,7 @@
             "name": "authors",
             "label": "Authors",
             "type": "post_object",
-            "post_type": ["author"],
+            "post_type": ["person"],
             "multiple": 1
         }
     ],

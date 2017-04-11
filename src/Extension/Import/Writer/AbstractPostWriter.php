@@ -148,6 +148,77 @@ abstract class AbstractPostWriter extends AbstractWriter
     }
 
     /**
+     * @param $fieldName
+     * @param $url
+     * @param $name
+     *
+     * @return $this
+     * @internal param $filename
+     *
+     */
+    final protected function addAttachment($fieldName, $url, $name)
+    {
+        if (!empty($url)) {
+
+            // Check if file exists
+            $headers = @get_headers($url);
+            if (!$headers || strpos($headers[0], '404'))
+                $headers = false;
+
+            // Check for file type
+            $pathinfo = pathinfo($url);
+            $validTypes = ['jpg', 'jpeg','png',];
+
+            // Continue if valid file type and url exists
+            if (in_array($pathinfo['extension'], $validTypes) && $headers) {
+
+                // set image file name and add extension
+                $filename = $name . '.' . $pathinfo['extension'];
+
+                // set upload path
+                $dir = wp_upload_dir();
+                $file = $dir['path'] . '/' . $filename;
+
+                // upload image file
+                $contents = file_get_contents($url);
+                $save = fopen($file, 'w');
+                fwrite($save, $contents);
+                fclose($save);
+
+                // prepare metadata
+                $fileType = wp_check_filetype(basename($filename), null);
+                $attachment = [
+                    'post_mime_type' => $fileType['type'],
+                    'post_title' => $name,
+                    'post_content' => '',
+                    'post_status' => 'inherit',
+                ];
+
+                // add image to media library as attachment
+                if (!function_exists('wp_insert_attachment')) {
+                    require_once (ABSPATH . 'wp-admin' . '/includes/image.php');
+                }
+
+                $id = wp_insert_attachment($attachment, $file);
+
+                // save image metadata
+                $newAttachment = get_post($id);
+                $relativePath = get_attached_file($newAttachment->ID);
+                $metadata = wp_generate_attachment_metadata($id, $relativePath);
+                wp_update_attachment_metadata($id, $metadata);
+
+                // return image ID to storage queue
+                $this->metaFields[$fieldName] = $id;
+
+            }
+        }
+
+        return $this;
+
+    }
+
+
+    /**
      * Add a term to the storage queue.
      *
      * @param   string        $taxonomy

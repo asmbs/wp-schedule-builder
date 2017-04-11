@@ -4,10 +4,12 @@ namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
 use ASMBS\ScheduleBuilder\PostType\Person;
 
+
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
+ * @author  James Osterhout <jrosterhout@gmail.com>
  */
-class SpeakerWriter extends FacultyWriter
+class PersonWriter extends FacultyWriter
 {
     public function getPostType()
     {
@@ -18,4 +20,5 @@ class SpeakerWriter extends FacultyWriter
     {
         return 'person_id';
     }
+
 }

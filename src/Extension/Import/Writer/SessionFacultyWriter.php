@@ -2,7 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
-use ASMBS\ScheduleBuilder\PostType\Speaker;
+use ASMBS\ScheduleBuilder\PostType\Person;
 
 
 /**
@@ -27,12 +27,12 @@ class SessionFacultyWriter extends SessionWriter
         $groups = $this->getExistingGroups($post);
         $groups = array_filter($groups, [$this, 'removeExistingGroups']);
 
-        // Find corresponding speakers
-        $people = $this->findPostsWithMeta(Speaker::SLUG, [
+        // Find corresponding people
+        $people = $this->findPostsWithMeta(Person::SLUG, [
             [
-                'key'     => 'speaker_id',
+                'key'     => 'person_id',
                 'compare' => 'IN',
-                'value'   => $item['speaker_ids'],
+                'value'   => $item['person_ids'],
             ],
         ], true);
         $people = count($people) > 0 ? array_map([$this, 'getPostID'], $people) : null;

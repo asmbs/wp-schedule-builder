@@ -2,7 +2,7 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
-use ASMBS\ScheduleBuilder\PostType\Author;
+use ASMBS\ScheduleBuilder\PostType\Person;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractKeyword;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractType;
@@ -52,9 +52,9 @@ class ResearchAbstractWriter extends AbstractPostWriter
             ->addMeta('embargo_date', $item['embargo_date']);
 
         // Find authors matching the given IDs
-        $authors = $this->findPostsWithMeta(Author::SLUG, [
+        $authors = $this->findPostsWithMeta(Person::SLUG, [
             [
-                'key'     => 'author_id',
+                'key'     => 'person_id',
                 'compare' => 'IN',
                 'value'   => $item['author_ids'],
                 'posts_per_page' => -1,

@@ -18,9 +18,10 @@ class Loader
 
         // Load post types
         PostType\Session::load();
-        PostType\Speaker::load();
+        // PostType\Speaker::load();
         PostType\ResearchAbstract::load();
-        PostType\Author::load();
+        // PostType\Author::load();
+        PostType\Person::load();
 
         // Load taxonomies
         Taxonomy\SessionTag::load();
@@ -34,9 +35,10 @@ class Loader
         Extension\Import\SessionImporter::load();
         Extension\Import\SessionFacultyImporter::load();
         Extension\Import\SessionAgendaImporter::load();
-        Extension\Import\SpeakerImporter::load();
+        // Extension\Import\SpeakerImporter::load();
         Extension\Import\ResearchAbstractImporter::load();
-        Extension\Import\AuthorImporter::load();
+        // Extension\Import\AuthorImporter::load();
+        Extension\Import\PersonImporter::load();
         
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
         

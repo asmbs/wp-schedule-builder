@@ -41,7 +41,8 @@ abstract class FacultyWriter extends AbstractPostWriter
             ->addMeta('city', $item['city'])
             ->addMeta('state', $item['state'])
             ->addMeta('country', $item['country'])
-            ->addMeta('bio', $item['bio']);
+            ->addMeta('bio', $item['bio'])
+            ->addAttachment('photo', $item['photo'], $item['id']);
 
         return $this;
     }
