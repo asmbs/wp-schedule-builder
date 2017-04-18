@@ -123,7 +123,7 @@ class Session extends AbstractPostType
                 $start = get_field('start_time');
                 $end = get_field('end_time');
                 if ($date && $start && $end) {
-                    $tz = new \DateTimeZone('America/Chicago');
+                    $tz = new \DateTimeZone('America/New_York');
 
                     try {
                         $start = @new \DateTime($date .' '. $start, $tz);
