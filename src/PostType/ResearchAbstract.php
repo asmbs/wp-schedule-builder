@@ -89,6 +89,7 @@ class ResearchAbstract extends AbstractPostType
         }
 
         $newData['post_title'] = sprintf('%s | %s', $abstractID, $title);
+        $newData['post_name'] = sanitize_title($title);
 
         return $newData;
     }
