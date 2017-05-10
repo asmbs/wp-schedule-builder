@@ -40,7 +40,7 @@ class Person extends AbstractPostType
             'menu_position'     => 29,
             'menu_icon'         => 'dashicons-id',
             'has_archive'       => 'people',
-            'supports'          => ['author', 'revisions'],
+            'supports'          => ['title', 'author', 'revisions'],
             'capability_type'   => ['person', 'people'],
             'map_meta_cap'      => true,
         ];
