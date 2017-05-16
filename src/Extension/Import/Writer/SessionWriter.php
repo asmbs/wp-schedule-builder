@@ -59,6 +59,9 @@ class SessionWriter extends AbstractPostWriter
         $this->addMeta('credits--available', $item['credits_available'])
             ->addMeta('credits--types', $item['credit_types']);
 
+        // Evaluable
+        $this->addMeta('session--evaluable', $item['evaluable']);
+
         return $this;
     }
 

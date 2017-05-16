@@ -3,6 +3,7 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
+use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\EvaluableConverter;
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\SessionWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
 use Ddeboer\DataImport\Reader\ReaderInterface;
@@ -46,6 +47,7 @@ class SessionImporter extends AbstractImporter
             'societies',
             'tags',
             'content',
+            'evaluable',
         ];
     }
 
@@ -63,9 +65,11 @@ class SessionImporter extends AbstractImporter
 
         // Add value converters
         $commaSplitter = new CommaSplitter();
+        $evaluable = new EvaluableConverter();
         $workflow->addValueConverter('credit_types', $commaSplitter)
             ->addValueConverter('societies', $commaSplitter)
-            ->addValueConverter('tags', $commaSplitter);
+            ->addValueConverter('tags', $commaSplitter)
+            ->addValueConverter('evaluable', $evaluable);
         
         // Add writer
         $workflow->addWriter(new SessionWriter($this, $this->replace));

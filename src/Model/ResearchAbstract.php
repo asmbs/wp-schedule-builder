@@ -66,11 +66,26 @@ class ResearchAbstract extends AbstractModel
     }
 
     /**
+     * @param   bool $filtered
      * @return  string
      */
-    public function getTitle()
+    public function getTitle($filtered = false)
     {
-        return $this->lazyLoad('title', [$this, 'loadField'], 'title');
+        $title = $this->lazyLoad('title', [$this, 'loadField'], 'title');
+
+        if ($filtered) {
+
+            /**
+             * Filter the abstract title.
+             *
+             * @param   string  $title
+             * @return  string
+             *
+             */
+            $title = apply_filters('sb/abstract_title', $title);
+        }
+
+        return $title;
     }
 
     /**

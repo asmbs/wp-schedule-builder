@@ -37,7 +37,7 @@ class ResearchAbstract extends AbstractPostType
             'menu_position'   => 30,
             'menu_icon'       => 'dashicons-media-text',
             'has_archive'     => 'abstracts',
-            'supports'        => ['author', 'revisions'],
+            'supports'        => ['title', 'author', 'revisions'],
             'capability_type' => ['abstract', 'abstracts'],
             'map_meta_cap'    => true,
         ];
@@ -89,6 +89,7 @@ class ResearchAbstract extends AbstractPostType
         }
 
         $newData['post_title'] = sprintf('%s | %s', $abstractID, $title);
+        $newData['post_name'] = sanitize_title($title);
 
         return $newData;
     }
