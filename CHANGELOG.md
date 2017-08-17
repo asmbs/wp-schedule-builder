@@ -1,11 +1,17 @@
 # Changelog
-## 2.0.0 (current)
+## 2.1.1
+- Add sort order to abstract authors when imported
+
+___
+
+### 2.1.0
+- Add permalink support to research abstracts
+- Add title support to abstracts and people
+- Add `evaluable` custom field
+
+### 2.0.0
 - Add people entity, replacing speakers and authors
 - Add support for person photo (download to WP media library)
-
-___ 
-
-
 
 ### 1.4.4
 - Remove limit on author relationships when importing and replacing abstracts
