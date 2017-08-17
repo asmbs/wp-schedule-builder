@@ -50,19 +50,24 @@ class ResearchAbstractWriter extends AbstractPostWriter
             ->addMeta('results', $item['results'])
             ->addMeta('conclusions', $item['conclusions'])
             ->addMeta('embargo_date', $item['embargo_date']);
+        
+        // Find authors matching the given IDs, in order
+        $authors = $item['author_ids'];
+        $authorsList = [];
+        foreach ($authors as $author) {
+            $authorPID = $this->findPostsWithMeta(Person::SLUG, [
+                [
+                    'key'       => 'person_id',
+                    'compare'   => '=',
+                    'value'     => $author,
+                    'posts_per_page' => -1,
+                ],
+            ], false);
+            $authorsList[] = $authorPID;
+        }
 
-        // Find authors matching the given IDs
-        $authors = $this->findPostsWithMeta(Person::SLUG, [
-            [
-                'key'     => 'person_id',
-                'compare' => 'IN',
-                'value'   => $item['author_ids'],
-                'posts_per_page' => -1,
-            ],
-        ], true);
-
-        if (count($authors) > 0) {
-            $this->addMeta('authors', array_map([$this, 'getPostID'], $authors));
+        if (count($authorsList) > 0) {
+            $this->addMeta('authors', array_map([$this, 'getPostID'], $authorsList));
         }
 
         return $this;
