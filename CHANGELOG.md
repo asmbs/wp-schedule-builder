@@ -1,8 +1,10 @@
-# Changelog
-## 2.1.1
-- Add sort order to abstract authors when imported
+# Changelog  
 
-___
+## 2.1.2
+- Add support for multiple speakers in sesssion item
+
+### 2.1.1
+- Add sort order to abstract authors when imported
 
 ### 2.1.0
 - Add permalink support to research abstracts
