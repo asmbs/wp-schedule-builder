@@ -139,7 +139,7 @@
                             "label": "Speaker",
                             "type": "post_object",
                             "post_type": ["person"],
-                            "multiple": 0,
+                            "multiple": 1,
                             "allow_null": 1,
                             "wrapper": {
                                 "width": 25
