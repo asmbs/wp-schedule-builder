@@ -1,7 +1,10 @@
 # Changelog  
 
-## 2.1.2
-- Add support for multiple speakers in sesssion item
+### 2.1.3
+- Add model support for multiple speakers
+
+### 2.1.2
+- Add support for multiple speakers in session item
 
 ### 2.1.1
 - Add sort order to abstract authors when imported

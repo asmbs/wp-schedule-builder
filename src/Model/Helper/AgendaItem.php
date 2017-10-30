@@ -39,6 +39,9 @@ class AgendaItem
     /** @var  ResearchAbstract */
     protected $abstract;
 
+    /** @var Person[]  */
+    protected $speakers = [];
+
     /** @var  Person[] */
     protected $discussants = [];
 
@@ -113,6 +116,11 @@ class AgendaItem
     {
         if ($this->type === AgendaItemType::TALK) {
             $this->title = get_sub_field('talk_title');
+            if (is_array($speakers = get_sub_field('speaker'))) {
+                foreach ($speakers as $post) {
+                    $this->speakers[] = new Person($post);
+                }
+            }
             $speaker = get_sub_field('speaker');
             if (!empty($speaker)) {
                 $this->presenter = new Person($speaker);
@@ -245,6 +253,14 @@ class AgendaItem
     }
 
     /**
+     * @return Person[]
+     */
+    public function getSpeakers()
+    {
+        return $this->speakers;
+    }
+
+    /**
      * @return  Person[]
      */
     public function getDiscussants()
@@ -317,6 +333,15 @@ class AgendaItem
     public function hasSpeaker()
     {
         return $this->hasPresenter();
+    }
+
+    public function hasSpeakers()
+    {
+        if (!$this->isType(AgendaItemType::TALK)) {
+            return false;
+        }
+
+        return (count($this->getSpeakers()) > 0);
     }
 
     /**
