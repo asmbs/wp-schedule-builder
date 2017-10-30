@@ -136,7 +136,7 @@
                         {
                             "key": "agenda--items--talk--speaker",
                             "name": "speaker",
-                            "label": "Speaker",
+                            "label": "Speakers",
                             "type": "post_object",
                             "post_type": ["person"],
                             "multiple": 1,
