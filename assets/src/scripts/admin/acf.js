@@ -22,10 +22,15 @@
             this.$venueField = $('#acf-location--venue');
             this.$roomField = $('#acf-location--room');
 
-            if (this.$venueField.data('ui') == 1) {
-                // If the Select2 UI is enabled, swap the venue field reference to the *-input sibling
+            // If the Select2 UI is enabled
+            if (this.$venueField.data('ui') === 1) {
                 this.select2 = true;
-                this.$venueField = $(this.$venueField.selector +'-input');
+
+                // Backwards-compatibility with Select2 before v4 (which wasn't introduced in ACF until v5.6)
+                if(!this.$venueField.hasClass('select2-hidden-accessible')){
+                    // Swap the venue field reference to the *-input sibling
+                    this.$venueField = $(this.$venueField.selector +'-input');
+                }
             }
 
             // Get the default room choice list
