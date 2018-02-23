@@ -1,6 +1,11 @@
 # Changelog  
 
+### 2.1.4
+
+- Add support for ACF v5.6
+
 ### 2.1.3
+
 - Add model support for multiple speakers
 
 ### 2.1.2
