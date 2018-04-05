@@ -48,6 +48,7 @@ class SessionImporter extends AbstractImporter
             'tags',
             'content',
             'evaluable',
+            'keywords',
         ];
     }
 
@@ -69,7 +70,8 @@ class SessionImporter extends AbstractImporter
         $workflow->addValueConverter('credit_types', $commaSplitter)
             ->addValueConverter('societies', $commaSplitter)
             ->addValueConverter('tags', $commaSplitter)
-            ->addValueConverter('evaluable', $evaluable);
+            ->addValueConverter('evaluable', $evaluable)
+            ->addValueConverter('keywords', $commaSplitter);
         
         // Add writer
         $workflow->addWriter(new SessionWriter($this, $this->replace));
