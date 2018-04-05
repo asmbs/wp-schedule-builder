@@ -32,6 +32,16 @@
             "field_type": "multi_select",
             "save_terms": 1,
             "add_term": 0
+        },
+        {
+            "key": "taxonomy--keyword",
+            "name": "keyword",
+            "label": "Keywords",
+            "type": "taxonomy",
+            "taxonomy": "keyword",
+            "field_type": "multi_select",
+            "save_terms": 1,
+            "add_term": 0
         }
     ],
     "location": [
