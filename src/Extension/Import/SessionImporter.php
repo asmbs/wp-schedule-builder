@@ -46,9 +46,9 @@ class SessionImporter extends AbstractImporter
             'session_type',
             'societies',
             'tags',
+            'keywords',
             'content',
             'evaluable',
-            'keywords',
         ];
     }
 
