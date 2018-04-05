@@ -3,6 +3,7 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
 use ASMBS\ScheduleBuilder\PostType\Session;
+use ASMBS\ScheduleBuilder\Taxonomy\SessionKeyword;
 use ASMBS\ScheduleBuilder\Taxonomy\SessionTag;
 use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
 use ASMBS\ScheduleBuilder\Taxonomy\Society;
@@ -71,7 +72,8 @@ class SessionWriter extends AbstractPostWriter
 
         $this->addTerm(SessionType::SLUG, $item['session_type'])
             ->addTerm(Society::SLUG, $item['societies'])
-            ->addTerm(SessionTag::SLUG, $item['tags']);
+            ->addTerm(SessionTag::SLUG, $item['tags'])
+            ->addTerm(SessionKeyword::SLUG, $item['keywords']);
 
         return $this;
     }

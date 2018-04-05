@@ -34,6 +34,7 @@ class ResearchAbstractKeyword extends AbstractTaxonomy
     {
         return [
             PostType\ResearchAbstract::SLUG,
+            PostType\Session::SLUG,
         ];
     }
 
