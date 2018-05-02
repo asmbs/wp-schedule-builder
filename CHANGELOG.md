@@ -1,6 +1,9 @@
 # Changelog  
 
-## 2.2.0
+## 2.2.1 - May 2, 2018
+- Fix typo in session import preventing keyword field
+
+### 2.2.0
 - Add keyword taxonomy support to session post type
 - Add support for keyword taxonomy to session importer  
 
