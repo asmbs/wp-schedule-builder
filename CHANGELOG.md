@@ -1,6 +1,11 @@
 # Changelog  
 
-## 2.2.1 - May 2, 2018
+## 2.2.2 - July 9, 2018
+
+- Fix deployment bug with Node 10
+
+### 2.2.1
+
 - Fix typo in session import preventing keyword field
 
 ### 2.2.0
