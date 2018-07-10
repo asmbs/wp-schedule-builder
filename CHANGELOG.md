@@ -1,6 +1,10 @@
 # Changelog  
 
-## 2.2.2 - July 9, 2018
+## 2.2.3 - July 10, 2018
+
+- Fix issue with legacy Bower versions
+
+### 2.2.2
 
 - Fix deployment bug with Node 10
 
