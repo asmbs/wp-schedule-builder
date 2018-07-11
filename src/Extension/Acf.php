@@ -145,7 +145,7 @@ class Acf
 
             $field['choices'] = array_merge($field['choices'], $choicesToAdd);
         }
-        
+
         return $field;
     }
 
@@ -162,7 +162,7 @@ class Acf
         while (have_rows('logistics--locations', 'sb_options')) {
             the_row();
             $location = get_sub_field('location_name');
-            if ($location == $_REQUEST['venue']) {
+            if ($location == stripslashes($_REQUEST['venue'])) {
                 while (have_rows('location_rooms')) {
                     the_row();
                     $name = get_sub_field('room_name');
