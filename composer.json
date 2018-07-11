@@ -12,12 +12,12 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "http://packagist.asmbs.org"
+            "url": "https://packagist.asmbs.org"
         }
     ],
     "require": {
         "php": "^5.5 || ^7.0",
-        "ddeboer/data-import": "0.18.0"
+        "ddeboer/data-import": "^0.20.0"
     },
     "autoload": {
         "psr-4": {
