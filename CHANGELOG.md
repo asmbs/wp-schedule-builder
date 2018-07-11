@@ -1,6 +1,10 @@
 # Changelog  
 
-## 2.2.4 - July 11, 2018
+## 2.2.5 - July 11, 2018
+
+- Fix bug with venues with apostrophes in their names
+
+### 2.2.4
 
 - Update outdated dependencies
 
