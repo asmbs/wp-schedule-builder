@@ -1,6 +1,10 @@
 # Changelog  
 
-## 2.2.3 - July 10, 2018
+## 2.2.4 - July 11, 2018
+
+- Update outdated dependencies
+
+### 2.2.3
 
 - Fix issue with legacy Bower versions
 
