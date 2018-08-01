@@ -4,38 +4,36 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4d3b3c956edfb8a3b327d29494f3885",
+    "content-hash": "1b305d077d8b49455976f13d538c394e",
     "packages": [
         {
             "name": "ddeboer/data-import",
-            "version": "0.20.0",
+            "version": "0.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ddeboer/data-import.git",
-                "reference": "8fe7e731bb52df0298707eb8fb8b9b8098395437"
+                "reference": "cbae2f570192b738c5cec835fbf583a75c52d535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ddeboer/data-import/zipball/8fe7e731bb52df0298707eb8fb8b9b8098395437",
-                "reference": "8fe7e731bb52df0298707eb8fb8b9b8098395437",
+                "url": "https://api.github.com/repos/ddeboer/data-import/zipball/cbae2f570192b738c5cec835fbf583a75c52d535",
+                "reference": "cbae2f570192b738c5cec835fbf583a75c52d535",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
+                "php": ">=5.3.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "doctrine/dbal": "~2.4",
-                "doctrine/orm": "~2.4",
+                "doctrine/dbal": "*",
+                "doctrine/orm": "*",
                 "ext-iconv": "*",
                 "ext-mbstring": "*",
                 "ext-sqlite3": "*",
-                "henrikbjorn/phpspec-code-coverage": "~1.0",
                 "phpoffice/phpexcel": "*",
-                "phpspec/phpspec": "~2.1",
-                "symfony/console": "~2.8|~3.0",
-                "symfony/property-access": "~2.5",
-                "symfony/validator": "~2.8|~3.0"
+                "symfony/console": "~2.5.0",
+                "symfony/property-access": "*",
+                "symfony/validator": "~2.3.0"
             },
             "suggest": {
                 "doctrine/dbal": "If you want to use the DbalReader",
@@ -48,9 +46,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Ddeboer\\DataImport\\": "src/",
-                    "Ddeboer\\DataImport\\Tests\\": "tests/"
+                "psr-0": {
+                    "Ddeboer\\DataImport": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -76,7 +73,7 @@
                 "export",
                 "import"
             ],
-            "time": "2016-06-23T06:26:02+00:00"
+            "time": "2015-04-21T14:06:20+00:00"
         },
         {
             "name": "psr/log",
