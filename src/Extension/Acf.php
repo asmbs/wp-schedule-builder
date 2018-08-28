@@ -2,7 +2,6 @@
 
 namespace ASMBS\ScheduleBuilder\Extension;
 
-use ASMBS\ScheduleBuilder\AssetManager;
 use ASMBS\ScheduleBuilder\Loader;
 
 
@@ -57,11 +56,12 @@ class Acf
     /**
      * Load ACF extension scripts.
      *
-     * @param  string  $hook
+     * @param  string $hook
      */
     public function enqueueScripts($hook)
     {
-        wp_enqueue_script('sb/acf_js', AssetManager::getUrl('scripts/acf.min.js'), [
+        $plugindir = plugin_dir_url(__FILE__);
+        wp_enqueue_script('sb/acf_js', $plugindir . '../dist/scripts/acf.bundle.js', [
             'sb/main_js',
             'acf-input',
             'acf-pro-input',
@@ -80,24 +80,24 @@ class Acf
         acf_add_options_page([
             'page_title' => 'Schedule Builder Settings',
             'menu_title' => 'Schedule Settings',
-            'menu_slug'  => 'sb_options',
-            'post_id'    => 'sb_options',
+            'menu_slug' => 'sb_options',
+            'post_id' => 'sb_options',
             'capability' => 'manage_options',
-            'position'   => 32,
-            'icon_url'   => 'dashicons-admin-generic',
+            'position' => 32,
+            'icon_url' => 'dashicons-admin-generic',
         ]);
     }
 
     /**
      * Regiser JSON load paths for the plugin.
      *
-     * @param   array  $paths
+     * @param   array $paths
      * @return  array
      */
     public function addLoadPaths($paths)
     {
-        $paths[] = Loader::$root .'/resources/acf';
-        foreach (glob(Loader::$root .'/resources/acf/*/') as $dir) {
+        $paths[] = Loader::$root . '/resources/acf';
+        foreach (glob(Loader::$root . '/resources/acf/*/') as $dir) {
             $paths[] = $dir;
         }
 
@@ -109,7 +109,7 @@ class Acf
     /**
      * Use the `logistics--dates` options field to populate the session date choices.
      *
-     * @param   array  $field
+     * @param   array $field
      * @return  array
      */
     public function loadDateChoices($field)
@@ -130,7 +130,7 @@ class Acf
     /**
      * Populate the venue list with the values of `logistics--locations`.
      *
-     * @param   array  $field
+     * @param   array $field
      * @return  array
      */
     public function loadVenueChoices($field)
@@ -186,7 +186,7 @@ class Acf
     /**
      * Load the available credit choices from the schedule settings.
      *
-     * @param   array  $field
+     * @param   array $field
      * @return  array
      */
     public function loadCreditChoices($field)
