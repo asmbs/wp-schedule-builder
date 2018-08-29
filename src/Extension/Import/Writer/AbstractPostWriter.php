@@ -3,13 +3,12 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
 use ASMBS\ScheduleBuilder\Extension\Import\ImporterInterface;
-use Ddeboer\DataImport\Exception\WriterException;
-use Ddeboer\DataImport\Writer\AbstractWriter;
+use Port\Writer\AbstractStreamWriter;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-abstract class AbstractPostWriter extends AbstractWriter
+abstract class AbstractPostWriter extends AbstractStreamWriter
 {
     /** @var  ImporterInterface */
     protected $importer;

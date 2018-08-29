@@ -3,11 +3,12 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
+use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\ResearchAbstractWriter;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
-use Ddeboer\DataImport\Reader\ReaderInterface;
-use Ddeboer\DataImport\Workflow;
-
+use Port\Reader;
+use Port\Steps\Step\ValueConverterStep;
+use Port\Steps\StepAggregator as Workflow;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -53,20 +54,19 @@ class ResearchAbstractImporter extends AbstractImporter
     /**
      * Build the session import workflow.
      *
-     * @param   ReaderInterface  $reader
+     * @param   Reader $reader
      * @return  Workflow
      */
-    protected function buildWorkflow(ReaderInterface $reader)
+    protected function buildWorkflow(Reader $reader)
     {
-        $commaSplitter = new ValueConverter\CommaSplitter();
-
-        $workflow = new Workflow($reader, null, $this->getPageTitle());
+        $workflow = new Workflow($reader, $this->getPageTitle());
 
         // Add converters
-        $workflow
-            ->addValueConverter('author_ids', $commaSplitter)
-            ->addValueConverter('societies', $commaSplitter)
-            ->addValueConverter('keywords', $commaSplitter);
+        $step = new ValueConverterStep();
+        $step->add('[author_ids]', [CommaSplitter::class, 'convert'])
+            ->add('[societies]', [CommaSplitter::class, 'convert'])
+            ->add('[keywords]', [CommaSplitter::class, 'convert']);
+        $workflow->addStep($step);
 
         // Add writer
         $workflow->addWriter(new ResearchAbstractWriter($this, $this->replace));

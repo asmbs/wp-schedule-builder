@@ -5,8 +5,9 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\SessionFacultyWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
-use Ddeboer\DataImport\Reader\ReaderInterface;
-use Ddeboer\DataImport\Workflow;
+use Port\Reader;
+use Port\Steps\Step\ValueConverterStep;
+use Port\Steps\StepAggregator as Workflow;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -44,15 +45,16 @@ class SessionFacultyImporter extends AbstractImporter
     /**
      * Build the session faculty importer workflow.
      *
-     * @param   ReaderInterface  $reader
+     * @param   Reader  $reader
      * @return  Workflow
      */
-    public function buildWorkflow(ReaderInterface $reader)
+    public function buildWorkflow(Reader $reader)
     {
-        $workflow = new Workflow($reader, null, $this->getPageTitle());
+        $workflow = new Workflow($reader, $this->getPageTitle());
 
-        $commaSplitter = new CommaSplitter();
-        $workflow->addValueConverter('person_ids', $commaSplitter);
+        $step = new ValueConverterStep();
+        $step->add('person_ids', [CommaSplitter::class, 'convert']);
+        $workflow->addStep($step);
 
         $workflow->addWriter(new SessionFacultyWriter($this, true, false));
         

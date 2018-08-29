@@ -5,8 +5,6 @@ namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;
 use ASMBS\ScheduleBuilder\PostType\Person;
 
-
-
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */

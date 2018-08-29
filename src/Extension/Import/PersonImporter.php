@@ -4,15 +4,12 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\PersonWriter;
 use ASMBS\ScheduleBuilder\PostType\Person;
-use Ddeboer\DataImport\Workflow;
-
+use Port\Steps\StepAggregator as Workflow;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  * @author  James Osterhout <jrosterhout@gmail.com>
  */
-
-
 class PersonImporter extends FacultyImporter
 {
     const SLUG = 'person_importer';

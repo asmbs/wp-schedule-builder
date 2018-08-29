@@ -1,13 +1,13 @@
 <?php
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
-use Ddeboer\DataImport\Exception\WriterException;
-use Ddeboer\DataImport\Reader\CsvReader;
-use Ddeboer\DataImport\Reader\ReaderInterface;
-use Ddeboer\DataImport\Result;
-use Ddeboer\DataImport\Workflow;
-use Ddeboer\DataImport\Writer\CallbackWriter;
 
+use Port\Csv\CsvReader;
+use Port\Exception\WriterException;
+use Port\Reader;
+use Port\Result;
+use Port\Steps\StepAggregator as Workflow;
+use Port\Writer\CallbackWriter;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -66,7 +66,7 @@ abstract class AbstractImporter implements ImporterInterface
     protected function getDebugWriter()
     {
         $self = $this;
-        return new CallbackWriter(function($row) use ($self) {
+        return new CallbackWriter(function ($row) use ($self) {
             $self->addNotice(sprintf('<pre>%s</pre>', print_r($row, true)), 'info');
         });
     }
@@ -90,7 +90,7 @@ abstract class AbstractImporter implements ImporterInterface
             $i = 0;
 
             /**
-             * @var int             $row
+             * @var int $row
              * @var WriterException $exception
              */
             foreach ($this->result->getExceptions() as $row => $exception) {
@@ -118,8 +118,8 @@ abstract class AbstractImporter implements ImporterInterface
     /**
      * Enqueue an admin notice.
      *
-     * @param   string  $message
-     * @param   string  $context
+     * @param   string $message
+     * @param   string $context
      * @return  $this
      */
     public function addNotice($message, $context = 'info')
@@ -137,7 +137,7 @@ abstract class AbstractImporter implements ImporterInterface
     public function register()
     {
         add_submenu_page(
-            'edit.php?post_type='. $this->getPostType(),
+            'edit.php?post_type=' . $this->getPostType(),
             $this->getPageTitle(),
             $this->getMenuTitle(),
             'manage_options',
@@ -162,7 +162,7 @@ abstract class AbstractImporter implements ImporterInterface
                 <li>Rows MUST be terminated by a <b>newline</b>.</li>
                 <li>The file MUST contain <b>exactly one (1) header row.</b></li>
                 <li>The file MUST contain the following columns, in order (headers do not need to match):<br>
-                    <?php echo implode(' | ', array_map(function($column) {
+                    <?php echo implode(' | ', array_map(function ($column) {
                         return sprintf('<code>%s</code>', strtoupper($column));
                     }, $this->getColumns())) ?></li>
             </ol>
@@ -172,7 +172,8 @@ abstract class AbstractImporter implements ImporterInterface
                     <tr>
                         <th scope="row"><label for="import_file">File to Import</label></th>
                         <td>
-                            <input type="file" name="<?php echo static::FILE_INPUT ?>" id="import_file" accept="text/csv,text/plain">
+                            <input type="file" name="<?php echo static::FILE_INPUT ?>" id="import_file"
+                                   accept="text/csv,text/plain">
                         </td>
                     </tr>
                     <tr>
@@ -185,7 +186,8 @@ abstract class AbstractImporter implements ImporterInterface
                                 </label>
                                 <br>
                                 <label>
-                                    <input type="radio" name="replace" id="import_replace_false" value="0" checked="checked">
+                                    <input type="radio" name="replace" id="import_replace_false" value="0"
+                                           checked="checked">
                                     <span>Skip</span>
                                 </label>
                             </p>
@@ -197,7 +199,7 @@ abstract class AbstractImporter implements ImporterInterface
         </div>
         <?php
     }
-    
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -260,9 +262,9 @@ abstract class AbstractImporter implements ImporterInterface
     public function processFile(\SplFileInfo $file, $replace = false)
     {
         $reader = new CsvReader($file->openFile());
-        $reader->setStrict(false)
-            ->setHeaderRowNumber(0)
-            ->setColumnHeaders($this->getColumns());
+        $reader->setStrict(false);
+        $reader->setHeaderRowNumber(0);
+        $reader->setColumnHeaders($this->getColumns());
 
         $workflow = $this->buildWorkflow($reader)
             ->setSkipItemOnFailure(true);
@@ -289,8 +291,8 @@ abstract class AbstractImporter implements ImporterInterface
     /**
      * Build a workflow object for processing the import.
      *
-     * @param   ReaderInterface  $reader
+     * @param   Reader $reader
      * @return  Workflow
      */
-    abstract protected function buildWorkflow(ReaderInterface $reader);
+    abstract protected function buildWorkflow(Reader $reader);
 }

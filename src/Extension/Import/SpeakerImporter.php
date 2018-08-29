@@ -4,8 +4,7 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\SpeakerWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
-use Ddeboer\DataImport\Workflow;
-
+use Port\Steps\StepAggregator as Workflow;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
