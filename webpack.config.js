@@ -10,8 +10,7 @@ const LiveReloadPlugin = require('webpack-livereload-plugin');
 module.exports = {
     mode: 'production',
     entry: {
-        main: './assets/index.js',
-        acf: './assets/scripts/acf.js'
+        main: './assets/index.js'
     },
     output: {
         filename: 'scripts/[name].bundle.js',
@@ -99,5 +98,10 @@ module.exports = {
     },
     externals: {
         jquery: 'jQuery'
-    }
+    },
+    resolve: {
+        alias: {
+            "./dependencyLibs/inputmask.dependencyLib": "./dependencyLibs/inputmask.dependencyLib.jquery"
+        }
+    },
 };

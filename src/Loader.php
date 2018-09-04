@@ -53,7 +53,11 @@ class Loader
     {
         $plugindir = plugin_dir_url(__FILE__);
         wp_enqueue_style('sb/admin_css', $plugindir . '../dist/styles/main.css', [], null);
-        wp_enqueue_script('sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', ['jquery'], null);
+        wp_enqueue_script('sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
+            'jquery',
+            'acf-input',
+            'acf-pro-input'
+        ], null, true);
     }
 
     /**

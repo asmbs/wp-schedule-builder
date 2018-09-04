@@ -33,9 +33,6 @@ class Acf
         // Register plugin options page
         add_action('init', [$this, 'registerOptionsPage']);
 
-        // Enqueue scripts
-        add_action('admin_enqueue_scripts', [$this, 'enqueueScripts']);
-
         // Register JSON read locations
         add_filter('acf/settings/load_json', [$this, 'addLoadPaths']);
 
@@ -52,25 +49,6 @@ class Acf
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Load ACF extension scripts.
-     *
-     * @param  string $hook
-     */
-    public function enqueueScripts($hook)
-    {
-        $plugindir = plugin_dir_url(__FILE__);
-        wp_enqueue_script('sb/acf_js', $plugindir . '../dist/scripts/acf.bundle.js', [
-            'sb/main_js',
-            'acf-input',
-            'acf-pro-input',
-        ], null);
-        wp_localize_script('sb/acf_js', 'sb_acf', [
-            'nonce' => wp_create_nonce('sb/acf_js'),
-            'post' => isset($_REQUEST['post']) ? $_REQUEST['post'] : null,
-        ]);
-    }
 
     /**
      * Register the plugin options page.
