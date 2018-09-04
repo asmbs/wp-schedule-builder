@@ -45,6 +45,10 @@ class Acf
         // Register AJAX actions
         add_action('wp_ajax_sb/load_rooms', [$this, 'loadAvailableRoomChoices']);
 
+        // Register validation hooks
+        add_filter('acf/validate_value/name=start_time', [$this, 'validateTime'], 10, 4);
+        add_filter('acf/validate_value/name=end_time', [$this, 'validateTime'], 10, 4);
+
         self::$loaded = true;
     }
 
@@ -181,5 +185,27 @@ class Acf
         }
 
         return $field;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public function validateTime($valid, $value, $field, $input)
+    {
+        // Bail early if value is already invalid
+        if (!$valid) {
+            return $valid;
+        }
+
+        // Allow blanks
+        if ($value === '') {
+            return $valid;
+        }
+
+        // Must be in 24-hour HH:MM format
+        if (!preg_match('/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/', $value)) {
+            return 'Use 24-hour HH:MM format.';
+        }
+
+        return $valid;
     }
 }
