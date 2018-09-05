@@ -10,11 +10,9 @@ namespace ASMBS\ScheduleBuilder\PostType;
 abstract class AbstractPostType implements PostTypeInterface
 {
     const RESERVED_SLUGS = [
-        Author::SLUG,
         Person::SLUG,
         ResearchAbstract::SLUG,
-        Session::SLUG,
-        Speaker::SLUG
+        Session::SLUG
     ];
 
     /**
