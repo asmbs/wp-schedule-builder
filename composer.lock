@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbd33326386ea0ad0ee92628b5263216",
+    "content-hash": "87776eda48173c4440721e2d8888722e",
     "packages": [
         {
             "name": "portphp/csv",
@@ -694,7 +694,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.5 || ^7.0"
+        "php": ">=7.0"
     },
     "platform-dev": [],
     "platform-overrides": {
