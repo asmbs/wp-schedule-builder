@@ -2,22 +2,19 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
 
-use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
-
-
 /**
  * @author  James Osterhout jrosterhout@gmail.com
  */
-class EvaluableConverter implements ValueConverterInterface
+class EvaluableConverter implements ConverterInterface
 {
     /**
-     * Takes an evaluable option (Yes, No, null) and translates it into the corresponding boolen value
+     * Takes an evaluable option (Yes, No, null) and translates it into the corresponding boolean value
      * for ACF true_false field type.
      *
      * @param   mixed  $input
      * @return  string
      */
-    public function convert($input)
+    public static function convert($input)
     {
         $input = strtolower($input);
         if ($input === 'yes' || $input === 1)

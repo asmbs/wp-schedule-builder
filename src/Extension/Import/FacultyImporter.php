@@ -3,8 +3,9 @@
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CredentialsNormalizer;
-use Ddeboer\DataImport\Reader\ReaderInterface;
-use Ddeboer\DataImport\Workflow;
+use Port\Reader;
+use Port\Steps\Step\ValueConverterStep;
+use Port\Steps\StepAggregator as Workflow;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -32,14 +33,16 @@ abstract class FacultyImporter extends AbstractImporter
     }
 
     /**
-     * @param   ReaderInterface  $reader
+     * @param   Reader $reader
      * @return  Workflow
      */
-    protected function buildWorkflow(ReaderInterface $reader)
+    protected function buildWorkflow(Reader $reader)
     {
-        $workflow = new Workflow($reader, null, $this->getPageTitle());
+        $workflow = new Workflow($reader, $this->getPageTitle());
 
-        $workflow->addValueConverter('credentials', new CredentialsNormalizer());
+        $step = new ValueConverterStep();
+        $step->add('[credentials]', [CredentialsNormalizer::class, 'convert']);
+        $workflow->addStep($step);
 
         // Rely on the subclass to set the writer
         $this->setWriter($workflow);
@@ -50,7 +53,7 @@ abstract class FacultyImporter extends AbstractImporter
     /**
      * Set the type-specific writer.
      *
-     * @param   Workflow  $workflow
+     * @param   Workflow $workflow
      * @return  $this
      */
     abstract protected function setWriter(Workflow $workflow);

@@ -7,6 +7,10 @@
         {
             "name": "Kyle Tucker",
             "email": "kyleatucker@gmail.com"
+        },
+        {
+            "name": "Max McMahon",
+            "email": "max@asmbs.org"
         }
     ],
     "repositories": [
@@ -16,8 +20,9 @@
         }
     ],
     "require": {
-        "php": "^5.5 || ^7.0",
-        "ddeboer/data-import": "0.18.0"
+        "php": ">=7.0",
+        "portphp/csv": "^1.1",
+        "portphp/steps": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -25,6 +30,8 @@
         }
     },
     "config": {
-        "secure-http": false
+        "secure-http": false,
+        "sort-packages": true,
+        "platform": {"php": "7.2.5"}
     }
 }

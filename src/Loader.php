@@ -18,9 +18,7 @@ class Loader
 
         // Load post types
         PostType\Session::load();
-        // PostType\Speaker::load();
         PostType\ResearchAbstract::load();
-        // PostType\Author::load();
         PostType\Person::load();
 
         // Load taxonomies
@@ -35,13 +33,11 @@ class Loader
         Extension\Import\SessionImporter::load();
         Extension\Import\SessionFacultyImporter::load();
         Extension\Import\SessionAgendaImporter::load();
-        // Extension\Import\SpeakerImporter::load();
         Extension\Import\ResearchAbstractImporter::load();
-        // Extension\Import\AuthorImporter::load();
         Extension\Import\PersonImporter::load();
-        
+
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
-        
+
         // Register activation hook
         register_activation_hook(self::$root . '/schedule-builder.php', [$this, 'activate']);
     }
@@ -51,8 +47,13 @@ class Loader
      */
     public function enqueueAdminScripts()
     {
-        wp_enqueue_style('sb/admin_css', AssetManager::getUrl('styles/admin.min.css'), [], null);
-        wp_enqueue_script('sb/main_js', AssetManager::getUrl('scripts/main.min.js'), ['jquery'], null);
+        $plugindir = plugin_dir_url(__FILE__);
+        wp_enqueue_style('sb/admin_css', $plugindir . '../dist/styles/main.css', [], null);
+        wp_enqueue_script('sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
+            'jquery',
+            'acf-input',
+            'acf-pro-input'
+        ], null, true);
     }
 
     /**

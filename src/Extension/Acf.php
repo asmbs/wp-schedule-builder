@@ -2,7 +2,6 @@
 
 namespace ASMBS\ScheduleBuilder\Extension;
 
-use ASMBS\ScheduleBuilder\AssetManager;
 use ASMBS\ScheduleBuilder\Loader;
 
 
@@ -34,9 +33,6 @@ class Acf
         // Register plugin options page
         add_action('init', [$this, 'registerOptionsPage']);
 
-        // Enqueue scripts
-        add_action('admin_enqueue_scripts', [$this, 'enqueueScripts']);
-
         // Register JSON read locations
         add_filter('acf/settings/load_json', [$this, 'addLoadPaths']);
 
@@ -49,28 +45,14 @@ class Acf
         // Register AJAX actions
         add_action('wp_ajax_sb/load_rooms', [$this, 'loadAvailableRoomChoices']);
 
+        // Register validation hooks
+        add_filter('acf/validate_value/name=start_time', [$this, 'validateTime'], 10, 4);
+        add_filter('acf/validate_value/name=end_time', [$this, 'validateTime'], 10, 4);
+
         self::$loaded = true;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Load ACF extension scripts.
-     *
-     * @param  string  $hook
-     */
-    public function enqueueScripts($hook)
-    {
-        wp_enqueue_script('sb/acf_js', AssetManager::getUrl('scripts/acf.min.js'), [
-            'sb/main_js',
-            'acf-input',
-            'acf-pro-input',
-        ], null);
-        wp_localize_script('sb/acf_js', 'sb_acf', [
-            'nonce' => wp_create_nonce('sb/acf_js'),
-            'post' => isset($_REQUEST['post']) ? $_REQUEST['post'] : null,
-        ]);
-    }
 
     /**
      * Register the plugin options page.
@@ -80,24 +62,24 @@ class Acf
         acf_add_options_page([
             'page_title' => 'Schedule Builder Settings',
             'menu_title' => 'Schedule Settings',
-            'menu_slug'  => 'sb_options',
-            'post_id'    => 'sb_options',
+            'menu_slug' => 'sb_options',
+            'post_id' => 'sb_options',
             'capability' => 'manage_options',
-            'position'   => 32,
-            'icon_url'   => 'dashicons-admin-generic',
+            'position' => 32,
+            'icon_url' => 'dashicons-admin-generic',
         ]);
     }
 
     /**
      * Regiser JSON load paths for the plugin.
      *
-     * @param   array  $paths
+     * @param   array $paths
      * @return  array
      */
     public function addLoadPaths($paths)
     {
-        $paths[] = Loader::$root .'/resources/acf';
-        foreach (glob(Loader::$root .'/resources/acf/*/') as $dir) {
+        $paths[] = Loader::$root . '/resources/acf';
+        foreach (glob(Loader::$root . '/resources/acf/*/') as $dir) {
             $paths[] = $dir;
         }
 
@@ -109,7 +91,7 @@ class Acf
     /**
      * Use the `logistics--dates` options field to populate the session date choices.
      *
-     * @param   array  $field
+     * @param   array $field
      * @return  array
      */
     public function loadDateChoices($field)
@@ -130,7 +112,7 @@ class Acf
     /**
      * Populate the venue list with the values of `logistics--locations`.
      *
-     * @param   array  $field
+     * @param   array $field
      * @return  array
      */
     public function loadVenueChoices($field)
@@ -186,7 +168,7 @@ class Acf
     /**
      * Load the available credit choices from the schedule settings.
      *
-     * @param   array  $field
+     * @param   array $field
      * @return  array
      */
     public function loadCreditChoices($field)
@@ -203,5 +185,27 @@ class Acf
         }
 
         return $field;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public function validateTime($valid, $value, $field, $input)
+    {
+        // Bail early if value is already invalid
+        if (!$valid) {
+            return $valid;
+        }
+
+        // Allow blanks
+        if ($value === '') {
+            return $valid;
+        }
+
+        // Must be in 24-hour HH:MM format
+        if (!preg_match('/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/', $value)) {
+            return 'Use 24-hour HH:MM format.';
+        }
+
+        return $valid;
     }
 }

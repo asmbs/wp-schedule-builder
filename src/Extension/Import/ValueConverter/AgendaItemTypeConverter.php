@@ -2,13 +2,10 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
 
-use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
-
-
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class AgendaItemTypeConverter implements ValueConverterInterface
+class AgendaItemTypeConverter implements ConverterInterface
 {
     /**
      * Takes an item type ("Talk", "Abstract", etc.) and translates it into the corresponding
@@ -17,7 +14,7 @@ class AgendaItemTypeConverter implements ValueConverterInterface
      * @param   mixed  $input
      * @return  string
      */
-    public function convert($input)
+    public static function convert($input)
     {
         return sprintf('item_%s', strtolower($input));
     }

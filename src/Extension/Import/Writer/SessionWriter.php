@@ -4,7 +4,6 @@ namespace ASMBS\ScheduleBuilder\Extension\Import\Writer;
 
 use ASMBS\ScheduleBuilder\PostType\Session;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractKeyword;
-use ASMBS\ScheduleBuilder\Taxonomy\SessionKeyword;
 use ASMBS\ScheduleBuilder\Taxonomy\SessionTag;
 use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
 use ASMBS\ScheduleBuilder\Taxonomy\Society;

@@ -178,7 +178,7 @@ class AgendaItem
 
     /**
      * @param   string|bool  $format
-     * @return  \DateTime
+     * @return \DateTime|string
      */
     public function getStart($format = 'g:ia')
     {
@@ -191,7 +191,7 @@ class AgendaItem
 
     /**
      * @param   string|bool  $format
-     * @return  \DateTime
+     * @return \DateTime|string
      */
     public function getEnd($format = 'g:ia')
     {

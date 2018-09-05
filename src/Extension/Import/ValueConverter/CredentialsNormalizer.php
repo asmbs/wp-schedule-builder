@@ -2,12 +2,10 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
 
-use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
-
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class CredentialsNormalizer implements ValueConverterInterface
+class CredentialsNormalizer implements ConverterInterface
 {
     /**
      * Normalize a credential list.
@@ -15,7 +13,7 @@ class CredentialsNormalizer implements ValueConverterInterface
      * @param   string  $input
      * @return  string
      */
-    public function convert($input)
+    static public function convert($input)
     {
         return preg_replace('/(?:,\s*|\s+)/i', ' ', $input);
     }

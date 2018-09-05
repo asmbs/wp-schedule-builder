@@ -6,8 +6,9 @@ use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\AgendaItemTypeConverte
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\SessionAgendaWriter;
 use ASMBS\ScheduleBuilder\PostType\Session;
-use Ddeboer\DataImport\Reader\ReaderInterface;
-use Ddeboer\DataImport\Workflow;
+use Port\Reader;
+use Port\Steps\Step\ValueConverterStep;
+use Port\Steps\StepAggregator as Workflow;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -50,21 +51,21 @@ class SessionAgendaImporter extends AbstractImporter
 
     /**
      * Build the session agenda importer workflow.
-     * 
-     * @param   ReaderInterface  $reader
+     *
+     * @param   Reader $reader
      * @return  Workflow
      */
-    public function buildWorkflow(ReaderInterface $reader)
+    public function buildWorkflow(Reader $reader)
     {
-        $workflow = new Workflow($reader, null, $this->getPageTitle());
+        $workflow = new Workflow($reader, $this->getPageTitle());
 
-        $commaSplitter = new CommaSplitter();
-        $workflow
-            ->addValueConverter('type', new AgendaItemTypeConverter())
-            ->addValueConverter('discussant_ids', $commaSplitter);
+        $step = new ValueConverterStep();
+        $step->add('[type]', [AgendaItemTypeConverter::class, 'convert'])
+            ->add('[discussant_ids]', [CommaSplitter::class, 'convert']);
+        $workflow->addStep($step);
 
         $workflow->addWriter(new SessionAgendaWriter($this, true, false));
-        
+
         return $workflow;
     }
 }

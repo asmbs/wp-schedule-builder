@@ -1,35 +1,36 @@
 {
-  "name": "wp-schedule-builder",
-  "version": "2.2.6",
-  "private": true,
-  "description": "Build interactive agendas for scientific meetings",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/asmbs/wp-schedule-builder.git"
-  },
-  "author": "Kyle Tucker <kyleatucker@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/asmbs/wp-schedule-builder/issues"
-  },
-  "homepage": "https://github.com/asmbs/wp-schedule-builder#readme",
-  "devDependencies": {
-    "asset-builder": "^1.1.0",
-    "chalk": "^2.4.1",
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssnano": "^2.1.1",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-less": "^3.0.5",
-    "gulp-livereload": "^3.8.1",
-    "gulp-notify": "^3.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.7",
-    "lazypipe": "^1.0.1",
-    "run-sequence": "^2.2.1"
-  }
+    "name": "wp-schedule-builder",
+    "version": "3.0.0",
+    "private": true,
+    "description": "Build interactive agendas for scientific meetings",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/asmbs/wp-schedule-builder.git"
+    },
+    "author": "Kyle Tucker <kyleatucker@gmail.com>",
+    "contributors": [
+        "Max McMahon <max@asmbs.org"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/asmbs/wp-schedule-builder/issues"
+    },
+    "homepage": "https://github.com/asmbs/wp-schedule-builder#readme",
+    "devDependencies": {
+        "css-loader": "^1.0.0",
+        "file-loader": "^1.1.11",
+        "imagemin-webpack-plugin": "^2.1.5",
+        "less": "^3.6.0",
+        "less-loader": "^4.1.0",
+        "mini-css-extract-plugin": "^0.4.1",
+        "optimize-css-assets-webpack-plugin": "^4.0.3",
+        "postcss-loader": "^2.1.6",
+        "uglifyjs-webpack-plugin": "^1.2.7",
+        "webpack": "^4.17.2",
+        "webpack-cli": "^3.0.8",
+        "webpack-livereload-plugin": "^2.1.1"
+    },
+    "dependencies": {
+        "inputmask": "^4.0.0"
+    }
 }
