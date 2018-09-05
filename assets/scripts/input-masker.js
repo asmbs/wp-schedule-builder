@@ -32,8 +32,12 @@ export class InputMasker {
     }
 
     handleFieldAppended($field){
-        let $input = $field.find('.acf-input > .acf-input-wrap > input');
-        this.initTimeMasks($input);
+        // If this is a time field
+        if($field.hasClass('acf-field-time')) {
+            // Add the time input mask
+            let $input = $field.find('.acf-input > .acf-input-wrap > input');
+            this.initTimeMasks($input);
+        }
     }
 
     init() {
