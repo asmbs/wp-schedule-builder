@@ -53,7 +53,7 @@ class SessionFacultyImporter extends AbstractImporter
         $workflow = new Workflow($reader, $this->getPageTitle());
 
         $step = new ValueConverterStep();
-        $step->add('person_ids', [CommaSplitter::class, 'convert']);
+        $step->add('[person_ids]', [CommaSplitter::class, 'convert']);
         $workflow->addStep($step);
 
         $workflow->addWriter(new SessionFacultyWriter($this, true, false));
