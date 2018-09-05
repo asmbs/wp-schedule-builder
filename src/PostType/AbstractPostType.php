@@ -4,11 +4,19 @@ namespace ASMBS\ScheduleBuilder\PostType;
 
 /**
  * A comprehensive base class for custom post types.
- * 
+ *
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
 abstract class AbstractPostType implements PostTypeInterface
 {
+    const RESERVED_SLUGS = [
+        Author::SLUG,
+        Person::SLUG,
+        ResearchAbstract::SLUG,
+        Session::SLUG,
+        Speaker::SLUG
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -24,6 +32,10 @@ abstract class AbstractPostType implements PostTypeInterface
     {
         add_action('init', [$this, 'register']);
         add_action('sb/activate', [$this, 'register']);
+
+        // Reserve the slug
+        add_filter('wp_unique_post_slug_is_bad_hierarchical_slug', [$this, 'isReservedSlug'], 10, 2);
+        add_filter('wp_unique_post_slug_is_bad_flat_slug', [$this, 'isReservedSlug'], 10, 2);
 
         add_filter('default_hidden_meta_boxes', [$this, 'filterDefaultHiddenMetaBoxes'], 25, 2);
 
@@ -50,40 +62,40 @@ abstract class AbstractPostType implements PostTypeInterface
         $pluralSlug = sanitize_title($plural);
 
         $defaultArgs = [
-            'label'               => $plural,
-            'labels'              => [
-                'name'                => $plural,
-                'singular_name'       => $singular,
-                'menu_name'           => $plural,
-                'menu_admin_bar'      => $singular,
-                'all_items'           => sprintf('All %s', $plural),
-                'add_new'             => sprintf('Add New %s', $singular),
-                'add_new_item'        => sprintf('Add New %s', $singular),
-                'edit_item'           => sprintf('Edit %s', $singular),
-                'new_item'            => sprintf('New %s', $singular),
-                'view_item'           => sprintf('View %s', $singular),
-                'search_items'        => sprintf('Search %s', $plural),
-                'not_found'           => sprintf('No %s found', $plural),
-                'not_found_in_trash'  => sprintf('No %s found in Trash', $plural),
-                'parent_item'         => sprintf('Parent %s', $singular),
-                'parent_item_colon'   => sprintf('Parent %s:', $singular),
+            'label' => $plural,
+            'labels' => [
+                'name' => $plural,
+                'singular_name' => $singular,
+                'menu_name' => $plural,
+                'menu_admin_bar' => $singular,
+                'all_items' => sprintf('All %s', $plural),
+                'add_new' => sprintf('Add New %s', $singular),
+                'add_new_item' => sprintf('Add New %s', $singular),
+                'edit_item' => sprintf('Edit %s', $singular),
+                'new_item' => sprintf('New %s', $singular),
+                'view_item' => sprintf('View %s', $singular),
+                'search_items' => sprintf('Search %s', $plural),
+                'not_found' => sprintf('No %s found', $plural),
+                'not_found_in_trash' => sprintf('No %s found in Trash', $plural),
+                'parent_item' => sprintf('Parent %s', $singular),
+                'parent_item_colon' => sprintf('Parent %s:', $singular),
             ],
-            'public'              => true,
+            'public' => true,
             'exclude_from_search' => false,
-            'publicly_queryable'  => true,
-            'show_ui'             => true,
-            'show_in_nav_menus'   => true,
-            'show_in_menu'        => true,
-            'show_in_admin_bar'   => true,
-            'menu_position'       => 25,
-            'menu_icon'           => 'dashicons-admin-post',
-            'hierarchical'        => false,
-            'has_archive'         => $pluralSlug,
-            'rewrite'             => ['slug' => $singularSlug, 'with_front' => true],
-            'supports'            => [],
-            'can_export'          => true        ];
+            'publicly_queryable' => true,
+            'show_ui' => true,
+            'show_in_nav_menus' => true,
+            'show_in_menu' => true,
+            'show_in_admin_bar' => true,
+            'menu_position' => 25,
+            'menu_icon' => 'dashicons-admin-post',
+            'hierarchical' => false,
+            'has_archive' => $pluralSlug,
+            'rewrite' => ['slug' => $singularSlug, 'with_front' => true],
+            'supports' => [],
+            'can_export' => true];
 
-        return array_replace_recursive($defaultArgs, (array) $this->getArgs());
+        return array_replace_recursive($defaultArgs, (array)$this->getArgs());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -159,8 +171,8 @@ abstract class AbstractPostType implements PostTypeInterface
     /**
      * Set the meta boxes that are hidden by default.
      *
-     * @param   array       $metaboxes
-     * @param   \WP_Screen  $screen
+     * @param   array $metaboxes
+     * @param   \WP_Screen $screen
      * @return  array
      */
     public function filterDefaultHiddenMetaBoxes(array $metaboxes, \WP_Screen $screen)
@@ -199,7 +211,7 @@ abstract class AbstractPostType implements PostTypeInterface
     /**
      * Add the "advanced date" column in place of the core date and author columns.
      *
-     * @param   array  $columns
+     * @param   array $columns
      * @return  array
      */
     public function addAdvancedDateColumn($columns)
@@ -237,7 +249,7 @@ abstract class AbstractPostType implements PostTypeInterface
     /**
      * Set the default orderby parameter.
      *
-     * @param  \WP_Query  $query
+     * @param  \WP_Query $query
      */
     public function setDefaultOrderBy(\WP_Query $query)
     {
@@ -254,7 +266,7 @@ abstract class AbstractPostType implements PostTypeInterface
     /**
      * Determine whether the given query is a post manager query.
      *
-     * @param   \WP_Query  $query
+     * @param   \WP_Query $query
      * @return  bool
      */
     protected function isPostListQuery(\WP_Query $query)
@@ -264,5 +276,15 @@ abstract class AbstractPostType implements PostTypeInterface
             $query->is_main_query() &&
             $query->get('post_type') === static::SLUG
         );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public function isReservedSlug($is_bad_slug, $slug)
+    {
+        if (in_array($slug, self::RESERVED_SLUGS)) {
+            return true;
+        }
+        return $is_bad_slug;
     }
 }
