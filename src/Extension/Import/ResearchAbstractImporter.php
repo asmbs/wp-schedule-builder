@@ -2,7 +2,6 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import;
 
-use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CommaSplitter;
 use ASMBS\ScheduleBuilder\Extension\Import\Writer\ResearchAbstractWriter;
 use ASMBS\ScheduleBuilder\PostType\ResearchAbstract;

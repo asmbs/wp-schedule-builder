@@ -204,6 +204,7 @@ abstract class AbstractImporter implements ImporterInterface
 
     /**
      * Handle the import form's submission.
+     * @throws \Port\Exception
      */
     public function handleSubmission()
     {
@@ -258,6 +259,7 @@ abstract class AbstractImporter implements ImporterInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Port\Exception
      */
     public function processFile(\SplFileInfo $file, $replace = false)
     {

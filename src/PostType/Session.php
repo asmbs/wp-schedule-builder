@@ -115,8 +115,6 @@ class Session extends AbstractPostType
      */
     public function renderColumn($column)
     {
-        $post = get_post();
-
         switch ($column) {
             case 'datetime':
                 $date = get_field('date');
@@ -205,7 +203,6 @@ class Session extends AbstractPostType
         $order = $query->get('order', 'ASC');
 
         if ($orderby === 'datetime') {
-            global $wpdb;
             $newSql = sprintf(
                 'STR_TO_DATE(CONCAT(date_.meta_value, " ", start_.meta_value), "%2$s %3$s") %1$s, '
                 .'STR_TO_DATE(CONCAT(date_.meta_value, " ", end_.meta_value), "%2$s %3$s") %1$s, '

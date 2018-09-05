@@ -4,7 +4,6 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 
 use ASMBS\ScheduleBuilder\Extension\Import\ValueConverter\CredentialsNormalizer;
 use Port\Reader;
-use Port\Steps\Step\ConverterStep;
 use Port\Steps\Step\ValueConverterStep;
 use Port\Steps\StepAggregator as Workflow;
 

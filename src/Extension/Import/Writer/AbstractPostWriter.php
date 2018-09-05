@@ -32,6 +32,7 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
      */
     public function __construct(ImporterInterface $importer, $replace, $addNew = true)
     {
+        parent::__construct();
         $this->importer = $importer;
         $this->replace = (bool) $replace;
         $this->addNew = (bool) $addNew;
@@ -39,6 +40,7 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
 
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
     public function writeItem(array $item)
     {
@@ -74,7 +76,7 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
         $ID = $this->savePost($post);
         $post = get_post($ID);
         if (!$post) {
-            $this->throwException('Post could not be saved.');
+            throw new \Exception('Post could not be saved.');
         }
 
         // Save meta fields and terms
@@ -85,19 +87,6 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
         wp_cache_flush();
         
         return $this;
-    }
-
-    /**
-     * Throw a writer exception.
-     * 
-     * @param   string      $message
-     * @param   \Exception  $prev
-     *
-     * @throws  WriterException
-     */
-    public function throwException($message, \Exception $prev = null)
-    {
-        throw new WriterException($message, 0, $prev);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -271,14 +260,15 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
      *
      * @see  addTerm()
      *
-     * @param   \WP_Post  $post
+     * @param   \WP_Post $post
      * @return  $this
+     * @throws \Exception
      */
     final protected function saveTerms(\WP_Post $post)
     {
         foreach ($this->terms as $taxonomy => $terms) {
             if (!is_object_in_taxonomy($post->post_type, $taxonomy)) {
-                $this->throwException(sprintf('The "%s" taxonomy does not describe this post type.', $taxonomy));
+                throw new \Exception(sprintf('The "%s" taxonomy does not describe this post type.', $taxonomy));
             }
 
             $IDs = [];
@@ -306,7 +296,7 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
      * 
      * @param   string  $term
      * @param   string  $taxonomy
-     * @return  int
+     * @return \Exception|int
      */
     final protected function getTermID($term, $taxonomy)
     {
@@ -320,7 +310,7 @@ abstract class AbstractPostWriter extends AbstractStreamWriter
             return (int) $new['term_id'];
         }
 
-        return $this->throwException(sprintf('The "%s" term could not be located or inserted.', $term));
+        return new \Exception(sprintf('The "%s" term could not be located or inserted.', $term));
     }
 
     /**
