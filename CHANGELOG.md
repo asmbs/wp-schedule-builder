@@ -1,6 +1,39 @@
 # Changelog  
 
-## 2.2.5 - August 2, 2018
+Starting with v3.0, the format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+
+Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+
+
+## [Unreleased]
+
+
+
+## [3.0.0] - 2018-09-05
+
+### Added
+
+- Added an input mask for client-side validation of start and end times .
+- Added server-side validation of start and end times.
+
+### Changed
+
+- **[BC Break]** Dropped support for PHP <7.0.
+- **[BC Break]** Switched from Gulp and Bower to Webpack.
+- Rewrote all JavaScript to ES6.
+- Began including built files instead of forcing dependent software to build on deploy.
+- Replaced deprecated `ddeboer/data-import` with `portphp/steps`.
+
+### Fixed
+
+- Fixed a bug where admins could use a reserved slug word without an error.
+- Cleaned up code.
+
+
+
+### 2.2.5 - August 2, 2018
+
 - Revert ddeboer/data-import to v0.18.0
 
 ### 2.2.5 - July 11, 2018
