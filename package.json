@@ -1,6 +1,6 @@
 {
     "name": "wp-schedule-builder",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "private": true,
     "description": "Build interactive agendas for scientific meetings",
     "repository": {
@@ -19,18 +19,18 @@
     "devDependencies": {
         "css-loader": "^1.0.0",
         "file-loader": "^1.1.11",
-        "imagemin-webpack-plugin": "^2.1.5",
+        "imagemin-webpack-plugin": "^2.3.0",
         "less": "^3.6.0",
         "less-loader": "^4.1.0",
-        "mini-css-extract-plugin": "^0.4.1",
+        "mini-css-extract-plugin": "^0.4.3",
         "optimize-css-assets-webpack-plugin": "^4.0.3",
         "postcss-loader": "^2.1.6",
         "uglifyjs-webpack-plugin": "^1.2.7",
-        "webpack": "^4.17.2",
-        "webpack-cli": "^3.0.8",
+        "webpack": "^4.20.2",
+        "webpack-cli": "^3.1.2",
         "webpack-livereload-plugin": "^2.1.1"
     },
     "dependencies": {
-        "inputmask": "^4.0.0"
+        "inputmask": "^4.0.2"
     }
 }
