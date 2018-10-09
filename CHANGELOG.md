@@ -10,6 +10,14 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [3.0.1] - 2018-10-09
+
+### Security
+
+- Fixed a security vulnerability with an NPM dependency.
+
+
+
 ## [3.0.0] - 2018-09-05
 
 ### Added
