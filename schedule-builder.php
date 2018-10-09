@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Schedule Builder
  * Description: Build interactive agendas for scientific meetings.
- * Version:     3.0.0
+ * Version:     3.0.1
  * Plugin URI:  https://github.com/asmbs/wp-schedule-builder
  * Author:      The A-TEAM
  * Author URI:  https://github.com/asmbs
