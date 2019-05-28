@@ -4,11 +4,10 @@ namespace ASMBS\ScheduleBuilder\PostType;
 
 /**
  * This interface defines a wrapper for the custom post type API.
- * 
+ *
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-interface PostTypeInterface
-{
+interface PostTypeInterface {
     /** The singular post type slug. */
     const SLUG = '_post-type';
 
@@ -72,22 +71,23 @@ interface PostTypeInterface
     /**
      * Determine whether a particular post feature is supported.
      *
-     * @param   string  $feature
+     * @param string $feature
+     *
      * @return  bool
      */
-    public static function supports($feature);
+    public static function supports( $feature );
 
     /**
      * Add support for the given feature.
      *
-     * @param   string|string[]  $feature
+     * @param string|string[] $feature
      */
-    public static function addSupport($feature);
+    public static function addSupport( $feature );
 
     /**
      * Remove support for the given feature.
      *
-     * @param   string  $feature
+     * @param string $feature
      */
-    public static function removeSupport($feature);
+    public static function removeSupport( $feature );
 }

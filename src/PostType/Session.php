@@ -11,31 +11,27 @@ use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
  *
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class Session extends AbstractPostType
-{
+class Session extends AbstractPostType {
     const SLUG = 'session';
 
     /**
      * {@inheritdoc}
      */
-    public function getSingularLabel()
-    {
+    public function getSingularLabel() {
         return 'Session';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getPluralLabel()
-    {
+    public function getPluralLabel() {
         return 'Sessions';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getArgs()
-    {
+    public function getArgs() {
         return [
             'labels'          => [
                 'menu_name' => 'Schedule',
@@ -43,26 +39,25 @@ class Session extends AbstractPostType
             'menu_position'   => 31,
             'menu_icon'       => 'dashicons-calendar-alt',
             'has_archive'     => 'schedule',
-            'supports'        => ['title', 'editor', 'author', 'revisions'],
-            'capability_type' => ['session', 'sessions'],
+            'supports'        => [ 'title', 'editor', 'author', 'revisions' ],
+            'capability_type' => [ 'session', 'sessions' ],
             'map_meta_cap'    => true,
         ];
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected function __construct()
-    {
+    protected function __construct() {
         parent::__construct();
 
         // Customize post manager columns
-        add_filter(sprintf('manage_edit-%s_columns', static::SLUG), [$this, 'setPostTableColumns']);
-        add_filter(sprintf('manage_edit-%s_sortable_columns', static::SLUG), [$this, 'setSortableColumns']);
-        add_action(sprintf('manage_%s_posts_custom_column', static::SLUG), [$this, 'renderColumn']);
+        add_filter( sprintf( 'manage_edit-%s_columns', static::SLUG ), [ $this, 'setPostTableColumns' ] );
+        add_filter( sprintf( 'manage_edit-%s_sortable_columns', static::SLUG ), [ $this, 'setSortableColumns' ] );
+        add_action( sprintf( 'manage_%s_posts_custom_column', static::SLUG ), [ $this, 'renderColumn' ] );
 
         // Handle custom post manager ordering
-        add_filter('posts_join_paged', [$this, 'getJoinSql'], 10, 2);
-        add_filter('posts_orderby', [$this, 'getOrderBySql'], 10, 2);
+        add_filter( 'posts_join_paged', [ $this, 'getJoinSql' ], 10, 2 );
+        add_filter( 'posts_orderby', [ $this, 'getOrderBySql' ], 10, 2 );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -70,25 +65,25 @@ class Session extends AbstractPostType
     /**
      * Define the post manager column list.
      *
-     * @param   array  $columns
+     * @param array $columns
+     *
      * @return  array
      */
-    public function setPostTableColumns($columns)
-    {
+    public function setPostTableColumns( $columns ) {
         $newColumns = [];
-        foreach ($columns as $id => $title) {
-            switch ($id) {
+        foreach ( $columns as $id => $title ) {
+            switch ( $id ) {
                 case 'title':
-                    $newColumns[$id] = $title;
+                    $newColumns[ $id ]      = $title;
                     $newColumns['datetime'] = 'Date/Time';
                     $newColumns['location'] = 'Location';
                     break;
-                case 'taxonomy-'. SessionType::SLUG:
-                    $labels = SessionType::getLabels();
-                    $newColumns[$id] = $labels->singular_name;
+                case 'taxonomy-' . SessionType::SLUG:
+                    $labels            = SessionType::getLabels();
+                    $newColumns[ $id ] = $labels->singular_name;
                     break;
                 default:
-                    $newColumns[$id] = $title;
+                    $newColumns[ $id ] = $title;
             }
         }
 
@@ -97,12 +92,12 @@ class Session extends AbstractPostType
 
     /**
      * Add column sort designations.
-     * 
-     * @param   array  $columns
+     *
+     * @param array $columns
+     *
      * @return  array
      */
-    public function setSortableColumns($columns)
-    {
+    public function setSortableColumns( $columns ) {
         $columns['datetime'] = 'datetime';
 
         return $columns;
@@ -111,41 +106,40 @@ class Session extends AbstractPostType
     /**
      * Render custom column content.
      *
-     * @param  string  $column
+     * @param string $column
      */
-    public function renderColumn($column)
-    {
-        switch ($column) {
+    public function renderColumn( $column ) {
+        switch ( $column ) {
             case 'datetime':
-                $date = get_field('date');
-                $start = get_field('start_time');
-                $end = get_field('end_time');
-                if ($date && $start && $end) {
-                    $tz = new \DateTimeZone('America/New_York');
+                $date  = get_field( 'date' );
+                $start = get_field( 'start_time' );
+                $end   = get_field( 'end_time' );
+                if ( $date && $start && $end ) {
+                    $tz = new \DateTimeZone( 'America/New_York' );
 
                     try {
-                        $start = @new \DateTime($date .' '. $start, $tz);
-                        $end = @new \DateTime($date .' '. $end, $tz);
+                        $start = @new \DateTime( $date . ' ' . $start, $tz );
+                        $end   = @new \DateTime( $date . ' ' . $end, $tz );
 
                         printf(
                             '<b>%s</b><br>%s - %s',
-                            $start->format('n/j (l)'),
-                            $start->format('g:ia'),
-                            $end->format('g:ia')
+                            $start->format( 'n/j (l)' ),
+                            $start->format( 'g:ia' ),
+                            $end->format( 'g:ia' )
                         );
-                    } catch (\Exception $e) {
-                        printf('<b style="color:#cc0000">%s</b>', 'Error!');
+                    } catch ( \Exception $e ) {
+                        printf( '<b style="color:#cc0000">%s</b>', 'Error!' );
                     }
 
                 } else {
-                    printf('<b>%s</b>', 'TBA');
+                    printf( '<b>%s</b>', 'TBA' );
                 }
 
                 break;
             case 'location':
-                $venue = get_field('venue');
-                $room = get_field('room');
-                
+                $venue = get_field( 'venue' );
+                $room  = get_field( 'room' );
+
                 printf(
                     '<b>%s</b><br>%s',
                     $venue == 'tba' ? 'Venue TBA' : $venue,
@@ -158,24 +152,24 @@ class Session extends AbstractPostType
     /**
      * Add JOIN clauses to the post table query for datetime ordering.
      *
-     * @param   string     $sql
-     * @param   \WP_Query  $query
+     * @param string $sql
+     * @param \WP_Query $query
+     *
      * @return  string
      */
-    public function getJoinSql($sql, \WP_Query $query)
-    {
-        if (!$this->isPostListQuery($query)) {
+    public function getJoinSql( $sql, \WP_Query $query ) {
+        if ( ! $this->isPostListQuery( $query ) ) {
             return $sql;
         }
 
-        $orderby = $query->get('orderby');
+        $orderby = $query->get( 'orderby' );
 
-        if ($orderby === 'datetime') {
+        if ( $orderby === 'datetime' ) {
             global $wpdb;
             $newSql = sprintf(
                 'LEFT JOIN %1$s date_ ON date_.post_id = %2$s.ID AND date_.meta_key = "date" '
-                .'LEFT JOIN %1$s start_ ON start_.post_id = %2$s.ID AND start_.meta_key = "start_time" '
-                .'LEFT JOIN %1$s end_ ON end_.post_id = %2$s.ID AND end_.meta_key = "end_time"',
+                . 'LEFT JOIN %1$s start_ ON start_.post_id = %2$s.ID AND start_.meta_key = "start_time" '
+                . 'LEFT JOIN %1$s end_ ON end_.post_id = %2$s.ID AND end_.meta_key = "end_time"',
                 $wpdb->postmeta,
                 $wpdb->posts
             );
@@ -189,24 +183,24 @@ class Session extends AbstractPostType
     /**
      * Add ORDER BY clauses to the post table query for datetime ordering.
      *
-     * @param   string     $sql
-     * @param   \WP_Query  $query
+     * @param string $sql
+     * @param \WP_Query $query
+     *
      * @return  string
      */
-    public function getOrderBySql($sql, \WP_Query $query)
-    {
-        if (!$this->isPostListQuery($query)) {
+    public function getOrderBySql( $sql, \WP_Query $query ) {
+        if ( ! $this->isPostListQuery( $query ) ) {
             return $sql;
         }
 
-        $orderby = $query->get('orderby');
-        $order = $query->get('order', 'ASC');
+        $orderby = $query->get( 'orderby' );
+        $order   = $query->get( 'order', 'ASC' );
 
-        if ($orderby === 'datetime') {
+        if ( $orderby === 'datetime' ) {
             $newSql = sprintf(
                 'STR_TO_DATE(CONCAT(date_.meta_value, " ", start_.meta_value), "%2$s %3$s") %1$s, '
-                .'STR_TO_DATE(CONCAT(date_.meta_value, " ", end_.meta_value), "%2$s %3$s") %1$s, '
-                .'post_title ASC',
+                . 'STR_TO_DATE(CONCAT(date_.meta_value, " ", end_.meta_value), "%2$s %3$s") %1$s, '
+                . 'post_title ASC',
                 $order,
                 '%Y/%m/%d',
                 '%H:%s'

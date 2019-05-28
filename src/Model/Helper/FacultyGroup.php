@@ -7,31 +7,29 @@ use ASMBS\ScheduleBuilder\Model\Person;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class FacultyGroup
-{
+class FacultyGroup {
     /** @var  string */
     protected $label;
 
     /** @var  Person[] */
     protected $people = [];
-    
-    public function __construct($label, $people)
-    {
+
+    public function __construct( $label, $people ) {
         $this->label = $label;
 
-        $people = is_array($people) ? $people : [];
-        $this->people = array_map([$this, 'loadPerson'], $people);
+        $people       = is_array( $people ) ? $people : [];
+        $this->people = array_map( [ $this, 'loadPerson' ], $people );
     }
 
     /**
      * Wrap the given post into a Person entity.
      *
-     * @param   int|\WP_Post  $post
+     * @param int|\WP_Post $post
+     *
      * @return  Person
      */
-    protected function loadPerson($post)
-    {
-        return new Person($post);
+    protected function loadPerson( $post ) {
+        return new Person( $post );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -39,16 +37,14 @@ class FacultyGroup
     /**
      * @return  string
      */
-    public function getLabel()
-    {
+    public function getLabel() {
         return $this->label;
     }
 
     /**
      * @return  Person[]
      */
-    public function getPeople()
-    {
+    public function getPeople() {
         return $this->people;
     }
 }

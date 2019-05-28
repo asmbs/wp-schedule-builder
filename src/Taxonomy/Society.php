@@ -7,22 +7,18 @@ use ASMBS\ScheduleBuilder\PostType;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class Society extends AbstractTaxonomy
-{
+class Society extends AbstractTaxonomy {
     const SLUG = 'society';
 
-    public function getSingularLabel()
-    {
+    public function getSingularLabel() {
         return 'Society';
     }
 
-    public function getPluralLabel()
-    {
+    public function getPluralLabel() {
         return 'Societies';
     }
 
-    public function getArgs()
-    {
+    public function getArgs() {
         return [
             'show_admin_column'  => true,
             'show_in_quick_edit' => false,
@@ -30,8 +26,7 @@ class Society extends AbstractTaxonomy
         ];
     }
 
-    public function getPostTypes()
-    {
+    public function getPostTypes() {
         return [
             PostType\Session::SLUG,
             PostType\ResearchAbstract::SLUG,

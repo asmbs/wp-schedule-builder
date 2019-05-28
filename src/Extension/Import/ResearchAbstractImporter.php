@@ -12,27 +12,22 @@ use Port\Steps\StepAggregator as Workflow;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class ResearchAbstractImporter extends AbstractImporter
-{
+class ResearchAbstractImporter extends AbstractImporter {
     const SLUG = 'abstract_importer';
 
-    public function getMenuTitle()
-    {
+    public function getMenuTitle() {
         return 'Import Abstracts';
     }
 
-    public function getPageTitle()
-    {
+    public function getPageTitle() {
         return 'Abstract Importer';
     }
 
-    public function getPostType()
-    {
+    public function getPostType() {
         return ResearchAbstract::SLUG;
     }
 
-    public function getColumns()
-    {
+    public function getColumns() {
         return [
             'abstract_id',
             'title',
@@ -53,22 +48,22 @@ class ResearchAbstractImporter extends AbstractImporter
     /**
      * Build the session import workflow.
      *
-     * @param   Reader $reader
+     * @param Reader $reader
+     *
      * @return  Workflow
      */
-    protected function buildWorkflow(Reader $reader)
-    {
-        $workflow = new Workflow($reader, $this->getPageTitle());
+    protected function buildWorkflow( Reader $reader ) {
+        $workflow = new Workflow( $reader, $this->getPageTitle() );
 
         // Add converters
         $step = new ValueConverterStep();
-        $step->add('[author_ids]', [CommaSplitter::class, 'convert'])
-            ->add('[societies]', [CommaSplitter::class, 'convert'])
-            ->add('[keywords]', [CommaSplitter::class, 'convert']);
-        $workflow->addStep($step);
+        $step->add( '[author_ids]', [ CommaSplitter::class, 'convert' ] )
+             ->add( '[societies]', [ CommaSplitter::class, 'convert' ] )
+             ->add( '[keywords]', [ CommaSplitter::class, 'convert' ] );
+        $workflow->addStep( $step );
 
         // Add writer
-        $workflow->addWriter(new ResearchAbstractWriter($this, $this->replace));
+        $workflow->addWriter( new ResearchAbstractWriter( $this, $this->replace ) );
 
         return $workflow;
     }

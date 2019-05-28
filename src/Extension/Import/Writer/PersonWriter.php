@@ -9,15 +9,12 @@ use ASMBS\ScheduleBuilder\PostType\Person;
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  * @author  James Osterhout <jrosterhout@gmail.com>
  */
-class PersonWriter extends FacultyWriter
-{
-    public function getPostType()
-    {
+class PersonWriter extends FacultyWriter {
+    public function getPostType() {
         return Person::SLUG;
     }
 
-    protected function getIDKey()
-    {
+    protected function getIDKey() {
         return 'person_id';
     }
 

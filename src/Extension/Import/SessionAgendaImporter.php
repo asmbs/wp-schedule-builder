@@ -13,27 +13,22 @@ use Port\Steps\StepAggregator as Workflow;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionAgendaImporter extends AbstractImporter
-{
+class SessionAgendaImporter extends AbstractImporter {
     const SLUG = 'session_agenda_importer';
 
-    public function getMenuTitle()
-    {
+    public function getMenuTitle() {
         return 'Import Session Agendas';
     }
 
-    public function getPageTitle()
-    {
+    public function getPageTitle() {
         return 'Session Agenda Importer';
     }
 
-    public function getPostType()
-    {
+    public function getPostType() {
         return Session::SLUG;
     }
 
-    public function getColumns()
-    {
+    public function getColumns() {
         return [
             'session_id',
             'type',
@@ -52,19 +47,19 @@ class SessionAgendaImporter extends AbstractImporter
     /**
      * Build the session agenda importer workflow.
      *
-     * @param   Reader $reader
+     * @param Reader $reader
+     *
      * @return  Workflow
      */
-    public function buildWorkflow(Reader $reader)
-    {
-        $workflow = new Workflow($reader, $this->getPageTitle());
+    public function buildWorkflow( Reader $reader ) {
+        $workflow = new Workflow( $reader, $this->getPageTitle() );
 
         $step = new ValueConverterStep();
-        $step->add('[type]', [AgendaItemTypeConverter::class, 'convert'])
-            ->add('[discussant_ids]', [CommaSplitter::class, 'convert']);
-        $workflow->addStep($step);
+        $step->add( '[type]', [ AgendaItemTypeConverter::class, 'convert' ] )
+             ->add( '[discussant_ids]', [ CommaSplitter::class, 'convert' ] );
+        $workflow->addStep( $step );
 
-        $workflow->addWriter(new SessionAgendaWriter($this, true, false));
+        $workflow->addWriter( new SessionAgendaWriter( $this, true, false ) );
 
         return $workflow;
     }

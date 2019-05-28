@@ -2,7 +2,6 @@
 
 namespace ASMBS\ScheduleBuilder\Extension\Import\ValueConverter;
 
-interface ConverterInterface
-{
-    public static function convert($input);
+interface ConverterInterface {
+    public static function convert( $input );
 }

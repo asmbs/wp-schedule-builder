@@ -12,27 +12,22 @@ use Port\Steps\StepAggregator as Workflow;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionFacultyImporter extends AbstractImporter
-{
+class SessionFacultyImporter extends AbstractImporter {
     const SLUG = 'session_faculty_importer';
 
-    public function getMenuTitle()
-    {
+    public function getMenuTitle() {
         return 'Import Session Faculty';
     }
 
-    public function getPageTitle()
-    {
+    public function getPageTitle() {
         return 'Session Faculty Importer';
     }
 
-    public function getPostType()
-    {
+    public function getPostType() {
         return Session::SLUG;
     }
 
-    public function getColumns()
-    {
+    public function getColumns() {
         return [
             'session_id',
             'label',
@@ -45,19 +40,19 @@ class SessionFacultyImporter extends AbstractImporter
     /**
      * Build the session faculty importer workflow.
      *
-     * @param   Reader  $reader
+     * @param Reader $reader
+     *
      * @return  Workflow
      */
-    public function buildWorkflow(Reader $reader)
-    {
-        $workflow = new Workflow($reader, $this->getPageTitle());
+    public function buildWorkflow( Reader $reader ) {
+        $workflow = new Workflow( $reader, $this->getPageTitle() );
 
         $step = new ValueConverterStep();
-        $step->add('[person_ids]', [CommaSplitter::class, 'convert']);
-        $workflow->addStep($step);
+        $step->add( '[person_ids]', [ CommaSplitter::class, 'convert' ] );
+        $workflow->addStep( $step );
 
-        $workflow->addWriter(new SessionFacultyWriter($this, true, false));
-        
+        $workflow->addWriter( new SessionFacultyWriter( $this, true, false ) );
+
         return $workflow;
     }
 }

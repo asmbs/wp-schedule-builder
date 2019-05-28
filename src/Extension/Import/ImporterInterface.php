@@ -5,8 +5,7 @@ namespace ASMBS\ScheduleBuilder\Extension\Import;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-interface ImporterInterface
-{
+interface ImporterInterface {
     const SLUG = '_importer';
 
     /**
@@ -50,25 +49,27 @@ interface ImporterInterface
     /**
      * Process an uploaded file. Parameter MUST be a file from the $_FILES array.
      *
-     * @param   array  $file
+     * @param array $file
+     *
      * @return  \SplFileInfo
      */
-    public function handleUpload(array $file);
+    public function handleUpload( array $file );
 
     /**
      * Run the workflow to process the data in an uploaded file.
      *
-     * @param  \SplFileInfo  $file
-     * @param  bool          $replace
+     * @param \SplFileInfo $file
+     * @param bool $replace
      */
-    public function processFile(\SplFileInfo $file, $replace = false);
+    public function processFile( \SplFileInfo $file, $replace = false );
 
     /**
-     * @param   string  $message
-     * @param   string  $context
+     * @param string $message
+     * @param string $context
+     *
      * @return  $this
      */
-    public function addNotice($message, $context);
+    public function addNotice( $message, $context );
 
     // -----------------------------------------------------------------------------------------------------------------
 
