@@ -11,7 +11,7 @@
 - PHP 7.0+
 - A Composer-based WordPress stack like [Bedrock](https://github.com/roots/bedrock)
 - [Node + NPM](https://nodejs.org)
-- The [Advanced Custom Fields (ACF) Pro](https://www.advancedcustomfields.com/pro/) WordPress plugin
+- The [Advanced Custom Fields (ACF) Pro](https://www.advancedcustomfields.com/pro/) WordPress plugin v5.7+
 
 
 
