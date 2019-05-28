@@ -12,7 +12,9 @@ use ASMBS\ScheduleBuilder\Taxonomy\SessionType;
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
 class Session extends AbstractPostType {
+
     const SLUG = 'session';
+    const SLUG_PLURAL = 'sessions';
 
     /**
      * {@inheritdoc}

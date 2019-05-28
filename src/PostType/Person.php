@@ -8,7 +8,9 @@ namespace ASMBS\ScheduleBuilder\PostType;
  * @author  James Osterhout <jrosterhout@gmail.com>
  */
 class Person extends AbstractPostType {
+
     const SLUG = 'person';
+    const SLUG_PLURAL = 'people';
 
     /**
      * {@inheritdoc}

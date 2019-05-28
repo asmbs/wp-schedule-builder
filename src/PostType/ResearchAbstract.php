@@ -9,7 +9,9 @@ use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractType;
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
 class ResearchAbstract extends AbstractPostType {
+
     const SLUG = 'abstract';
+    const SLUG_PLURAL = 'abstracts';
 
     /**
      * {@inheritdoc}
