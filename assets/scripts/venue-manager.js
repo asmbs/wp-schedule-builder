@@ -22,16 +22,17 @@ export class VenueManager {
         // Get self-reference
         let _this = this,
             ajaxurl = window.ajaxurl,
-            opts = window.acf.o;
+            nonce = acf.get('nonce'),
+            postID = acf.get('post_id');
 
         // Run XHR request
         $.ajax(ajaxurl, {
             dataType: 'json',
             data: {
                 action: 'sb/load_rooms',
-                nonce:  opts.nonce,
-                post:   opts.post_id,
-                venue:  _this.$venueField.val(),
+                nonce: nonce,
+                post: postID,
+                venue: _this.$venueField.val(),
             },
         }).done((e) => _this._set_rooms(e));
     }
@@ -46,15 +47,14 @@ export class VenueManager {
 
         // Reset the room list with the default choices
         _this.$roomField.empty()
-            .append(_this.defaultChoices);
+        .append(_this.defaultChoices);
 
         // Add each room in the returned list
-        $.each(data, function(i, room) {
+        $.each(data, function (i, room) {
             _this._add_room(room);
         });
 
-        // Reinitialize select2
-        acf.select2.init(_this.$roomField);
+        _this.$roomField.trigger('change');
     }
 
     /**
@@ -62,11 +62,11 @@ export class VenueManager {
      */
     _add_room(room) {
 
-        let $o = this.$roomField.children('[value="'+ room.name +'"]');
+        let $o = this.$roomField.children('[value="' + room.name + '"]');
         if ($o.length == 0) {
             $o = $(document.createElement('option'))
-                .attr('value', room.name)
-                .text(room.name);
+            .attr('value', room.name)
+            .text(room.name);
             if (room.selected) {
                 $o.attr('selected', 'selected');
             }
@@ -76,9 +76,28 @@ export class VenueManager {
     }
 
     /**
+     * Async function for making sure that Select2 is fully loaded and initialized.
+     *
+     * @returns {Promise<any>}
+     */
+    checkSelect2Initialized() {
+        return new Promise(function (resolve, reject) {
+            (function waitForSelect2() {
+                if ($('#acf-location--room').hasClass("select2-hidden-accessible")) {
+                    return resolve();
+                }
+                setTimeout(waitForSelect2, 30);
+            })();
+        });
+    }
+
+    /**
      * Initialize the field relationship.
      */
-    init() {
+    async init() {
+
+        // Don't do anything until Select2 is fully initialized
+        await this.checkSelect2Initialized();
 
         // Set field references
         this.$venueField = $('#acf-location--venue');
@@ -89,8 +108,8 @@ export class VenueManager {
 
         // Bind handlers
         this.$venueField
-            .on('change.select2', (e) => this.load_rooms(e))
-            .trigger('change.select2');
+        .on('change.select2', (e) => this.load_rooms(e))
+        .trigger('change.select2');
     }
 
     // Getters and setters ---------------------------------------------------------------------------------------------

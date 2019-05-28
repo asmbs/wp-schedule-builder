@@ -52,7 +52,10 @@ class Loader
         wp_enqueue_script('sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
             'jquery',
             'acf-input',
-            'acf-pro-input'
+            'acf-pro-input',
+            'acf-field-group',
+            'acf-pro-field-group',
+            'select2'
         ], null, true);
     }
 
