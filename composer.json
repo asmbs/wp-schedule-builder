@@ -10,7 +10,8 @@
         },
         {
             "name": "Max McMahon",
-            "email": "max@asmbs.org"
+            "email": "max@asmbs.org",
+            "homepage": "http://MaxwellMcMahon.com"
         }
     ],
     "repositories": [
