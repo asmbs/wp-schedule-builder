@@ -7,22 +7,18 @@ use ASMBS\ScheduleBuilder\PostType;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class ResearchAbstractKeyword extends AbstractTaxonomy
-{
+class ResearchAbstractKeyword extends AbstractTaxonomy {
     const SLUG = 'keyword';
 
-    public function getSingularLabel()
-    {
+    public function getSingularLabel() {
         return 'Keyword';
     }
 
-    public function getPluralLabel()
-    {
+    public function getPluralLabel() {
         return 'Keywords';
     }
 
-    public function getArgs()
-    {
+    public function getArgs() {
         return [
             'show_admin_column'  => false,
             'show_in_quick_edit' => false,
@@ -30,8 +26,7 @@ class ResearchAbstractKeyword extends AbstractTaxonomy
         ];
     }
 
-    public function getPostTypes()
-    {
+    public function getPostTypes() {
         return [
             PostType\ResearchAbstract::SLUG,
             PostType\Session::SLUG,

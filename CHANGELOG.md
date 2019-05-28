@@ -10,6 +10,21 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [4.0.0] - 2019-05-28
+
+### Changed
+
+- **[BC Break]** Changed the JavaScript to support ACF's new JavaScript API introduced as a breaking change in ACF v5.7.
+- Formatted all PHP files into WordPress style.
+- Formatted all JavaScript files into Airbnb style.
+- Updated all dependencies.
+
+### Fixed
+
+- Expanded the reserved slug word bugfix detailed in v3.0.0 to include plural versions.
+
+
+
 ## [3.0.1] - 2018-10-09
 
 ### Security

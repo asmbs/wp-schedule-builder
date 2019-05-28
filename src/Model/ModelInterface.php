@@ -6,15 +6,14 @@ namespace ASMBS\ScheduleBuilder\Model;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-interface ModelInterface
-{
+interface ModelInterface {
     /**
      * Constructor; builds the object from the given post, or from the current post if
      * none is explicitly given.
      *
-     * @param  \WP_Post|int|null  $post
+     * @param \WP_Post|int|null $post
      */
-    public function __construct($post = null);
+    public function __construct( $post = null );
 
     /**
      * Get the wrapped post's ID.
@@ -33,9 +32,9 @@ interface ModelInterface
     /**
      * Determine whether the object has emitted a \WP_Error.
      *
+     * @return  bool
      * @see  \WP_Error
      *
-     * @return  bool
      */
     public function hasErrors();
 

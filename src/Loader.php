@@ -5,16 +5,14 @@ namespace ASMBS\ScheduleBuilder;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class Loader
-{
+class Loader {
     public static $root;
 
     /**
      * Wire up the plugin.
      */
-    public function __construct()
-    {
-        self::$root = dirname(dirname(__FILE__));
+    public function __construct() {
+        self::$root = dirname( dirname( __FILE__ ) );
 
         // Load post types
         PostType\Session::load();
@@ -36,32 +34,33 @@ class Loader
         Extension\Import\ResearchAbstractImporter::load();
         Extension\Import\PersonImporter::load();
 
-        add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAdminScripts' ] );
 
         // Register activation hook
-        register_activation_hook(self::$root . '/schedule-builder.php', [$this, 'activate']);
+        register_activation_hook( self::$root . '/schedule-builder.php', [ $this, 'activate' ] );
     }
 
     /**
      * Enqueue admin scripts and styles.
      */
-    public function enqueueAdminScripts()
-    {
-        $plugindir = plugin_dir_url(__FILE__);
-        wp_enqueue_style('sb/admin_css', $plugindir . '../dist/styles/main.css', [], null);
-        wp_enqueue_script('sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
+    public function enqueueAdminScripts() {
+        $plugindir = plugin_dir_url( __FILE__ );
+        wp_enqueue_style( 'sb/admin_css', $plugindir . '../dist/styles/main.css', [], null );
+        wp_enqueue_script( 'sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
             'jquery',
             'acf-input',
-            'acf-pro-input'
-        ], null, true);
+            'acf-pro-input',
+            'acf-field-group',
+            'acf-pro-field-group',
+            'select2'
+        ], null, true );
     }
 
     /**
      * Activation hook.
      */
-    public function activate()
-    {
-        do_action('sb/activate');
+    public function activate() {
+        do_action( 'sb/activate' );
         flush_rewrite_rules();
     }
 }

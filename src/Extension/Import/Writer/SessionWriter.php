@@ -12,16 +12,13 @@ use ASMBS\ScheduleBuilder\Taxonomy\Society;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionWriter extends AbstractPostWriter
-{
-    public function getPostType()
-    {
+class SessionWriter extends AbstractPostWriter {
+    public function getPostType() {
         return Session::SLUG;
     }
 
-    public function queryPosts(array $item)
-    {
-        return get_posts([
+    public function queryPosts( array $item ) {
+        return get_posts( [
             'post_type'   => $this->getPostType(),
             'post_status' => 'any',
             'meta_query'  => [
@@ -30,50 +27,47 @@ class SessionWriter extends AbstractPostWriter
                     'value' => $item['session_id'],
                 ],
             ],
-        ]);
+        ] );
     }
 
-    protected function buildPost(\WP_Post $post, array $item)
-    {
-        parent::buildPost($post, $item);
+    protected function buildPost( \WP_Post $post, array $item ) {
+        parent::buildPost( $post, $item );
 
-        $post->post_title = $item['title'];
+        $post->post_title   = $item['title'];
         $post->post_content = $item['content'];
 
         return $this;
     }
 
-    protected function buildMetaFields(\WP_Post $post, array $item)
-    {
-        $this->addMeta('session_id', $item['session_id']);
-        
+    protected function buildMetaFields( \WP_Post $post, array $item ) {
+        $this->addMeta( 'session_id', $item['session_id'] );
+
         // Date & time
-        $this->addMeta('scheduling--date', $item['date'])
-            ->addMeta('scheduling--start', $item['start_time'])
-            ->addMeta('scheduling--end', $item['end_time']);
+        $this->addMeta( 'scheduling--date', $item['date'] )
+             ->addMeta( 'scheduling--start', $item['start_time'] )
+             ->addMeta( 'scheduling--end', $item['end_time'] );
 
         // Venue & room
-        $this->addMeta('location--venue', $item['venue'])
-            ->addMeta('location--room', $item['room']);
+        $this->addMeta( 'location--venue', $item['venue'] )
+             ->addMeta( 'location--room', $item['room'] );
 
         // Credits
-        $this->addMeta('credits--available', $item['credits_available'])
-            ->addMeta('credits--types', $item['credit_types']);
+        $this->addMeta( 'credits--available', $item['credits_available'] )
+             ->addMeta( 'credits--types', $item['credit_types'] );
 
         // Evaluable
-        $this->addMeta('session--evaluable', $item['evaluable']);
+        $this->addMeta( 'session--evaluable', $item['evaluable'] );
 
         return $this;
     }
 
-    protected function buildTerms(\WP_Post $post, array $item)
-    {
+    protected function buildTerms( \WP_Post $post, array $item ) {
         $this->terms = [];
 
-        $this->addTerm(SessionType::SLUG, $item['session_type'])
-            ->addTerm(Society::SLUG, $item['societies'])
-            ->addTerm(SessionTag::SLUG, $item['tags'])
-            ->addTerm(ResearchAbstractKeyword::SLUG, $item['keywords']);
+        $this->addTerm( SessionType::SLUG, $item['session_type'] )
+             ->addTerm( Society::SLUG, $item['societies'] )
+             ->addTerm( SessionTag::SLUG, $item['tags'] )
+             ->addTerm( ResearchAbstractKeyword::SLUG, $item['keywords'] );
 
         return $this;
     }

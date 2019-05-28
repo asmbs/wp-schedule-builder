@@ -7,22 +7,18 @@ use ASMBS\ScheduleBuilder\PostType;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionType extends AbstractTaxonomy
-{
+class SessionType extends AbstractTaxonomy {
     const SLUG = 'session-type';
 
-    public function getSingularLabel()
-    {
+    public function getSingularLabel() {
         return 'Session Type';
     }
 
-    public function getPluralLabel()
-    {
+    public function getPluralLabel() {
         return 'Session Types';
     }
 
-    public function getArgs()
-    {
+    public function getArgs() {
         return [
             'show_admin_column'  => true,
             'show_in_quick_edit' => false,
@@ -30,8 +26,7 @@ class SessionType extends AbstractTaxonomy
         ];
     }
 
-    public function getPostTypes()
-    {
+    public function getPostTypes() {
         return [
             PostType\Session::SLUG,
         ];

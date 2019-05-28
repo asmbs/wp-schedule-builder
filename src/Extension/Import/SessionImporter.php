@@ -13,27 +13,22 @@ use Port\Steps\StepAggregator as Workflow;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class SessionImporter extends AbstractImporter
-{
+class SessionImporter extends AbstractImporter {
     const SLUG = 'session_importer';
 
-    public function getMenuTitle()
-    {
+    public function getMenuTitle() {
         return 'Import Sessions';
     }
 
-    public function getPageTitle()
-    {
+    public function getPageTitle() {
         return 'Session Importer';
     }
 
-    public function getPostType()
-    {
+    public function getPostType() {
         return Session::SLUG;
     }
 
-    public function getColumns()
-    {
+    public function getColumns() {
         return [
             'session_id',
             'date',
@@ -58,24 +53,24 @@ class SessionImporter extends AbstractImporter
     /**
      * Build the session import workflow.
      *
-     * @param   Reader $reader
+     * @param Reader $reader
+     *
      * @return  Workflow
      */
-    protected function buildWorkflow(Reader $reader)
-    {
-        $workflow = new Workflow($reader, $this->getPageTitle());
+    protected function buildWorkflow( Reader $reader ) {
+        $workflow = new Workflow( $reader, $this->getPageTitle() );
 
         // Add value converters
         $step = new ValueConverterStep();
-        $step->add('[credit_types]', [CommaSplitter::class, 'convert'])
-            ->add('[societies]', [CommaSplitter::class, 'convert'])
-            ->add('[tags]', [CommaSplitter::class, 'convert'])
-            ->add('[evaluable]', [EvaluableConverter::class, 'convert'])
-            ->add('[keywords]', [CommaSplitter::class, 'convert']);
-        $workflow->addStep($step);
+        $step->add( '[credit_types]', [ CommaSplitter::class, 'convert' ] )
+             ->add( '[societies]', [ CommaSplitter::class, 'convert' ] )
+             ->add( '[tags]', [ CommaSplitter::class, 'convert' ] )
+             ->add( '[evaluable]', [ EvaluableConverter::class, 'convert' ] )
+             ->add( '[keywords]', [ CommaSplitter::class, 'convert' ] );
+        $workflow->addStep( $step );
 
         // Add writer
-        $workflow->addWriter(new SessionWriter($this, $this->replace));
+        $workflow->addWriter( new SessionWriter( $this, $this->replace ) );
 
         return $workflow;
     }

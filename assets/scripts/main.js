@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
-import {VenueManager} from "./venue-manager";
-import {InputMasker} from "./input-masker";
+import { VenueManager } from "./venue-manager";
+import { InputMasker } from "./input-masker";
 
 export class ScheduleBuilder {
 

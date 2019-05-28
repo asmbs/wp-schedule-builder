@@ -5,11 +5,10 @@ namespace ASMBS\ScheduleBuilder\Taxonomy;
 
 /**
  * This interface defines a wrapper for the custom taxonomy API.
- * 
+ *
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-interface TaxonomyInterface
-{
+interface TaxonomyInterface {
     const SLUG = '_taxonomy';
 
     /**
@@ -75,8 +74,9 @@ interface TaxonomyInterface
     /**
      * Get the archive permalink.
      *
-     * @param   object|int|string  $term
+     * @param object|int|string $term
+     *
      * @return  bool|string
      */
-    public static function getArchiveLink($term);
+    public static function getArchiveLink( $term );
 }

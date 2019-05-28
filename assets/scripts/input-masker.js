@@ -8,7 +8,7 @@ export class InputMasker {
 
     }
 
-    initTimeMasks($field){
+    initTimeMasks($field) {
 
         // Set the input mask
         let timeMask = new Inputmask("datetime", {
@@ -18,22 +18,23 @@ export class InputMasker {
             clearIncomplete: true
         });
 
-        if($field) {
+        if ($field) {
             // Init the mask on the field
             timeMask.mask($field);
             // Reset the field to blank
             $field.val('').trigger('change');
-        }else{
+        } else {
             // Get all the time fields
-            let timeFields = document.querySelectorAll('.acf-field-time > .acf-input > .acf-input-wrap > input');
+            let timeFields = document.querySelectorAll(
+                '.acf-field-time > .acf-input > .acf-input-wrap > input');
             // Init the mask on the fields
             timeMask.mask(timeFields);
         }
     }
 
-    handleFieldAppended($field){
+    handleFieldAppended($field) {
         // If this is a time field
-        if($field.hasClass('acf-field-time')) {
+        if ($field.hasClass('acf-field-time')) {
             // Add the time input mask
             let $input = $field.find('.acf-input > .acf-input-wrap > input');
             this.initTimeMasks($input);

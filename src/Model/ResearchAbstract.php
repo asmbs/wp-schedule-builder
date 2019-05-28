@@ -10,8 +10,7 @@ use ASMBS\ScheduleBuilder\Taxonomy\Society;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class ResearchAbstract extends AbstractModel
-{
+class ResearchAbstract extends AbstractModel {
     /** @var  string */
     protected $abstractID;
 
@@ -48,8 +47,7 @@ class ResearchAbstract extends AbstractModel
     /**
      * @return  string[]
      */
-    public function getSupportedPostTypes()
-    {
+    public function getSupportedPostTypes() {
         return [
             PostType\ResearchAbstract::SLUG
         ];
@@ -60,29 +58,29 @@ class ResearchAbstract extends AbstractModel
     /**
      * @return  string
      */
-    public function getAbstractID()
-    {
-        return $this->lazyLoad('abstractID', [$this, 'loadField'], 'abstract_id');
+    public function getAbstractID() {
+        return $this->lazyLoad( 'abstractID', [ $this, 'loadField' ], 'abstract_id' );
     }
 
     /**
-     * @param   bool $filtered
+     * @param bool $filtered
+     *
      * @return  string
      */
-    public function getTitle($filtered = false)
-    {
-        $title = $this->lazyLoad('title', [$this, 'loadField'], 'title');
+    public function getTitle( $filtered = false ) {
+        $title = $this->lazyLoad( 'title', [ $this, 'loadField' ], 'title' );
 
-        if ($filtered) {
+        if ( $filtered ) {
 
             /**
              * Filter the abstract title.
              *
-             * @param   string  $title
+             * @param string $title
+             *
              * @return  string
              *
              */
-            $title = apply_filters('sb/abstract_title', $title);
+            $title = apply_filters( 'sb/abstract_title', $title );
         }
 
         return $title;
@@ -91,113 +89,108 @@ class ResearchAbstract extends AbstractModel
     /**
      * @return  Person[]
      */
-    public function getAuthors()
-    {
-        return $this->lazyLoad('authors', function($ID) {
+    public function getAuthors() {
+        return $this->lazyLoad( 'authors', function ( $ID ) {
             // Get author field
-            $authors = get_field('authors', $ID);
+            $authors = get_field( 'authors', $ID );
 
             // Convert post values to Person models
-            if (is_array($authors)) {
-                return array_map(function($post) {
-                    return new Person($post);
-                }, $authors);
+            if ( is_array( $authors ) ) {
+                return array_map( function ( $post ) {
+                    return new Person( $post );
+                }, $authors );
             } else {
                 $authors = [];
             }
 
             return $authors;
-        }, $this->postID);
+        }, $this->postID );
     }
 
     /**
      * @return  string
      */
-    public function getIntroduction()
-    {
-        return $this->lazyLoad('introduction', [$this, 'loadField'], 'introduction');
+    public function getIntroduction() {
+        return $this->lazyLoad( 'introduction', [ $this, 'loadField' ], 'introduction' );
     }
 
     /**
      * @return  string
      */
-    public function getMethods()
-    {
-        return $this->lazyLoad('methods', [$this, 'loadField'], 'methods');
+    public function getMethods() {
+        return $this->lazyLoad( 'methods', [ $this, 'loadField' ], 'methods' );
     }
 
     /**
      * @return  string
      */
-    public function getResults()
-    {
-        return $this->lazyLoad('results', [$this, 'loadField'], 'results');
+    public function getResults() {
+        return $this->lazyLoad( 'results', [ $this, 'loadField' ], 'results' );
     }
 
     /**
      * @return  string
      */
-    public function getConclusions()
-    {
-        return $this->lazyLoad('conclusions', [$this, 'loadField'], 'conclusions');
+    public function getConclusions() {
+        return $this->lazyLoad( 'conclusions', [ $this, 'loadField' ], 'conclusions' );
     }
 
     /**
-     * @param   string|bool  $format
+     * @param string|bool $format
+     *
      * @return  \DateTime
      */
-    public function getEmbargoDate($format = 'n/j')
-    {
-        $datetime = $this->lazyLoad('embargoDate', function($ID) {
+    public function getEmbargoDate( $format = 'n/j' ) {
+        $datetime = $this->lazyLoad( 'embargoDate', function ( $ID ) {
             // Get embargo date string
-            $str = get_field('embargo_date', $ID);
-            if ($str) {
+            $str = get_field( 'embargo_date', $ID );
+            if ( $str ) {
                 $str .= ' 07:00';
             }
 
-            if (empty(trim($str))) {
+            if ( empty( trim( $str ) ) ) {
                 return false;
             }
 
             try {
-                return new \DateTime($str);
-            } catch (\Exception $e) {
+                return new \DateTime( $str );
+            } catch ( \Exception $e ) {
                 return false;
             }
-        }, $this->postID);
-        
-        if ($datetime instanceof \DateTime) {
-            return ($format === false) ? $datetime : $datetime->format($format);
+        }, $this->postID );
+
+        if ( $datetime instanceof \DateTime ) {
+            return ( $format === false ) ? $datetime : $datetime->format( $format );
         }
-        
+
         return null;
     }
 
     /**
-     * @param   string|bool  $field
+     * @param string|bool $field
+     *
      * @return  \WP_Term
      */
-    public function getType($field = false)
-    {
-        return $this->lazyLoad('type', [$this, 'loadSingleTerm'], ResearchAbstractType::SLUG, $field);
+    public function getType( $field = false ) {
+        return $this->lazyLoad( 'type', [ $this, 'loadSingleTerm' ], ResearchAbstractType::SLUG, $field );
     }
 
     /**
-     * @param   string|bool  $field
+     * @param string|bool $field
+     *
      * @return  \WP_Term[]
      */
-    public function getSocieties($field = false)
-    {
-        return $this->lazyLoad('societies', [$this, 'loadPostTerms'], Society::SLUG, $field);
+    public function getSocieties( $field = false ) {
+        return $this->lazyLoad( 'societies', [ $this, 'loadPostTerms' ], Society::SLUG, $field );
     }
 
     /**
-     * @param   string|bool  $field
+     * @param string|bool $field
+     *
      * @return  \WP_Term[]
      */
-    public function getKeywords($field = false)
-    {
-        return $this->lazyLoad('keywords', [$this, 'loadPostTerms'], ResearchAbstractKeyword::SLUG, $field);
+    public function getKeywords( $field = false ) {
+        return $this->lazyLoad( 'keywords', [ $this, 'loadPostTerms' ], ResearchAbstractKeyword::SLUG, $field );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -207,12 +200,11 @@ class ResearchAbstract extends AbstractModel
      *
      * @return  bool
      */
-    public function isEmbargoed()
-    {
-        $embargo = $this->getEmbargoDate(false);
+    public function isEmbargoed() {
+        $embargo = $this->getEmbargoDate( false );
 
-        if ($embargo) {
-            return ((new \DateTime()) < $embargo);
+        if ( $embargo ) {
+            return ( ( new \DateTime() ) < $embargo );
         }
 
         return false;
