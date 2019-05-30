@@ -10,6 +10,14 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [4.0.1] - 2019-05-30
+
+### Fixed
+
+- A bug with loading room selections when the saved database value had a prepended space.
+
+
+
 ## [4.0.0] - 2019-05-28
 
 ### Changed

@@ -133,7 +133,7 @@ class Acf {
      * Called via XHR.
      */
     public function loadAvailableRoomChoices() {
-        $val = get_field( 'location--room', $_REQUEST['post'] );
+        $val = trim( get_field( 'location--room', $_REQUEST['post'] ) );
 
         $rooms = [];
         while ( have_rows( 'logistics--locations', 'sb_options' ) ) {
