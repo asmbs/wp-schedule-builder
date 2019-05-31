@@ -54,7 +54,7 @@ export class VenueManager {
             _this._add_room(room);
         });
 
-        _this.$roomField.trigger('change');
+        _this.$roomField.trigger('change.select2');
     }
 
     /**
