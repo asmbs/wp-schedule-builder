@@ -96,12 +96,17 @@ export class VenueManager {
      */
     async init() {
 
-        // Don't do anything until Select2 is fully initialized
-        await this.checkSelect2Initialized();
-
         // Set field references
         this.$venueField = $('#acf-location--venue');
         this.$roomField = $('#acf-location--room');
+
+        // Abort if this page doesn't have the target fields
+        if (this.$venueField.length === 0 || this.$roomField.length === 0) {
+            return;
+        }
+
+        // Don't do anything until Select2 is fully initialized
+        await this.checkSelect2Initialized();
 
         // Get the default room choice list
         this.defaultChoices = this.$roomField.children();
