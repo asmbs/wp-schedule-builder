@@ -10,6 +10,16 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [4.0.2] - 2019-05-31
+
+### Fixed
+
+- The JS for the "Edit Session" page running on every admin page, causing a bug preventing submission of the "Schedule Settings" page.
+- The browser's "changes you made may not be saved" pop-up appearing on the "Edit Session" page even when a change hadn't been made.
+- The JS constantly polling to see if Select2 had been loaded yet when the target fields weren't even present.
+
+
+
 ## [4.0.1] - 2019-05-30
 
 ### Fixed

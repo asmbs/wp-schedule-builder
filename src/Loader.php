@@ -42,18 +42,27 @@ class Loader {
 
     /**
      * Enqueue admin scripts and styles.
+     *
+     * @param $hook
      */
-    public function enqueueAdminScripts() {
+    public function enqueueAdminScripts( $hook ) {
+
+        // Styles
         $plugindir = plugin_dir_url( __FILE__ );
         wp_enqueue_style( 'sb/admin_css', $plugindir . '../dist/styles/main.css', [], null );
-        wp_enqueue_script( 'sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
-            'jquery',
-            'acf-input',
-            'acf-pro-input',
-            'acf-field-group',
-            'acf-pro-field-group',
-            'select2'
-        ], null, true );
+
+        // Script for editing sessions
+        $postType = get_post_type();
+        if ( $postType === 'session' && $hook === 'post.php' ) {
+            wp_enqueue_script( 'sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
+                'jquery',
+                'acf-input',
+                'acf-pro-input',
+                'acf-field-group',
+                'acf-pro-field-group',
+                'select2'
+            ], null, true );
+        }
     }
 
     /**
