@@ -1,6 +1,6 @@
 {
     "name": "wp-schedule-builder",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": true,
     "description": "Build interactive agendas for scientific meetings",
     "repository": {
