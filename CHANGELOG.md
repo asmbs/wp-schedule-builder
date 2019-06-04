@@ -10,6 +10,14 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [4.0.3] - 2019-06-04
+
+### Fixed
+
+- The assets not being rebuilt in v4.0.2 (meaning the "changes not saved" bug was not fixed).
+
+
+
 ## [4.0.2] - 2019-05-31
 
 ### Fixed
