@@ -10,6 +10,15 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [4.0.4] - 2019-07-23
+
+### Fixed
+
+- The room selector not working when creating a new session.
+- `lodash` having a security vulnerability.
+
+
+
 ## [4.0.3] - 2019-06-04
 
 ### Fixed
