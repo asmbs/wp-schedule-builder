@@ -53,7 +53,7 @@ class Loader {
 
         // Script for editing sessions
         $postType = get_post_type();
-        if ( $postType === 'session' && $hook === 'post.php' ) {
+        if ( $postType === 'session' && ( $hook === 'post.php' || $hook === 'post-new.php' ) ) {
             wp_enqueue_script( 'sb/main_js', $plugindir . '../dist/scripts/main.bundle.js', [
                 'jquery',
                 'acf-input',
