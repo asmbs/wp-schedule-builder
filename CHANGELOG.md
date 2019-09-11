@@ -10,6 +10,18 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 
 
+## [4.1.0] - 2019-09-11
+
+### Added
+
+- An option on imports to disable the removal of agenda items with identical times.
+
+### Fixed
+
+- A bug when importing agendas where empty discussant fields were not imported correctly.
+
+
+
 ## [4.0.4] - 2019-07-23
 
 ### Fixed
