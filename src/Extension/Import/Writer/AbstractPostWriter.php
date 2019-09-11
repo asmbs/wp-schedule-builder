@@ -18,6 +18,9 @@ abstract class AbstractPostWriter extends AbstractStreamWriter {
     /** @var  bool */
     protected $addNew = true;
 
+    /** @var  bool */
+    protected $removeConflicts = true;
+
     /** @var  array */
     protected $metaFields = [];
 
@@ -28,12 +31,14 @@ abstract class AbstractPostWriter extends AbstractStreamWriter {
      * @param ImporterInterface $importer
      * @param bool $replace
      * @param bool $addNew
+     * @param bool $removeConflicts
      */
-    public function __construct( ImporterInterface $importer, $replace, $addNew = true ) {
+    public function __construct( ImporterInterface $importer, $replace, $addNew = true, $removeConflicts = true ) {
         parent::__construct();
-        $this->importer = $importer;
-        $this->replace  = (bool) $replace;
-        $this->addNew   = (bool) $addNew;
+        $this->importer        = $importer;
+        $this->replace         = (bool) $replace;
+        $this->addNew          = (bool) $addNew;
+        $this->removeConflicts = (bool) $removeConflicts;
     }
 
     /**

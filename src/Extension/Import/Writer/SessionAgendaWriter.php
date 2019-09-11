@@ -26,9 +26,12 @@ class SessionAgendaWriter extends SessionWriter {
 
         // Load the existing agenda if there is one
         $agenda = $this->getExistingAgenda( $post );
-        if ( count( $agenda ) > 0 ) {
-            // Filter out any items with the current item's time slot
-            $agenda = array_filter( $agenda, [ $this, 'removeMatchingItems' ] );
+        // If the uploader chose to remove items with a time slot conflict
+        if($this->removeConflicts) {
+            if ( count( $agenda ) > 0 ) {
+                // Filter out any items with the current item's time slot
+                $agenda = array_filter( $agenda, [ $this, 'removeMatchingItems' ] );
+            }
         }
 
         $agenda[] = $this->buildAgendaItem( $post, $item );

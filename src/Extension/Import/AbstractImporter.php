@@ -18,6 +18,9 @@ abstract class AbstractImporter implements ImporterInterface {
     /** @var  bool */
     protected $replace = false;
 
+    /** @var  bool */
+    protected $removeConflicts = true;
+
     /** @var  array */
     protected $notices = [];
 
@@ -186,6 +189,16 @@ abstract class AbstractImporter implements ImporterInterface {
                             </p>
                         </td>
                     </tr>
+                    <tr>
+                        <th scope="row"><label for="import_remove_conflict">Remove items with identical times?</label></th>
+                        <td>
+                            <p>
+                                <label>
+                                    <input type="checkbox" name="remove" id="import_remove_conflict" value="1" checked>
+                                </label>
+                            </p>
+                        </td>
+                    </tr>
                 </table>
                 <?php submit_button( 'Upload & Process Data' ) ?>
             </form>
@@ -208,6 +221,7 @@ abstract class AbstractImporter implements ImporterInterface {
 
         if ( $file ) {
             $this->replace = isset( $_POST['replace'] ) && $_POST['replace'] == 1 ? true : false;
+            $this->removeConflicts = isset( $_POST['remove'] ) && $_POST['remove'] == 1 ? true : false;
             $this->processFile( $file );
             $this->processResult();
         }

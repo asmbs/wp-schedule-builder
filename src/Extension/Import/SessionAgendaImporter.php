@@ -59,7 +59,7 @@ class SessionAgendaImporter extends AbstractImporter {
              ->add( '[discussant_ids]', [ CommaSplitter::class, 'convert' ] );
         $workflow->addStep( $step );
 
-        $workflow->addWriter( new SessionAgendaWriter( $this, true, false ) );
+        $workflow->addWriter( new SessionAgendaWriter( $this, true, false, $this->removeConflicts ) );
 
         return $workflow;
     }
