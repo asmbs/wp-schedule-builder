@@ -127,14 +127,17 @@ class SessionAgendaWriter extends SessionWriter {
             $presenter = $presenter ? $this->getPostID( $presenter ) : null;
 
             // Find discussants
-            $discussants = $this->findPostsWithMeta( Person::SLUG, [
-                [
-                    'key'     => 'person_id',
-                    'compare' => 'IN',
-                    'value'   => $item['discussant_ids'],
-                ],
-            ], true );
-            $discussants = count( $discussants ) > 0 ? array_map( [ $this, 'getPostID' ], $discussants ) : null;
+            $discussants = null;
+            if(!empty($item['discussant_ids'])) {
+                $discussants = $this->findPostsWithMeta( Person::SLUG, [
+                    [
+                        'key'     => 'person_id',
+                        'compare' => 'IN',
+                        'value'   => $item['discussant_ids'],
+                    ],
+                ], true );
+                $discussants = count( $discussants ) > 0 ? array_map( [ $this, 'getPostID' ], $discussants ) : null;
+            }
 
             $agendaItem = array_merge( $agendaItem, [
                 'abstract'    => $abstract,

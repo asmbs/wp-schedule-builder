@@ -14,6 +14,6 @@ class CommaSplitter implements ConverterInterface {
      * @return  string[]
      */
     public static function convert( $input ) {
-        return preg_split( '/,\s*/i', $input );
+        return $input ? preg_split( '/,\s*/i', $input ) : [];
     }
 }
