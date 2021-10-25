@@ -8,7 +8,11 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 ## [Unreleased]
 
+## [4.2.0] - 2021-10-25
 
+### Added
+
+- Timezone option for support
 
 ## [4.1.0] - 2019-09-11
 
