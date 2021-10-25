@@ -1,0 +1,61 @@
+{
+    "key": "options-timezone",
+    "title": "Timezone",
+    "fields": [
+        {
+            "key": "timezone--select",
+            "label": "Timezone",
+            "name": "timezone",
+            "type": "select",
+            "instructions": "Select the venue timezone to be used on schedule and session pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "EDT": "EDT (Eastern Daylight Time  | UTC−04)",
+                "EST": "EST (Eastern Standard Time  | UTC−05)",
+                "ET": "ET (Eastern Time  | UTC−05 \/ UTC−04)",
+                "CDT": "CDT (Central Daylight Time  | UTC−05)",
+                "CST": "CST (Central Standard Time  | UTC−06)",
+                "CT": "CT (Central Time | UTC−06\/UTC−05)",
+                "MDT": "MDT (Mountain Daylight Time  | UTC−06)",
+                "MST": "MST (Mountain Standard Time  | UTC−07)",
+                "PDT": "PDT (Pacific Daylight Time  | UTC−07)",
+                "PST": "PST (Pacific Standard Time  | UTC−08)",
+                "AKDT": "AKDT (Alaska Daylight Time | UTC−08)",
+                "AKST": "AKST (Alaska Standard Time | UTC−09)",
+                "HDT": "HDT (Hawaii–Aleutian Daylight Time | UTC−09)",
+                "HST": "HST (Hawaii–Aleutian Standard Time | UTC−10)"
+            },
+            "default_value": "ET",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "sb_options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "private": 1,
+    "description": ""
+}
