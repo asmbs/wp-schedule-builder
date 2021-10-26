@@ -59,6 +59,19 @@ class ResearchAbstractWriter extends AbstractPostWriter {
                 ],
             ], false );
             $authorsList[] = $authorPID;
+            /**
+             * Do some checks for non-matched authorPIDs
+             * Remove `$authorsList[] = $authorPID;
+             * Add
+             * ```
+             * if ($authorPID == NULL ) {
+             * echo $author . ' BAD; ';
+             * } else {
+             * $authorsList[] = $authorPID;
+             * ```
+            }
+
+             */
         }
 
         if ( count( $authorsList ) > 0 ) {
