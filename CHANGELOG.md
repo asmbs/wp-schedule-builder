@@ -8,6 +8,12 @@ Starting with v3.0, this project adheres to [Semantic Versioning](http://semver.
 
 ## [Unreleased]
 
+## [4.2.1] - 2021-10-26
+
+### Added
+
+- Commented code to find un-matched author PIDs
+
 ## [4.2.0] - 2021-10-25
 
 ### Added
