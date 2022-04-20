@@ -5,12 +5,13 @@ namespace ASMBS\ScheduleBuilder\Model\Helper;
 use ASMBS\ScheduleBuilder\Model\Person;
 use ASMBS\ScheduleBuilder\Model\ResearchAbstract;
 use ASMBS\ScheduleBuilder\Model\Session;
+use JetBrains\PhpStorm\Internal\TentativeType;
 
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class AgendaItem {
+class AgendaItem implements \JsonSerializable {
     /** @var  string */
     protected $type;
 
@@ -360,5 +361,23 @@ class AgendaItem {
         }
 
         return ( $this->hasAbstract() && count( $this->getDiscussants() ) > 0 );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize(): array
+    {
+        return array_filter([
+            'title' => $this->getTitle(),
+            'start' => $this->getStart(\DateTimeInterface::ISO8601),
+            'end' => $this->getEnd(\DateTimeInterface::ISO8601),
+            'presenter' => $this->getPresenter(),
+            'faculty' => $this->getFaculty(),
+            'faculty_label' => $this->getFacultyLabel(),
+            'discussants' => $this->getDiscussants(),
+            'abstract' => $this->getAbstract(),
+            'breakType' => $this->getBreakType()
+        ]);
     }
 }

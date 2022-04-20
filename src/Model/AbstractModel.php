@@ -111,7 +111,7 @@ abstract class AbstractModel implements ModelInterface {
      * @return  string|\DateTime
      */
     public function getDateModified( $format = 'm/d/y' ) {
-        $datetime = $this->lazyLoad( 'dateModified', function ( \WP_Post $post ) {
+        $datetime = $this->lazyLoad( 'dateModified', function ( ?\WP_Post $post ) {
             try {
                 return new \DateTime( $post->post_modified );
             } catch ( \Exception $e ) {
@@ -265,5 +265,16 @@ abstract class AbstractModel implements ModelInterface {
         $field = $this->loadField( $fieldName );
 
         return new Helper\Image( $field );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'post_id' => $this->getPostID(),
+            'modified' => $this->getDateModified(\DateTimeInterface::ISO8601)
+        ];
     }
 }

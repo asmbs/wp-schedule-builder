@@ -7,7 +7,7 @@ use ASMBS\ScheduleBuilder\Model\Person;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class FacultyGroup {
+class FacultyGroup implements  \JsonSerializable {
     /** @var  string */
     protected $label;
 
@@ -46,5 +46,16 @@ class FacultyGroup {
      */
     public function getPeople() {
         return $this->people;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return array_filter([
+            'label' => $this->getLabel(),
+            'people' => $this->getPeople()
+        ]);
     }
 }

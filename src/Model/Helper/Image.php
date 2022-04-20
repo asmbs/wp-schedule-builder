@@ -2,11 +2,10 @@
 
 namespace ASMBS\ScheduleBuilder\Model\Helper;
 
-
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class Image {
+class Image implements \JsonSerializable {
     /** @var  array */
     protected $image;
 
@@ -100,5 +99,13 @@ class Image {
      */
     public function sizeExists( $size ) {
         return ( in_array( $size, get_intermediate_image_sizes() ) && isset( $this->image['sizes'][ $size ] ) );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return $this->image;
     }
 }

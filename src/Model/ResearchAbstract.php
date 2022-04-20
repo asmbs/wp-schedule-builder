@@ -209,4 +209,27 @@ class ResearchAbstract extends AbstractModel {
 
         return false;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return array_merge(
+            parent::jsonSerialize(),
+            array_filter([
+                'abstract_id' => $this->getAbstractID(),
+                'title' => $this->getTitle(),
+                'authors' => $this->getAuthors(),
+                'introduction' => $this->getIntroduction(),
+                'methods' => $this->getMethods(),
+                'results' => $this->getResults(),
+                'conclusions' => $this->getConclusions(),
+                'embargo_date' => $this->getEmbargoDate(\DateTimeInterface::ISO8601),
+                'type' => $this->getType(),
+                'societies' => $this->getSocieties(),
+                'keywords' => $this->getKeywords()
+            ])
+        );
+    }
 }

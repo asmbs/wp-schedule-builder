@@ -6,7 +6,7 @@ namespace ASMBS\ScheduleBuilder\Model;
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-interface ModelInterface {
+interface ModelInterface extends \JsonSerializable {
     /**
      * Constructor; builds the object from the given post, or from the current post if
      * none is explicitly given.

@@ -2,6 +2,9 @@
 
 namespace ASMBS\ScheduleBuilder;
 
+use ASMBS\ScheduleBuilder\API\PeopleEndpoint;
+use ASMBS\ScheduleBuilder\API\SessionEndpoint;
+
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
@@ -33,6 +36,12 @@ class Loader {
         Extension\Import\SessionAgendaImporter::load();
         Extension\Import\ResearchAbstractImporter::load();
         Extension\Import\PersonImporter::load();
+
+        // Load schedule-builder rest api
+        if($_ENV['SCHEDULE_BUILDER_API'] ?? false) {
+            SessionEndpoint::load();
+            PeopleEndpoint::load();
+        }
 
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAdminScripts' ] );
 
