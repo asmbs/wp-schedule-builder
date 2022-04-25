@@ -372,8 +372,8 @@ class AgendaItem implements \JsonSerializable {
         return array_filter([
             'type' => strtolower($this->getType()),
             'name' => $this->getTitle(),
-            'start_time' => $this->getStart('Y-m-d\TH:i:s.vp'),
-            'end_time' => $this->getEnd('Y-m-d\TH:i:s.vp'),
+            'start_time' => $this->getStart('Y-m-d\TH:i:s.vP'),
+            'end_time' => $this->getEnd('Y-m-d\TH:i:s.vP'),
             //'presenter' => $this->getPresenter(),
             //'speakers' => $this->getSpeakers(),
             //'faculty' => $this->getFaculty(),
