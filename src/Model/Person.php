@@ -269,7 +269,7 @@ class Person extends AbstractModel implements \JsonSerializable
                 'city' => $this->getCity(),
                 'state' => $this->getState(),
                 'country' => $this->getCountry(),
-                'photo' => $this->getPhoto(),
+                //'photo' => $this->getPhoto(),
                 'bio' => $this->getBio()
             ])
         );

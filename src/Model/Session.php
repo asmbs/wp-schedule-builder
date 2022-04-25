@@ -384,22 +384,20 @@ class Session extends AbstractModel implements \JsonSerializable
      */
     public function jsonSerialize(): array
     {
+        // 2017-09-26T09:35:00.000000-0700
         return array_merge(
             parent::jsonSerialize(),
             array_filter([
-                'session_id' => $this->getSessionID(),
-                'title' => $this->getTitle(),                   // session name
-                'content' => $this->getContent(),               // content (heading)
-                'credits' => $this->getCredits(),
-                'credit_types' => $this->getCreditTypes(),
-                'start_datetime' => $this->getStartTime(\DateTimeInterface::ISO8601),   // start time
-                'end_datetime' => $this->getEndTime(\DateTimeInterface::ISO8601),       // end time
-                'session_date' => $this->getDate(),
+                //'session_id' => $this->getSessionID(),
+                'name' => html_entity_decode($this->getTitle()),                                          // session name
+                'description_html' => str_replace(["\n", "\r"], '', ($this->getContent() ?? '')), // content (heading) default to <p></p>
+                'credits' => (float) $this->getCredits(),                                                 // credit amount cast to float so 0.0 is removed by array_filter
+                'credit_types' => $this->getCreditTypes(),                                                // credit types
+                'start_time' => $this->getStartTime('Y-m-d\TH:i:s.vp'),                            // start time
+                'end_time' => $this->getEndTime('Y-m-d\TH:i:s.vp'),                                // end time
                 'agenda_items' => $this->getAgendaItems(),
-                'faculty_groups' => $this->getFacultyGroups(),
-                'room' => $this->getRoom(),                                                    // location
-                'venue' => $this->getVenue(),
-                'venue_short_name' => $this->getVenueShortname()
+                //'faculty_groups' => $this->getFacultyGroups(),
+                //'locations' => [['name' => $this->getRoom()], ['import_id' => $this->getVenueShortname(), 'name' => $this->getVenue()]]                                                // location
             ])
         );
     }

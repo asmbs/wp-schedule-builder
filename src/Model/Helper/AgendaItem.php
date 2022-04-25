@@ -2,16 +2,17 @@
 
 namespace ASMBS\ScheduleBuilder\Model\Helper;
 
+use ASMBS\ScheduleBuilder\Model\AbstractModel;
 use ASMBS\ScheduleBuilder\Model\Person;
 use ASMBS\ScheduleBuilder\Model\ResearchAbstract;
 use ASMBS\ScheduleBuilder\Model\Session;
-use JetBrains\PhpStorm\Internal\TentativeType;
 
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
 class AgendaItem implements \JsonSerializable {
+
     /** @var  string */
     protected $type;
 
@@ -76,8 +77,8 @@ class AgendaItem implements \JsonSerializable {
 
         if ( $sessionDate != 'TBA' && ! empty( $startTime ) ) {
             try {
-                $this->start = new \DateTime( $sessionDate . ' ' . $startTime );
-                $this->end   = new \DateTime( $sessionDate . ' ' . $endTime );
+                $this->start = new \DateTime( $sessionDate . ' ' . $startTime,  \ASMBS\ScheduleBuilder\PostType\Session::getTimezone() );
+                $this->end   = new \DateTime( $sessionDate . ' ' . $endTime,  \ASMBS\ScheduleBuilder\PostType\Session::getTimezone());
             } catch ( \Exception $e ) {
             }
         }
@@ -369,15 +370,17 @@ class AgendaItem implements \JsonSerializable {
     public function jsonSerialize(): array
     {
         return array_filter([
-            'title' => $this->getTitle(),
-            'start' => $this->getStart(\DateTimeInterface::ISO8601),
-            'end' => $this->getEnd(\DateTimeInterface::ISO8601),
-            'presenter' => $this->getPresenter(),
-            'faculty' => $this->getFaculty(),
-            'faculty_label' => $this->getFacultyLabel(),
-            'discussants' => $this->getDiscussants(),
-            'abstract' => $this->getAbstract(),
-            'breakType' => $this->getBreakType()
+            'type' => strtolower($this->getType()),
+            'name' => $this->getTitle(),
+            'start_time' => $this->getStart('Y-m-d\TH:i:s.vp'),
+            'end_time' => $this->getEnd('Y-m-d\TH:i:s.vp'),
+            //'presenter' => $this->getPresenter(),
+            //'speakers' => $this->getSpeakers(),
+            //'faculty' => $this->getFaculty(),
+            //'faculty_label' => $this->getFacultyLabel(),
+            //'discussants' => $this->getDiscussants(),
+            //'abstract' => $this->getAbstract(),
+            //'breakType' => $this->getBreakType()
         ]);
     }
 }

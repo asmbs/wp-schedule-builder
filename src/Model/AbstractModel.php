@@ -248,7 +248,7 @@ abstract class AbstractModel implements ModelInterface {
         }
 
         try {
-            return new \DateTime( $str );
+            return new \DateTime( $str, \ASMBS\ScheduleBuilder\PostType\Session::getTimezone() );
         } catch ( \Exception $e ) {
             return false;
         }
@@ -272,9 +272,9 @@ abstract class AbstractModel implements ModelInterface {
      */
     public function jsonSerialize(): array
     {
-        return [
-            'post_id' => $this->getPostID(),
-            'modified' => $this->getDateModified(\DateTimeInterface::ISO8601)
-        ];
+        return array_filter([
+            'import_id' => $this->getPostID(),
+            //'modified' => $this->getDateModified(\DateTimeInterface::ISO8601)
+        ]);
     }
 }
