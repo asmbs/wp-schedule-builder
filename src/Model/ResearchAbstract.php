@@ -6,11 +6,13 @@ use ASMBS\ScheduleBuilder\PostType;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractKeyword;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractType;
 use ASMBS\ScheduleBuilder\Taxonomy\Society;
+use WP_Term;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class ResearchAbstract extends AbstractModel {
+class ResearchAbstract extends AbstractModel
+{
     /** @var  string */
     protected $abstractID;
 
@@ -47,7 +49,8 @@ class ResearchAbstract extends AbstractModel {
     /**
      * @return  string[]
      */
-    public function getSupportedPostTypes() {
+    public function getSupportedPostTypes()
+    {
         return [
             PostType\ResearchAbstract::SLUG
         ];
@@ -58,8 +61,9 @@ class ResearchAbstract extends AbstractModel {
     /**
      * @return  string
      */
-    public function getAbstractID() {
-        return $this->lazyLoad( 'abstractID', [ $this, 'loadField' ], 'abstract_id' );
+    public function getAbstractID()
+    {
+        return $this->lazyLoad('abstractID', [$this, 'loadField'], 'abstract_id');
     }
 
     /**
@@ -67,10 +71,11 @@ class ResearchAbstract extends AbstractModel {
      *
      * @return  string
      */
-    public function getTitle( $filtered = false ) {
-        $title = $this->lazyLoad( 'title', [ $this, 'loadField' ], 'title' );
+    public function getTitle($filtered = false)
+    {
+        $title = $this->lazyLoad('title', [$this, 'loadField'], 'title');
 
-        if ( $filtered ) {
+        if ($filtered) {
 
             /**
              * Filter the abstract title.
@@ -80,7 +85,7 @@ class ResearchAbstract extends AbstractModel {
              * @return  string
              *
              */
-            $title = apply_filters( 'sb/abstract_title', $title );
+            $title = apply_filters('sb/abstract_title', $title);
         }
 
         return $title;
@@ -89,50 +94,55 @@ class ResearchAbstract extends AbstractModel {
     /**
      * @return  Person[]
      */
-    public function getAuthors() {
-        return $this->lazyLoad( 'authors', function ( $ID ) {
+    public function getAuthors()
+    {
+        return $this->lazyLoad('authors', function ($ID) {
             // Get author field
-            $authors = get_field( 'authors', $ID );
+            $authors = get_field('authors', $ID);
 
             // Convert post values to Person models
-            if ( is_array( $authors ) ) {
-                return array_map( function ( $post ) {
-                    return new Person( $post );
-                }, $authors );
+            if (is_array($authors)) {
+                return array_map(function ($post) {
+                    return new Person($post);
+                }, $authors);
             } else {
                 $authors = [];
             }
 
             return $authors;
-        }, $this->postID );
+        }, $this->postID);
     }
 
     /**
      * @return  string
      */
-    public function getIntroduction() {
-        return $this->lazyLoad( 'introduction', [ $this, 'loadField' ], 'introduction' );
+    public function getIntroduction()
+    {
+        return $this->lazyLoad('introduction', [$this, 'loadField'], 'introduction');
     }
 
     /**
      * @return  string
      */
-    public function getMethods() {
-        return $this->lazyLoad( 'methods', [ $this, 'loadField' ], 'methods' );
+    public function getMethods()
+    {
+        return $this->lazyLoad('methods', [$this, 'loadField'], 'methods');
     }
 
     /**
      * @return  string
      */
-    public function getResults() {
-        return $this->lazyLoad( 'results', [ $this, 'loadField' ], 'results' );
+    public function getResults()
+    {
+        return $this->lazyLoad('results', [$this, 'loadField'], 'results');
     }
 
     /**
      * @return  string
      */
-    public function getConclusions() {
-        return $this->lazyLoad( 'conclusions', [ $this, 'loadField' ], 'conclusions' );
+    public function getConclusions()
+    {
+        return $this->lazyLoad('conclusions', [$this, 'loadField'], 'conclusions');
     }
 
     /**
@@ -140,27 +150,28 @@ class ResearchAbstract extends AbstractModel {
      *
      * @return  \DateTime
      */
-    public function getEmbargoDate( $format = 'n/j' ) {
-        $datetime = $this->lazyLoad( 'embargoDate', function ( $ID ) {
+    public function getEmbargoDate($format = 'n/j')
+    {
+        $datetime = $this->lazyLoad('embargoDate', function ($ID) {
             // Get embargo date string
-            $str = get_field( 'embargo_date', $ID );
-            if ( $str ) {
+            $str = get_field('embargo_date', $ID);
+            if ($str) {
                 $str .= ' 07:00';
             }
 
-            if ( empty( trim( $str ) ) ) {
+            if (empty(trim($str))) {
                 return false;
             }
 
             try {
-                return new \DateTime( $str );
-            } catch ( \Exception $e ) {
+                return new \DateTime($str, \ASMBS\ScheduleBuilder\PostType\Session::getTimezone());
+            } catch (\Exception $e) {
                 return false;
             }
-        }, $this->postID );
+        }, $this->postID);
 
-        if ( $datetime instanceof \DateTime ) {
-            return ( $format === false ) ? $datetime : $datetime->format( $format );
+        if ($datetime instanceof \DateTime) {
+            return ($format === false) ? $datetime : $datetime->format($format);
         }
 
         return null;
@@ -171,8 +182,9 @@ class ResearchAbstract extends AbstractModel {
      *
      * @return  \WP_Term
      */
-    public function getType( $field = false ) {
-        return $this->lazyLoad( 'type', [ $this, 'loadSingleTerm' ], ResearchAbstractType::SLUG, $field );
+    public function getType($field = false)
+    {
+        return $this->lazyLoad('type', [$this, 'loadSingleTerm'], ResearchAbstractType::SLUG, $field);
     }
 
     /**
@@ -180,8 +192,9 @@ class ResearchAbstract extends AbstractModel {
      *
      * @return  \WP_Term[]
      */
-    public function getSocieties( $field = false ) {
-        return $this->lazyLoad( 'societies', [ $this, 'loadPostTerms' ], Society::SLUG, $field );
+    public function getSocieties($field = false)
+    {
+        return $this->lazyLoad('societies', [$this, 'loadPostTerms'], Society::SLUG, $field);
     }
 
     /**
@@ -189,8 +202,9 @@ class ResearchAbstract extends AbstractModel {
      *
      * @return  \WP_Term[]
      */
-    public function getKeywords( $field = false ) {
-        return $this->lazyLoad( 'keywords', [ $this, 'loadPostTerms' ], ResearchAbstractKeyword::SLUG, $field );
+    public function getKeywords($field = false)
+    {
+        return $this->lazyLoad('keywords', [$this, 'loadPostTerms'], ResearchAbstractKeyword::SLUG, $field);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -200,11 +214,12 @@ class ResearchAbstract extends AbstractModel {
      *
      * @return  bool
      */
-    public function isEmbargoed() {
-        $embargo = $this->getEmbargoDate( false );
+    public function isEmbargoed()
+    {
+        $embargo = $this->getEmbargoDate(false);
 
-        if ( $embargo ) {
-            return ( ( new \DateTime() ) < $embargo );
+        if ($embargo) {
+            return (new \DateTime('now', \ASMBS\ScheduleBuilder\PostType\Session::getTimezone()) < $embargo);
         }
 
         return false;
@@ -215,21 +230,33 @@ class ResearchAbstract extends AbstractModel {
      */
     public function jsonSerialize(): array
     {
-        return array_merge(
-            parent::jsonSerialize(),
-            array_filter([
-                'abstract_id' => $this->getAbstractID(),
-                'title' => $this->getTitle(),
-                'authors' => $this->getAuthors(),
-                'introduction' => $this->getIntroduction(),
-                'methods' => $this->getMethods(),
-                'results' => $this->getResults(),
-                'conclusions' => $this->getConclusions(),
-                'embargo_date' => $this->getEmbargoDate(\DateTimeInterface::ISO8601),
-                'type' => $this->getType(),
-                'societies' => $this->getSocieties(),
-                'keywords' => $this->getKeywords()
-            ])
-        );
+
+        $embargo = $this->getEmbargoDate(false);
+
+        if(null !== $embargo) {
+            $data = array_merge(
+                parent::jsonSerialize(),
+                [
+                    'abstract_id' => $this->getAbstractID(),
+                    'name' => html_entity_decode($this->getTitle()),
+                    'authors' => array_map(fn(Person $p) => $p->getPostID(), $this->getAuthors()),
+                    'embargo_date' => $embargo->format('Y-m-d\TH:i:s.vP'),
+                    'is_embargo' => $this->isEmbargoed()
+                ]
+            );
+        }
+
+
+        if (!$this->isEmbargoed()) {
+            $data = array_merge($data, [
+                'introduction' => html_entity_decode($this->getIntroduction()),
+                'methods' => html_entity_decode($this->getMethods()),
+                'results' => html_entity_decode($this->getResults()),
+                'conclusions' => html_entity_decode($this->getConclusions()),
+                'keywords' => array_map(fn(WP_Term $term): string => $term->name, $this->getKeywords())
+            ]);
+        }
+
+        return array_filter($data);
     }
 }

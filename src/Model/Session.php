@@ -396,8 +396,8 @@ class Session extends AbstractModel implements \JsonSerializable
                 'start_time' => $this->getStartTime('Y-m-d\TH:i:s.vP'),                            // start time
                 'end_time' => $this->getEndTime('Y-m-d\TH:i:s.vP'),                                // end time
                 'agenda_items' => $this->getAgendaItems(),
-                //'faculty_groups' => $this->getFacultyGroups(),
-                //'locations' => [['name' => $this->getRoom()], ['import_id' => $this->getVenueShortname(), 'name' => $this->getVenue()]]                                                // location
+                'faculty' => array_merge(...array_map(fn(Helper\FacultyGroup $fg): array => array_map(fn(Person $p): int => $p->getPostID(), $fg->getPeople()), $this->getFacultyGroups() ?? [])),
+                'location' => str_replace([' ','{','}','(',')','/','\\','@',':'], '_', $this->getVenueShortname() . '.' . $this->getRoom())                // location
             ])
         );
     }

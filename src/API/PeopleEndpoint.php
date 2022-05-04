@@ -10,14 +10,28 @@
 namespace ASMBS\ScheduleBuilder\API;
 
 use ASMBS\ScheduleBuilder\Model\Person;
+use WP_Error;
 use WP_Query;
 use WP_REST_Request;
 
 /**
  * API endpoints for the "person" post_type.
+ *
+ * Enable this feature by adding the string "people" to the environmental `SCHEDULE_BUILDER_API`.
+ *
+ * - /schedule-builder/people : obtain an array of the meeting's abstracts
+ * - /schedule-builder/people/{postId}: obtain a meeting session by its post id
+ *
  */
 class PeopleEndpoint
 {
+
+    /**
+     * Private constructor. Use {@see PeopleEndpoint::load()} to enable this feature.
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Loads the rest api routes if `$_ENV['SCHEDULE_BUILDER_API']` contains the string `people`.
@@ -26,12 +40,16 @@ class PeopleEndpoint
      */
     public static function load()
     {
+        // guard to check whether to init the rest api
         if (false === strpos(($_ENV['SCHEDULE_BUILDER_API'] ?? ''), 'people')) {
             return;
         }
 
         add_action('rest_api_init', function () {
+            // instance of this class
             $endpoint = new PeopleEndpoint();
+
+            // add the endpoints
             register_rest_route('/schedule-builder', "/people", [
                 'methods' => 'GET',
                 'callback' => [$endpoint, 'findAll']
@@ -39,20 +57,19 @@ class PeopleEndpoint
 
             register_rest_route('/schedule-builder', "/people/(?P<post_id>[\d]+)", [
                 'methods' => 'GET',
-                'callback' => [$endpoint, 'findByPostId']
+                'callback' => [$endpoint, 'findById']
             ]);
         });
     }
 
     /**
-     * Callback for the registered route /schedule-builder/people/(?P<post_id>[\d]+), which
-     * should get a "person" post type by its unique post_id
-     *
+     * Callback for the registered route /schedule-builder/people/(?P<post_id>[\d]+) which
+     * get a "person" by its unique post_id.
      *
      * @param WP_REST_Request $request
-     * @return WP_Error|Person[]
+     * @return Person[]|WP_Error
      */
-    public function findByPostId(WP_REST_Request $request)
+    public function findById(WP_REST_Request $request)
     {
         $post = get_post($request->get_param('post_id'));
         if (null === $post) {
@@ -70,7 +87,7 @@ class PeopleEndpoint
      *  - <strong>offset</strong>: number of post to displace or pass over; -1 disabled (default: -1)
      *
      * @param WP_REST_Request $request
-     * @return array
+     * @return Person[]
      */
     public function findAll(WP_REST_Request $request): array
     {

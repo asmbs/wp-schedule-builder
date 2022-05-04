@@ -2,6 +2,8 @@
 
 namespace ASMBS\ScheduleBuilder;
 
+use ASMBS\ScheduleBuilder\API\FacultyGroupsEndpoint;
+use ASMBS\ScheduleBuilder\API\LocationEndpoint;
 use ASMBS\ScheduleBuilder\API\PeopleEndpoint;
 use ASMBS\ScheduleBuilder\API\SessionEndpoint;
 
@@ -37,10 +39,14 @@ class Loader {
         Extension\Import\ResearchAbstractImporter::load();
         Extension\Import\PersonImporter::load();
 
-        // Load schedule-builder rest api
+        // Load schedule-builder rest api if the SCHEDULE_BUILDER_API value exists
+        // Each of the Endpoint::load classes have a guard to check whether it should
+        // load the rest endpoints.
         if($_ENV['SCHEDULE_BUILDER_API'] ?? false) {
-            SessionEndpoint::load();
-            PeopleEndpoint::load();
+            SessionEndpoint::load();       // Loads all session & abstract endpoints when "sessions" is present
+            PeopleEndpoint::load();        // Loads all the people endpoints when "people" is present
+            LocationEndpoint::load();      // Loads all the location endpoints when "locations" is present
+            FacultyGroupsEndpoint::load(); // Loads all the faculty endpoints when "faculty-groups" is present
         }
 
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAdminScripts' ] );

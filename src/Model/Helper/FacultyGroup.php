@@ -54,7 +54,7 @@ class FacultyGroup implements  \JsonSerializable {
     public function jsonSerialize(): array
     {
         return array_filter([
-            'label' => $this->getLabel(),
+            'label' => trim($this->getLabel()), // some roles have trailing whitespaces..
             'people' => $this->getPeople()
         ]);
     }
