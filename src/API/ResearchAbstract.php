@@ -24,7 +24,7 @@ class ResearchAbstract extends Session
 
     public function jsonSerialize()
     {
-        $embargoDate = $this->createDateTime($this->postMetadata['embargo_date']['value'], '07:00');
+        $embargoDate = self::createDateTime($this->postMetadata['embargo_date']['value'], '07:00');
         $isEmbargo = $embargoDate === null || (new \DateTimeImmutable('now')) < $embargoDate;
 
         $data = array_merge(

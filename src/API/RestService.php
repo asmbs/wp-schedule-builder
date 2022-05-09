@@ -382,7 +382,19 @@ class RestService
         $query = new \WP_Query($args);
 
         return array_map(
-            fn(\WP_Post $post) => ['@id' => "{$post->post_type}/{$post->ID}", 'import_id' => "{$post->post_type}_{$post->ID}"],
+            function(\WP_Post $post) {
+                if($post->post_type === 'abstract') {
+                    // get the embargo date/time
+                    $fields = get_field_objects($post->ID);
+                    $embargoDate = AbstractPost::createDateTime($fields['embargo_date']['value'], '07:00');
+                    $isEmbargo = $embargoDate === null || (new \DateTimeImmutable('now')) < $embargoDate;
+                }
+                return [
+                    '@id' => "{$post->post_type}/{$post->ID}",
+                    'import_id' => "{$post->post_type}_{$post->ID}",
+                    'embargo' => $isEmbargo ?? false
+                ];
+            },
             $query->get_posts()
         );
     }

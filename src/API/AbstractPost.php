@@ -42,7 +42,7 @@ abstract class AbstractPost implements \JsonSerializable
         return $optionKey;
     }
 
-    protected function createDateTime(?string $date = null, ?string $time = null): ?\DateTimeInterface
+    public static function createDateTime(?string $date = null, ?string $time = null): ?\DateTimeInterface
     {
         if(null === $date || null == $time ) {
             return null;
