@@ -148,12 +148,12 @@ class Session extends AbstractPost
     public function jsonSerialize()
     {
         $startTime = $this->createDateTime(
-            $this->postMetadata['date']['value'],
-            $this->postMetadata['start_time']['value']);
+            $this->postMetadata['date']['value'] ?? null,
+            $this->postMetadata['start_time']['value'] ?? null);
 
         $endTime = $this->createDateTime(
-            $this->postMetadata['date']['value'],
-            $this->postMetadata['end_time']['value']);
+            $this->postMetadata['date']['value'] ?? null,
+            $this->postMetadata['end_time']['value'] ?? null);
 
         return array_filter([
             '@id' => "{$this->post->post_type}/{$this->post->ID}",
