@@ -2,8 +2,8 @@
 
 namespace ASMBS\ScheduleBuilder;
 
-use ASMBS\ScheduleBuilder\API\PeopleEndpoint;
-use ASMBS\ScheduleBuilder\API\SessionEndpoint;
+use ASMBS\ScheduleBuilder\API\ImportWebhook;
+use ASMBS\ScheduleBuilder\API\RestService;
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
@@ -39,8 +39,8 @@ class Loader {
 
         // Load schedule-builder rest api
         if($_ENV['SCHEDULE_BUILDER_API'] ?? false) {
-            SessionEndpoint::load();
-            PeopleEndpoint::load();
+            RestService::load();
+            ImportWebhook::load();
         }
 
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAdminScripts' ] );
