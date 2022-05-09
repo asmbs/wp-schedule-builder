@@ -48,7 +48,7 @@ class Session extends AbstractPost
         return array_map(
             fn(int $society): array => [
                     '@id' => "options/society/$society",
-                    'import_id' => "options/society_$society"
+                    'import_id' => "options_society_$society"
                 ],
             $societies
         );
