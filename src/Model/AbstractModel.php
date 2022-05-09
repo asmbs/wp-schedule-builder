@@ -2,6 +2,8 @@
 
 namespace ASMBS\ScheduleBuilder\Model;
 
+use ASMBS\ScheduleBuilder\Util\Timezones;
+
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
@@ -248,7 +250,7 @@ abstract class AbstractModel implements ModelInterface {
         }
 
         try {
-            return new \DateTime( $str, \ASMBS\ScheduleBuilder\PostType\Session::getTimezone() );
+            return new \DateTime( $str, Timezones::getTimezone() );
         } catch ( \Exception $e ) {
             return false;
         }

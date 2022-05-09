@@ -5,13 +5,13 @@ namespace ASMBS\ScheduleBuilder\Model\Helper;
 use ASMBS\ScheduleBuilder\Model\Person;
 use ASMBS\ScheduleBuilder\Model\ResearchAbstract;
 use ASMBS\ScheduleBuilder\Model\Session;
+use ASMBS\ScheduleBuilder\Util\Timezones;
 
 
 /**
  * @author  Kyle Tucker <kyleatucker@gmail.com>
  */
-class AgendaItem implements \JsonSerializable
-{
+class AgendaItem implements \JsonSerializable {
 
     /** @var  string */
     protected $type;
@@ -57,56 +57,52 @@ class AgendaItem implements \JsonSerializable
      * @param string $type
      * @param Session $session
      */
-    public function __construct($type, Session $session)
-    {
-        $this->type = $type;
+    public function __construct( $type, Session $session ) {
+        $this->type    = $type;
         $this->session = $session;
 
         $this->setGlobalFields()
-            ->setSimpleFields()
-            ->setHeaderFields()
-            ->setTalkFields()
-            ->setAbstractFields()
-            ->setBreakFields();
+             ->setSimpleFields()
+             ->setHeaderFields()
+             ->setTalkFields()
+             ->setAbstractFields()
+             ->setBreakFields();
     }
 
-    protected function setGlobalFields()
-    {
+    protected function setGlobalFields() {
         // Get date string from session
-        $sessionDate = $this->session->getDate('m/d/Y');
-        $startTime = get_sub_field('start_time');
-        $endTime = get_sub_field('end_time');
+        $sessionDate = $this->session->getDate( 'm/d/Y' );
+        $startTime   = get_sub_field( 'start_time' );
+        $endTime     = get_sub_field( 'end_time' );
 
-        if ($sessionDate != 'TBA' && !empty($startTime)) {
+        if ( $sessionDate != 'TBA' && ! empty( $startTime ) ) {
             try {
-                $this->start = new \DateTime($sessionDate . ' ' . $startTime, \ASMBS\ScheduleBuilder\PostType\Session::getTimezone());
-                $this->end = new \DateTime($sessionDate . ' ' . $endTime, \ASMBS\ScheduleBuilder\PostType\Session::getTimezone());
-            } catch (\Exception $e) {
+                $this->start = new \DateTime( $sessionDate . ' ' . $startTime,  Timezones::getTimezone() );
+                $this->end   = new \DateTime( $sessionDate . ' ' . $endTime,  Timezones::getTimezone());
+            } catch ( \Exception $e ) {
             }
         }
 
         return $this;
     }
 
-    protected function setSimpleFields()
-    {
-        if ($this->type === AgendaItemType::SIMPLE) {
-            $this->title = get_sub_field('title');
+    protected function setSimpleFields() {
+        if ( $this->type === AgendaItemType::SIMPLE ) {
+            $this->title = get_sub_field( 'title' );
         }
 
         return $this;
     }
 
-    protected function setHeaderFields()
-    {
-        if ($this->type === AgendaItemType::HEADER) {
-            $this->title = get_sub_field('section_title');
-            $this->facultyLabel = get_sub_field('faculty_label');
+    protected function setHeaderFields() {
+        if ( $this->type === AgendaItemType::HEADER ) {
+            $this->title        = get_sub_field( 'section_title' );
+            $this->facultyLabel = get_sub_field( 'faculty_label' );
 
-            $faculty = get_sub_field('people');
-            if (is_array($faculty)) {
-                foreach ($faculty as $post) {
-                    $this->faculty[] = new Person($post);
+            $faculty = get_sub_field( 'people' );
+            if ( is_array( $faculty ) ) {
+                foreach ( $faculty as $post ) {
+                    $this->faculty[] = new Person( $post );
                 }
             }
         }
@@ -114,36 +110,34 @@ class AgendaItem implements \JsonSerializable
         return $this;
     }
 
-    protected function setTalkFields()
-    {
-        if ($this->type === AgendaItemType::TALK) {
-            $this->title = get_sub_field('talk_title');
-            if (is_array($speakers = get_sub_field('speaker'))) {
-                foreach ($speakers as $post) {
-                    $this->speakers[] = new Person($post);
+    protected function setTalkFields() {
+        if ( $this->type === AgendaItemType::TALK ) {
+            $this->title = get_sub_field( 'talk_title' );
+            if ( is_array( $speakers = get_sub_field( 'speaker' ) ) ) {
+                foreach ( $speakers as $post ) {
+                    $this->speakers[] = new Person( $post );
                 }
             }
-            $speaker = get_sub_field('speaker');
-            if (!empty($speaker)) {
-                $this->presenter = new Person($speaker);
+            $speaker = get_sub_field( 'speaker' );
+            if ( ! empty( $speaker ) ) {
+                $this->presenter = new Person( $speaker );
             }
         }
 
         return $this;
     }
 
-    protected function setAbstractFields()
-    {
-        if ($this->type === AgendaItemType::_ABSTRACT) {
-            if (!empty($abstract = get_sub_field('abstract'))) {
-                $this->abstract = new ResearchAbstract($abstract);
+    protected function setAbstractFields() {
+        if ( $this->type === AgendaItemType::_ABSTRACT ) {
+            if ( ! empty( $abstract = get_sub_field( 'abstract' ) ) ) {
+                $this->abstract = new ResearchAbstract( $abstract );
             }
-            if (!empty($presenter = get_sub_field('presenter'))) {
-                $this->presenter = new Person($presenter);
+            if ( ! empty( $presenter = get_sub_field( 'presenter' ) ) ) {
+                $this->presenter = new Person( $presenter );
             }
-            if (is_array($discussants = get_sub_field('discussants'))) {
-                foreach ($discussants as $post) {
-                    $this->discussants[] = new Person($post);
+            if ( is_array( $discussants = get_sub_field( 'discussants' ) ) ) {
+                foreach ( $discussants as $post ) {
+                    $this->discussants[] = new Person( $post );
                 }
             }
         }
@@ -151,10 +145,9 @@ class AgendaItem implements \JsonSerializable
         return $this;
     }
 
-    protected function setBreakFields()
-    {
-        if ($this->type === AgendaItemType::_BREAK) {
-            $this->breakType = ucfirst(get_sub_field('break_type'));
+    protected function setBreakFields() {
+        if ( $this->type === AgendaItemType::_BREAK ) {
+            $this->breakType = ucfirst( get_sub_field( 'break_type' ) );
         }
 
         return $this;
@@ -165,16 +158,14 @@ class AgendaItem implements \JsonSerializable
     /**
      * @return  string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
     /**
      * @return  Session
      */
-    public function getSession()
-    {
+    public function getSession() {
         return $this->session;
     }
 
@@ -183,13 +174,12 @@ class AgendaItem implements \JsonSerializable
      *
      * @return \DateTime|string
      */
-    public function getStart($format = 'g:ia')
-    {
-        if (!$this->start) {
+    public function getStart( $format = 'g:ia' ) {
+        if ( ! $this->start ) {
             return 'TBA';
         }
 
-        return ($format === false) ? $this->start : $this->start->format($format);
+        return ( $format === false ) ? $this->start : $this->start->format( $format );
     }
 
     /**
@@ -197,52 +187,46 @@ class AgendaItem implements \JsonSerializable
      *
      * @return \DateTime|string
      */
-    public function getEnd($format = 'g:ia')
-    {
-        if (!$this->end) {
+    public function getEnd( $format = 'g:ia' ) {
+        if ( ! $this->end ) {
             return 'TBA';
         }
 
-        return ($format === false) ? $this->end : $this->end->format($format);
+        return ( $format === false ) ? $this->end : $this->end->format( $format );
     }
 
     /**
      * @return  string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * @return  string
      */
-    public function getFacultyLabel()
-    {
+    public function getFacultyLabel() {
         return $this->facultyLabel;
     }
 
     /**
      * @return  Person[]
      */
-    public function getFaculty()
-    {
+    public function getFaculty() {
         return $this->faculty;
     }
 
     /**
      * @return  ResearchAbstract
      */
-    public function getAbstract()
-    {
+    public function getAbstract() {
         return $this->abstract;
     }
 
     /**
      * @return  Person
      */
-    public function getPresenter()
-    {
+    public function getPresenter() {
         return $this->presenter;
     }
 
@@ -251,32 +235,28 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  Person
      */
-    public function getSpeaker()
-    {
+    public function getSpeaker() {
         return $this->getPresenter();
     }
 
     /**
      * @return Person[]
      */
-    public function getSpeakers()
-    {
+    public function getSpeakers() {
         return $this->speakers;
     }
 
     /**
      * @return  Person[]
      */
-    public function getDiscussants()
-    {
+    public function getDiscussants() {
         return $this->discussants;
     }
 
     /**
      * @return  string
      */
-    public function getBreakType()
-    {
+    public function getBreakType() {
         return $this->breakType;
     }
 
@@ -289,10 +269,9 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  bool
      */
-    public function isType($type)
-    {
-        foreach ((array)$type as $t) {
-            if ($this->type === $t) {
+    public function isType( $type ) {
+        foreach ( (array) $type as $t ) {
+            if ( $this->type === $t ) {
                 return true;
             }
         }
@@ -306,13 +285,12 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  bool
      */
-    public function hasFaculty()
-    {
-        if (!$this->isType(AgendaItemType::HEADER)) {
+    public function hasFaculty() {
+        if ( ! $this->isType( AgendaItemType::HEADER ) ) {
             return false;
         }
 
-        return (!empty($this->getFacultyLabel()) && count($this->getFaculty()) > 0);
+        return ( ! empty( $this->getFacultyLabel() ) && count( $this->getFaculty() ) > 0 );
     }
 
     /**
@@ -321,13 +299,12 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  bool
      */
-    public function hasPresenter()
-    {
-        if (!$this->isType([AgendaItemType::TALK, AgendaItemType::_ABSTRACT])) {
+    public function hasPresenter() {
+        if ( ! $this->isType( [ AgendaItemType::TALK, AgendaItemType::_ABSTRACT ] ) ) {
             return false;
         }
 
-        return ($this->getPresenter() instanceof Person);
+        return ( $this->getPresenter() instanceof Person );
     }
 
     /**
@@ -335,18 +312,16 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  bool
      */
-    public function hasSpeaker()
-    {
+    public function hasSpeaker() {
         return $this->hasPresenter();
     }
 
-    public function hasSpeakers()
-    {
-        if (!$this->isType(AgendaItemType::TALK)) {
+    public function hasSpeakers() {
+        if ( ! $this->isType( AgendaItemType::TALK ) ) {
             return false;
         }
 
-        return (count($this->getSpeakers()) > 0);
+        return ( count( $this->getSpeakers() ) > 0 );
     }
 
     /**
@@ -355,25 +330,23 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  bool
      */
-    public function hasAbstract()
-    {
-        if (!$this->isType(AgendaItemType::_ABSTRACT)) {
+    public function hasAbstract() {
+        if ( ! $this->isType( AgendaItemType::_ABSTRACT ) ) {
             return false;
         }
 
-        return ($this->getAbstract() instanceof ResearchAbstract);
+        return ( $this->getAbstract() instanceof ResearchAbstract );
     }
 
     /**
      * @return  bool
      */
-    public function hasAuthors()
-    {
-        if (!$this->isType(AgendaItemType::_ABSTRACT)) {
+    public function hasAuthors() {
+        if ( ! $this->isType( AgendaItemType::_ABSTRACT ) ) {
             return false;
         }
 
-        return ($this->hasAbstract() && count($this->getAbstract()->getAuthors()) > 0);
+        return ( $this->hasAbstract() && count( $this->getAbstract()->getAuthors() ) > 0 );
     }
 
 
@@ -383,13 +356,12 @@ class AgendaItem implements \JsonSerializable
      *
      * @return  bool
      */
-    public function hasDiscussants()
-    {
-        if (!$this->isType(AgendaItemType::_ABSTRACT)) {
+    public function hasDiscussants() {
+        if ( ! $this->isType( AgendaItemType::_ABSTRACT ) ) {
             return false;
         }
 
-        return ($this->hasAbstract() && count($this->getDiscussants()) > 0);
+        return ( $this->hasAbstract() && count( $this->getDiscussants() ) > 0 );
     }
 
     /**
@@ -397,29 +369,18 @@ class AgendaItem implements \JsonSerializable
      */
     public function jsonSerialize(): array
     {
-
-        $breakType = strtolower($this->getBreakType());
-
-        $data = [
+        return array_filter([
             'type' => strtolower($this->getType()),
             'name' => $this->getTitle(),
-            'start_time' => $this->getStart('Y-m-d\TH:i:s.vP'),
-            'end_time' => $breakType === 'adjourn' ? null : $this->getEnd('Y-m-d\TH:i:s.vP'),
-            'speakers' => array_map(fn(Person $p): int => $p->getPostID(), $this->getSpeakers() ?? []),
-            'faculty' => array_map(fn(Person $p): int => $p->getPostID(), $this->getFaculty() ?? []),
-            'discussants' => array_map(fn(Person $p): int => $p->getPostID(), $this->getDiscussants() ?? []),
-            'faculty_label' => $this->getFacultyLabel(),
-            'break_type' => $breakType
-        ];
-
-        if(null !== $abstract = $this->getAbstract()) {
-            $data['abstract'] = $abstract->getPostID();
-        }
-
-        if (null !== $presenter = ($this->getPresenter() ?? null)) {
-            $data['presenter'] = $presenter->getPostID();
-        }
-
-        return array_filter($data);
+            'start_time' => $this->getStart('Y-m-d\TH:i:s.vp'),
+            'end_time' => $this->getEnd('Y-m-d\TH:i:s.vp'),
+            //'presenter' => $this->getPresenter(),
+            //'speakers' => $this->getSpeakers(),
+            //'faculty' => $this->getFaculty(),
+            //'faculty_label' => $this->getFacultyLabel(),
+            //'discussants' => $this->getDiscussants(),
+            //'abstract' => $this->getAbstract(),
+            //'breakType' => $this->getBreakType()
+        ]);
     }
 }
