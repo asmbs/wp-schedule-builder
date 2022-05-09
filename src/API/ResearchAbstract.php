@@ -16,7 +16,7 @@ class ResearchAbstract extends Session
 
     public static function fromPostId(int $id): ?ResearchAbstract
     {
-        if(null === $post = get_post($id)) {
+        if (null === $post = get_post($id)) {
             return null;
         }
         return new ResearchAbstract($post);
@@ -27,22 +27,27 @@ class ResearchAbstract extends Session
         $embargoDate = $this->createDateTime($this->postMetadata['embargo_date']['value'], '07:00');
         $isEmbargo = $embargoDate === null || (new \DateTimeImmutable('now')) < $embargoDate;
 
-        return array_filter(
-            array_merge(
-                parent::jsonSerialize(),
-                [
-                    'abstract_id' => $this->postMetadata['abstract_id']['value'],
-                    'name' => $this->postMetadata['title']['value'],
-                    'introduction' => html_entity_decode($this->postMetadata['introduction']['value'] ?? ''),
-                    'methods' => html_entity_decode($this->postMetadata['methods']['value'] ?? ''),
-                    'results' => html_entity_decode($this->postMetadata['results']['value'] ?? ''),
-                    'conclusions' => html_entity_decode($this->postMetadata['conclusions']['value']),
-                    'authors' => array_map(fn(\WP_Post $author): array => ['@id' => "person/{$author->ID}", 'import_id'=> "person_{$author->ID}"], $this->postMetadata['authors']['value']),
-                    'embargo_date' => null !== $embargoDate ? $embargoDate->format('Y-m-d\TH:i:s.vp') : null,
-                    'is_embargo' => $isEmbargo
-                ]
-            )
+        $data = array_merge(
+            parent::jsonSerialize(),
+            [
+                'abstract_id' => $this->postMetadata['abstract_id']['value'],
+                'name' => $this->postMetadata['title']['value'],
+                'authors' => array_map(fn(\WP_Post $author): array => ['@id' => "person/{$author->ID}", 'import_id' => "person_{$author->ID}"], $this->postMetadata['authors']['value']),
+                'embargo_date' => null !== $embargoDate ? $embargoDate->format('Y-m-d\TH:i:s.vp') : null,
+                'is_embargo' => $isEmbargo
+            ]
         );
+
+        if(!$isEmbargo) {
+            $data = array_merge($data, [
+                'introduction' => html_entity_decode($this->postMetadata['introduction']['value'] ?? ''),
+                'methods' => html_entity_decode($this->postMetadata['methods']['value'] ?? ''),
+                'results' => html_entity_decode($this->postMetadata['results']['value'] ?? ''),
+                'conclusions' => html_entity_decode($this->postMetadata['conclusions']['value']) ?? ''
+            ]);
+        }
+
+        return array_filter($data);
     }
 
 }
