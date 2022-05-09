@@ -167,6 +167,39 @@ class RestService
                 ]
             );
 
+            register_rest_route(
+                '/schedule-builder/',
+                '/options/societies',
+                [
+                    'methods' => 'GET',
+                    'callback' => function(WP_REST_Request $request) use ($endpoint) : WP_REST_Response {
+                        return new WP_REST_Response($endpoint->getSocieties());
+                    }
+                ]
+            );
+
+            register_rest_route(
+                '/schedule-builder/',
+                '/options/society/(?P<id>[\d]+)',
+                [
+                    'methods' => 'GET',
+                    'callback' => function(WP_REST_Request $request) use ($endpoint): WP_REST_Response {
+                         $id = intval($request['id']);
+                         $value = null;
+                         $status = 404;
+                        foreach($endpoint->getSocieties() as $society) {
+                            if("society/$id" === $society['@id']) {
+                                $value = $society;
+                                $status = 200;
+                                break;
+                            }
+                        }
+
+                        return new WP_REST_Response($value, $status);
+                    }
+                ]
+            );
+
         });
     }
 
@@ -195,6 +228,19 @@ class RestService
             return;
         }
         $response->set_data($data);
+    }
+
+    public function getSocieties(): array
+    {
+        $terms = get_terms('society');
+        return array_map(fn(\WP_Term $term) => array_filter([
+            '@id' => "society/{$term->term_taxonomy_id}",
+            '@type' => $term->taxonomy,
+            'import_id' => "society_{$term->term_taxonomy_id}",
+            'name' => $term->name,
+            'description' => $term->description
+        ]), $terms);
+
     }
 
     public function accreditationStatement(WP_REST_Response $response): void
