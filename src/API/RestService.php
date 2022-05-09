@@ -188,7 +188,7 @@ class RestService
                          $value = null;
                          $status = 404;
                         foreach($endpoint->getSocieties() as $society) {
-                            if("society/$id" === $society['@id']) {
+                            if("options/society/$id" === $society['@id']) {
                                 $value = $society;
                                 $status = 200;
                                 break;
@@ -234,9 +234,9 @@ class RestService
     {
         $terms = get_terms('society');
         return array_map(fn(\WP_Term $term) => array_filter([
-            '@id' => "society/{$term->term_taxonomy_id}",
+            '@id' => "options/society/{$term->term_taxonomy_id}",
             '@type' => $term->taxonomy,
-            'import_id' => "society_{$term->term_taxonomy_id}",
+            'import_id' => "options/society_{$term->term_taxonomy_id}",
             'name' => $term->name,
             'description' => $term->description
         ]), $terms);
