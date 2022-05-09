@@ -10,6 +10,8 @@
 namespace ASMBS\ScheduleBuilder\API;
 
 use ASMBS\ScheduleBuilder\Util\Timezones;
+use Symfony\Component\Validator\Constraints\DateTime;
+use TSF_Extension_Manager\Time;
 
 abstract class AbstractPost implements \JsonSerializable
 {
@@ -47,7 +49,10 @@ abstract class AbstractPost implements \JsonSerializable
         if(null === $date || null == $time ) {
             return null;
         }
-        if(false === $theDate = \DateTimeImmutable::createFromFormat('Y/m/d H:i', "$date $time", Timezones::getTimezone())) {
+        // figure out which format to use.
+        try {
+            $theDate = new \DateTimeImmutable("$date $time", Timezones::getTimezone());
+        } catch(\Exception $ex) {
             return null;
         }
         return $theDate;

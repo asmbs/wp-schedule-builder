@@ -372,6 +372,10 @@ class RestService
      */
     public function findAll(string $postType, ?int $limit = null, ?int $offset = null): array
     {
+        if('people' === $postType) {
+            $postType = 'persons';
+        }
+
         $args = [
             'post_type' => substr($postType, 0, -1),   // un-pluralize
             'status' => 'publish',                                  // only published posts
@@ -389,11 +393,11 @@ class RestService
                     $embargoDate = AbstractPost::createDateTime($fields['embargo_date']['value'], '07:00');
                     $isEmbargo = $embargoDate === null || (new \DateTimeImmutable('now')) < $embargoDate;
                 }
-                return [
+                return array_filter([
                     '@id' => "{$post->post_type}/{$post->ID}",
                     'import_id' => "{$post->post_type}_{$post->ID}",
                     'embargo' => $isEmbargo ?? false
-                ];
+                ]);
             },
             $query->get_posts()
         );
