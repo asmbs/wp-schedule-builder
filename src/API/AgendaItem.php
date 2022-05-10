@@ -167,8 +167,8 @@ class AgendaItem extends AbstractPost
         $data = [
             '@id' => "session/{$this->post->ID}/agenda-item/{$this->agendaId}",
             'import_id' => "session_{$this->post->ID}_agenda_item_{$this->agendaId}",
-            'start_time' => null !== $startTime ? $startTime->format('Y-m-d\TH:i:s.vp') : null,
-            'end_time' => null !== $endTime ? $endTime->format('Y-m-d\TH:i:s.vp') : null,
+            'start_time' => null !== $startTime ? $startTime->format('Y-m-d\TH:i:s.vO') : null,
+            'end_time' => null !== $endTime ? $endTime->format('Y-m-d\TH:i:s.vO') : null,
         ];
 
         $type = $this->agendaMetadata['acf_fc_layout'];
