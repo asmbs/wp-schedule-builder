@@ -395,7 +395,9 @@ class RestService
                 }
                 return array_filter([
                     '@id' => "{$post->post_type}/{$post->ID}",
+                    '@type' => $post->post_type,
                     'import_id' => "{$post->post_type}_{$post->ID}",
+                    'status' => $post->post_status,
                     'embargo' => $isEmbargo ?? false
                 ]);
             },
