@@ -6,6 +6,8 @@ use ASMBS\ScheduleBuilder\PostType;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractKeyword;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractType;
 use ASMBS\ScheduleBuilder\Taxonomy\Society;
+use ASMBS\ScheduleBuilder\Util\Timezones;
+use Symfony\Component\Validator\Constraints\Timezone;
 use WP_Term;
 
 /**
@@ -164,7 +166,7 @@ class ResearchAbstract extends AbstractModel
             }
 
             try {
-                return new \DateTime($str, \ASMBS\ScheduleBuilder\PostType\Session::getTimezone());
+                return new \DateTime($str, Timezones::getTimezone());
             } catch (\Exception $e) {
                 return false;
             }
@@ -219,7 +221,7 @@ class ResearchAbstract extends AbstractModel
         $embargo = $this->getEmbargoDate(false);
 
         if ($embargo) {
-            return (new \DateTime('now', \ASMBS\ScheduleBuilder\PostType\Session::getTimezone()) < $embargo);
+            return (new \DateTime('now', Timezones::getTimezone()) < $embargo);
         }
 
         return false;
