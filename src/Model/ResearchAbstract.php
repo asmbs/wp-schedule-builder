@@ -7,7 +7,6 @@ use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractKeyword;
 use ASMBS\ScheduleBuilder\Taxonomy\ResearchAbstractType;
 use ASMBS\ScheduleBuilder\Taxonomy\Society;
 use ASMBS\ScheduleBuilder\Util\Timezones;
-use Symfony\Component\Validator\Constraints\Timezone;
 use WP_Term;
 
 /**
