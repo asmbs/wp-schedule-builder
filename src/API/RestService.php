@@ -236,7 +236,7 @@ class RestService
         return array_map(fn(\WP_Term $term) => array_filter([
             '@id' => "options/society/{$term->term_taxonomy_id}",
             '@type' => $term->taxonomy,
-            'import_id' => "options/society_{$term->term_taxonomy_id}",
+            'import_id' => "options_society_{$term->term_taxonomy_id}",
             'name' => $term->name,
             'description' => $term->description
         ]), $terms);
