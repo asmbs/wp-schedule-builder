@@ -38,8 +38,8 @@ class Person extends Session
             'city' => $this->postMetadata['city']['value'] ?? '',
             'state' => $this->postMetadata['state']['value'] ?? '',
             'country' => $this->postMetadata['country']['value'] ?? '',
-            'bio' => $this->postMetadata['bio']['value'] ?? ''
-            //'photo' => ''
+            'bio' => $this->postMetadata['bio']['value'] ?? '',
+            'photo' => $this->postMetadata['photo']['value']
         ]);
     }
 
