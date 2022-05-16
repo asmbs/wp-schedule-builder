@@ -287,7 +287,7 @@ class RestService
                 $rooms[] = [
                     '@id' => "options/venue/$offset/room/$key",
                     '@parent' => "options/venue/$offset",
-                    'import_id' => "options_location_{$offset}_room_{$key}",
+                    'import_id' => "options_venue_{$offset}_room_{$key}",
                     'name' => $room['room_name']
                 ];
             }
