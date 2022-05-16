@@ -20,6 +20,19 @@ class Person extends Session
         return new Person($post);
     }
 
+    private function profileImage(): ?array
+    {
+        if(!$this->postMetadata['photo']['value']) {
+            return null;
+        }
+
+        return [
+            'id' => $this->postMetadata['photo']['value']['id'],
+            'url' => $this->postMetadata['photo']['value']['url'],
+            'mime_type' => $this->postMetadata['photo']['value']['mime_type']
+        ];
+    }
+
     public function jsonSerialize()
     {
         return array_filter([
@@ -39,7 +52,7 @@ class Person extends Session
             'state' => $this->postMetadata['state']['value'] ?? '',
             'country' => $this->postMetadata['country']['value'] ?? '',
             'bio' => $this->postMetadata['bio']['value'] ?? '',
-            'photo' => $this->postMetadata['photo']['value']
+            'image' => $this->profileImage()
         ]);
     }
 
