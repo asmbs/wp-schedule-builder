@@ -9,8 +9,6 @@
 
 namespace ASMBS\ScheduleBuilder\API;
 
-use Doctrine\DBAL\Types\DateImmutableType;
-
 class ResearchAbstract extends Session
 {
 
@@ -20,6 +18,16 @@ class ResearchAbstract extends Session
             return null;
         }
         return new ResearchAbstract($post);
+    }
+
+    private function getKeywords(): ?array
+    {
+        return array_map(fn(\WP_Term $value): string => $value->name, get_the_terms($this->post, 'keyword'));
+    }
+
+    private function getAbstractType()
+    {
+        return array_map(fn(\WP_Term $value): string => $value->name, get_the_terms($this->post, 'abstract-type'));
     }
 
     public function jsonSerialize()
@@ -32,6 +40,8 @@ class ResearchAbstract extends Session
             [
                 'abstract_id' => $this->postMetadata['abstract_id']['value'],
                 'name' => $this->postMetadata['title']['value'],
+                'keywords' => $this->getKeywords(),
+                'abstract_type' => $this->getAbstractType(),
                 'authors' => array_map(fn(\WP_Post $author): array => ['@id' => "person/{$author->ID}", 'import_id' => "person_{$author->ID}"], $this->postMetadata['authors']['value']),
                 'embargo_date' => null !== $embargoDate ? $embargoDate->format('Y-m-d\TH:i:s.vO') : null,
                 'is_embargo' => $isEmbargo

@@ -56,8 +56,7 @@ class Session extends AbstractPost
     }
 
     private function facultyGroups(): ?array {
-        $facultyGroups = $this->postMetadata['faculty_groups']['value'];
-        if(empty($facultyGroups)) {
+        if(null === $facultyGroups = ($this->postMetadata['faculty_groups']['value'] ?? null)) {
             return null;
         }
 
@@ -75,8 +74,7 @@ class Session extends AbstractPost
     }
 
     private function creditTypes(): ?array {
-        $creditTypes = $this->postMetadata['credit_types']['value'];
-        if(empty($creditTypes)) {
+        if(null === $creditTypes = ($this->postMetadata['credit_types']['value'] ?? null)) {
             return null;
         }
         return array_map(
@@ -96,7 +94,7 @@ class Session extends AbstractPost
     private function agendItems(int $sessionId): ?array
     {
         $agendaItems = [];
-        foreach($this->postMetadata['agenda_items']['value'] as $key=>$value) {
+        foreach($this->postMetadata['agenda_items']['value'] ?? [] as $key=>$value) {
             $agendaItems[] = [
                 '@id' => "session/{$sessionId}/agenda-item/$key",
                 'import_id' => "session_{$sessionId}_agenda_item_$key"
@@ -163,7 +161,7 @@ class Session extends AbstractPost
             'description_html' =>  $this->getContent(),
             'start_time' => null !== $startTime ? $startTime->format('Y-m-d\TH:i:s.vO') : null,
             'end_time' => null !== $endTime ? $endTime->format('Y-m-d\TH:i:s.vO') : null,
-            'credits' => floatval($this->postMetadata['credits_available']['value']),
+            'credits' => isset($this->postMetadata['credits_available']) ? floatval($this->postMetadata['credits_available']['value']) : null,
             'credit_types' => $this->creditTypes(),
             'faculty' => $this->facultyGroups(),
             'societies' => $this->societies(),
