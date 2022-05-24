@@ -33,7 +33,7 @@ class ResearchAbstract extends Session
                 'abstract_id' => $this->postMetadata['abstract_id']['value'],
                 'name' => $this->postMetadata['title']['value'],
                 'authors' => array_map(fn(\WP_Post $author): array => ['@id' => "person/{$author->ID}", 'import_id' => "person_{$author->ID}"], $this->postMetadata['authors']['value']),
-                'embargo_date' => null !== $embargoDate ? $embargoDate->format('Y-m-d\TH:i:s.vp') : null,
+                'embargo_date' => null !== $embargoDate ? $embargoDate->format('Y-m-d\TH:i:s.vO') : null,
                 'is_embargo' => $isEmbargo
             ]
         );
