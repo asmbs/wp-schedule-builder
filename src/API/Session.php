@@ -139,7 +139,7 @@ class Session extends AbstractPost
             }
         }
 
-        return $obj;
+        return array_filter($obj);
     }
 
 
