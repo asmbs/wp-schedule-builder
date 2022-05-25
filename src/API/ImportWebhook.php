@@ -40,6 +40,7 @@ class ImportWebhook
         $this->notify([
             '@type' => $post->post_type,
             '@id' => "{$post->post_type}/{$post->ID}",
+            'import_id' => "{$post->post_type}_{$post->ID}",
             'update' => $update,
             'status' => $post->post_status
         ]);
