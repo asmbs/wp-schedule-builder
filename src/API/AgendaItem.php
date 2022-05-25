@@ -110,7 +110,7 @@ class AgendaItem extends AbstractPost
         if($this->agendaMetadata['speaker']) {
             $item['speakers'] = array_map(
                 // map the person post to an array
-                fn(WP_Post $speaker): array => ['@id' => "person/{$speaker->ID}", 'import_id' => "person/{$speaker->ID}"],
+                fn(WP_Post $speaker): array => ['@id' => "person/{$speaker->ID}", 'import_id' => "person_{$speaker->ID}"],
                 $this->agendaMetadata['speaker']
             );
         }
