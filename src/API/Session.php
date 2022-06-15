@@ -17,6 +17,11 @@ class Session extends AbstractPost
         if(null === $post = get_post($id)) {
             return null;
         }
+
+        if($post->post_type !== 'session') {
+            return null;
+        }
+
         return new Session($post);
     }
 

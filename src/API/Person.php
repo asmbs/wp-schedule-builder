@@ -17,6 +17,11 @@ class Person extends Session
         if(null === $post = get_post($id)) {
             return null;
         }
+
+        if($post->post_type !== 'person') {
+            return null;
+        }
+
         return new Person($post);
     }
 

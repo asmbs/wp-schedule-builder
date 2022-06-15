@@ -17,6 +17,11 @@ class ResearchAbstract extends Session
         if (null === $post = get_post($id)) {
             return null;
         }
+
+        if($post->post_type !== 'abstract') {
+            return null;
+        }
+
         return new ResearchAbstract($post);
     }
 
