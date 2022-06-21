@@ -1,0 +1,12 @@
+get:
+  description: Get a specific abstract post by its post id
+  operationId: abstractById
+  parameters:
+    - $ref: '../parameters/post_id.yaml'
+  responses:
+    '200':
+      description: successful retrieving the research abstract
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/abstract.yaml'

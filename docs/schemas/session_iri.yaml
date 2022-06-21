@@ -1,0 +1,8 @@
+type: object
+properties:
+  '@id':
+    description: The session's iri
+    type: string
+    example: 'session/5758'
+  import_id:
+    $ref: 'import_id.yaml'

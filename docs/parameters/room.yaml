@@ -1,0 +1,7 @@
+name: room
+in: path
+description: The room's sequence value
+required: true
+schema:
+  type: integer
+  minimum: 0

@@ -1,0 +1,23 @@
+get:
+  description: Get a list of credit types
+  operationId: creditTypes
+  responses:
+    '200':
+      description: Successfully retrieved the list of possible credit types
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              '@id':
+                description: The lists iri
+                type: string
+              label:
+                description: Basic label (always, `Credit Types`)
+                type: string
+              values:
+                description: The list of credit type values
+                type: array
+                items:
+                  $ref: '../schemas/credit_type.yaml'
+

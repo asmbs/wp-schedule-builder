@@ -1,0 +1,3 @@
+description: A determinsitc, unique import id for an object
+type: string
+example: session_5758

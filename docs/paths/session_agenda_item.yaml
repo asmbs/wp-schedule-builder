@@ -1,0 +1,13 @@
+get:
+  description: Gets a session's agenda item details by the agenda item's id
+  operationId: agendaItemById
+  parameters:
+    - $ref: '../parameters/post_id.yaml'
+    - $ref: '../parameters/agenda_id.yaml'
+  responses:
+    '200':
+      description: successfully retrieved the session's agenda item by its id
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/session_agenda_item.yaml'

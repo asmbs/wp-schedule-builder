@@ -1,0 +1,4 @@
+description: The post's status
+type: string
+enum: [publish, trash]
+example: publish

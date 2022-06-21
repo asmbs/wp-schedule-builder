@@ -1,0 +1,11 @@
+get:
+  description: Get the details for a timezone by its id
+  operationId: timezone
+  parameters:
+    - $ref: '../parameters/timezone.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/timezone.yaml'

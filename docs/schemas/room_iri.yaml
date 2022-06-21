@@ -1,0 +1,18 @@
+type: object
+properties:
+  '@id':
+    description: The room's iri
+    type: string
+    example: options/venue/0/room/6
+  '@parent':
+    description: The room's venue iri (a.k.a. parent)
+    type: string
+    example: options/venue/0
+  import_id:
+    description: The room's unqiue import id
+    type: string
+    example: options_venue_0_room_6
+  name:
+    description: The room's common name
+    type: string
+    example: C140/142

@@ -1,0 +1,53 @@
+get:
+  description: Get a specific session post by its post id
+  operationId: sessionById
+  parameters:
+    - $ref: '../parameters/post_id.yaml'
+  responses:
+    '200':
+      description: successful retrieving the session
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../schemas/session_iri.yaml'
+              - type: object
+                properties:
+                name:
+                  description: The session name (a.k.a. title)
+                  type: string
+                  example: 'Medical Weight Loss: Putting it into practice and putting a practice together'
+                description_html:
+                  description: The session description as html
+                  type: string
+                  example: >
+                    &lt;h3&gt;Learning Objectives&lt;/h3&gt;&lt;ol&gt;&lt;li&gt;Participant will identify current...&lt;/ol&gt;
+                start_time:
+                  description: The session's start date and time
+                  type: dateTime
+                  example: '2022-06-09T08:00:00.000-0500'
+                end_time:
+                  description: The session's end date and time (if any)
+                  type: dateTime
+                  example: '2022-06-09T09:30:00.000-0500'
+                credits:
+                  description: The number of credits provided to attendees
+                  type: float
+                  example: 1.5
+                credit_types:
+                  description: The type of credits provided to attendees
+                  type: array
+                  items:
+                    $ref: '../schemas/credit_type.yaml'
+                faculty:
+                  $ref: '../schemas/faculty_list.yaml'
+                societies:
+                  $ref: '../schemas/society_list.yaml'
+                location:
+                  type: object
+                  $ref: '../schemas/venue.yaml'
+                agenda_items:
+                  description: The session's agenda items
+                  type: array
+                  items:
+                    $ref: '../schemas/session_agenda_item_iri.yaml'

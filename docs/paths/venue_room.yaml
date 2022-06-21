@@ -1,0 +1,12 @@
+get:
+  description: Get a venue room detials
+  operationId: venueRoom
+  parameters:
+    - $ref: '../parameters/venue.yaml'
+    - $ref: '../parameters/room.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/room_iri.yaml'

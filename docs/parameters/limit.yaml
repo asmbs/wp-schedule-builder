@@ -1,0 +1,6 @@
+name: limit
+in: query
+description: Limit the results
+schema:
+  type: integer
+  minimum: -1

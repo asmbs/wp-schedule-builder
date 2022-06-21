@@ -1,0 +1,10 @@
+type: object
+properties:
+  '@id':
+    description: The abstract objects iri
+    type: string
+    example: abstract/1341
+  import_id:
+    description: The abstract unique import id
+    type: string
+    example: abstract_1341

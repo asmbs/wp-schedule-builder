@@ -1,0 +1,6 @@
+name: offset
+in: query
+description: Set the pagination offset
+schema:
+  type: integer
+  minimum: -1

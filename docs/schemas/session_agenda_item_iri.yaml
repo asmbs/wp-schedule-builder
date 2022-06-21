@@ -1,0 +1,10 @@
+type: object
+properties:
+  '@id':
+    description: The agenda items iri
+    type: string
+    example: session/691/agenda-item/4
+  import_id:
+    description: The agenda item unique import id
+    type: string
+    example: session_691_agenda_item_4

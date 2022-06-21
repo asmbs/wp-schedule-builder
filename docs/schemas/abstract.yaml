@@ -1,0 +1,55 @@
+allOf:
+  - $ref: 'abstract_iri.yaml'
+  - type: object
+    properties:
+      '@type':
+        description: Always `abstract` the object type discriminator value
+        type: string
+      name:
+        description: The name (a.k.a. title) of the research abstract
+        type: string
+        example: Standardized Testing and The Hierarchical Taxonomy of Psychopathology (HiTOP)
+      societies:
+        description: The societies assocated with the research abstract
+        type: array
+        items:
+          $ref: 'society.yaml'
+      abstract_id:
+        description: A unique id for the abstract; omitted if no value is assigned
+        type: string
+        example: A057
+      keywords:
+        description: The research abstract's keywords; omitted if when no keywords have been assigned
+        type: array
+        items:
+          type: string
+      abstract_type:
+        description: An array of abstract types
+        type: array
+        items:
+          type: string
+      authors:
+        description: An array of person iri objects which authored the research abstract omitted if no others have been associated with the abstract
+        type: array
+        items:
+          $ref: 'person_iri.yaml'
+      embargo_date:
+        description: The research abstract's embargo date
+        type: string
+        format: date-time
+        example: '2022-06-06T07:00:00.000-0500'
+      is_embargo:
+        description: Indicates whether the research abstract is embargoed or not; When omitted this value *SHALL* be considered `false`
+        type: boolean
+      introduction:
+        description: The research abstracts introduction
+        type: string
+      methods:
+        description: The research methods
+        type: string
+      results:
+        description: The research results
+        type: string
+      conclusions:
+        description: The research conclusion
+        type: string

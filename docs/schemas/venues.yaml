@@ -1,0 +1,12 @@
+type: object
+properties:
+  '@id':
+    type: string
+    description: The iri
+  label:
+    type: string
+    description: A common label for the venu list (always, `Location Venues`)
+  values:
+    type: array
+    items:
+      $ref: '../schemas/venue.yaml'

@@ -1,0 +1,10 @@
+type: object
+properties:
+  '@id':
+    description: The society iri
+    type: string
+    example: options/society/4
+  import_id:
+    description: The society's unique import id
+    type: string
+    example: options_society_4

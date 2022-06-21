@@ -1,0 +1,14 @@
+type: object
+properties:
+  id:
+    description: The Wordpress media id for the person's profile image
+    type: integer
+    example: 6159
+  url:
+    description: The url to retrieve the person's profile image
+    type: string
+    example: /app/uploads/2022/05/DPortenier.png
+  mime_type:
+    description: The profile image mime type
+    type: string
+    enum: [image/png, image/jpg]

@@ -1,0 +1,6 @@
+name: zone
+in: path
+description: The zones abbreviated value
+schema:
+  type: string
+  enum: [edt,et,est,cdt,ct,cst,mdt,mst,pdt,st,akdt,akst,hdt,hst]

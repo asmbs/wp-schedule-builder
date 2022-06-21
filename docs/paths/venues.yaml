@@ -1,0 +1,10 @@
+get:
+  description:
+  operationId: venues
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/venues.yaml'
+

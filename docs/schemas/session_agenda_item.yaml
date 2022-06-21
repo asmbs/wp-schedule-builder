@@ -1,0 +1,32 @@
+allOf:
+  - $ref: 'session_agenda_item_iri.yaml'
+  - type: object
+    properties:
+      start_time:
+        description: The start date time for the agenda item
+        type: string
+        format: date-time
+        example: '2022-06-08T15:45:00.000-0500'
+      end_time:
+        description: The end date time for the agenda item
+        type: string
+        format: date-time
+        example: '2022-06-08T15:50:00.000-0500'
+      '@type':
+        description: The agenda item's type
+        type: string
+        enum: [talk, header, abstract, break, simple]
+      abstract:
+        $ref: 'abstract_iri.yaml'
+      discussants:
+        type: array
+        items:
+          $ref: 'person_iri.yaml'
+      speakers:
+        type: array
+        items:
+          $ref: 'person_iri.yaml'
+      presenter:
+        $ref: 'person_iri.yaml'
+discriminator:
+  propertyName: '@type'

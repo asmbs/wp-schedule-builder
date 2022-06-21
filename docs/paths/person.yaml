@@ -1,0 +1,12 @@
+get:
+  description: Get a specific person post by its post id
+  operationId: personById
+  parameters:
+    - $ref: '../parameters/post_id.yaml'
+  responses:
+    '200':
+      description: successful retrieving the person post
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/person.yaml'

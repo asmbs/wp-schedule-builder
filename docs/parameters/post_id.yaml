@@ -1,0 +1,7 @@
+name: post_id
+in: path
+description: The WordPress® post id
+required: true
+schema:
+  type: integer
+  minimum: 0

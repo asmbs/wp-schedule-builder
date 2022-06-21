@@ -1,0 +1,71 @@
+openapi: 3.0.2
+servers:
+  - url: /wp-json/schedule-builder
+info:
+  description: Server used to access agenda(s) for scientific meetings.
+  version: v5.0.1
+  title: Schedule-Builder OpenAPI
+  contact:
+    name: American Society for Metabolic and Bariatric Surgery
+    url: 'https://asmbs.org'
+    email: tech@asmbs.org
+  license:
+    name: MIT
+    url: 'https://github.com/asmbs/wp-schedule-builder/blob/master/LICENSE'
+paths:
+
+  # list endpoints
+  /sessions:
+    $ref: './paths/sessions.yaml'
+  /abstracts:
+    $ref: './paths/abstracts.yaml'
+  /people:
+    $ref: './paths/people.yaml'
+
+  # specific post by id endpoints
+  /session/{post_id}:
+    $ref: './paths/session.yaml'
+  /person/{post_id}:
+    $ref: './paths/person.yaml'
+  /abstract/{post_id}:
+    $ref: './paths/abstract.yaml'
+
+  # specific session post agenda item by post and agenda id
+  /session/{post_id}/agenda-item/{agenda_id}:
+    $ref: './paths/session_agenda_item.yaml'
+
+  # options endpoints
+  /options/accreditation-statement:
+    $ref: './paths/accreditation_statement.yaml'
+
+  /options/credit-types:
+    $ref: './paths/credit_types.yaml'
+
+  /options/credit-types/{id}:
+    $ref: './paths/credit_type.yaml'
+
+  /options/venues:
+    $ref: './paths/venues.yaml'
+
+  /options/timezone:
+    $ref: './paths/event_timezone.yaml'
+
+  /options/timezone/{zone}:
+    $ref: './paths/timezone.yaml'
+
+  /options/timezones:
+    $ref: './paths/timezones.yaml'
+
+  /options/venue/{venue}:
+    $ref: './paths/venue.yaml'
+
+  /options/venue/{venue}/room/{room}:
+    $ref: './paths/venue_room.yaml'
+
+
+
+
+
+
+
+

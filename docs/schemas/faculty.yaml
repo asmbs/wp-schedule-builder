@@ -1,0 +1,11 @@
+type: object
+properties:
+  label:
+    type: string
+    description: A label which describes the faculty role (title)
+    example: Director
+  people:
+    description: An array of person objects assigned to the label
+    type: array
+    items:
+      $ref: 'person_iri.yaml'

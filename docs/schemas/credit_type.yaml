@@ -1,0 +1,13 @@
+type: object
+properties:
+  '@id':
+    description: The credit type's iri
+    type: string
+    example: options/credit-type/2
+  import_id:
+    description: The credit type's unique import id
+    type: string
+    example: options_credit_type_2
+  value:
+    type: string
+    example: CEU

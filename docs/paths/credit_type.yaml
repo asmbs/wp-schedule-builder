@@ -1,0 +1,10 @@
+get:
+  description: Retrieve a specific credit type by its id
+  operationId: creditType
+  responses:
+    '200':
+      description: Successfully retrieve the credit type
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/credit_type.yaml'

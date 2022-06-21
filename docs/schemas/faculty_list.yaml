@@ -1,0 +1,4 @@
+description: A list of faculty assigned to the session
+type: array
+items:
+  $ref: 'faculty.yaml'

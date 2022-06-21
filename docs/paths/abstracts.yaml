@@ -1,0 +1,21 @@
+get:
+  description: Retrieve a list of research abstract iri and their import ids
+  operationId: abstracts
+  parameters:
+    - $ref: '../parameters/limit.yaml'
+    - $ref: '../parameters/offset.yaml'
+  responses:
+    '200':
+      description: Successful retrieving a list of research abstract iri and import ids
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../schemas/session_iri.yaml'
+              - $ref: '../schemas/post_status.yaml'
+              - type: object
+                properties:
+                  '@type':
+                    description: The post type
+                    type: string
+                    enum: [ abstract ]

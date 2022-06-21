@@ -1,0 +1,11 @@
+get:
+  description: Get a list of possible timezone values
+  operationId: timezones
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/timezone.yaml'

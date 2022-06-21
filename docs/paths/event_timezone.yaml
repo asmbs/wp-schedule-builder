@@ -1,0 +1,9 @@
+get:
+  description: Get the currently configured event's timezone
+  operationId: eventTimezone
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/event_timezone.yaml'

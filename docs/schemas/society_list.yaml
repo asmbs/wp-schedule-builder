@@ -1,0 +1,4 @@
+description: The society's responsible for the session (ASMBS, Sponsored, ...)
+type: array
+items:
+  $ref: 'society.yaml'

@@ -1,0 +1,10 @@
+type: object
+properties:
+  '@id':
+    description: The person objects iri
+    type: string
+    example: person/1341
+  import_id:
+    description: The person unique import id
+    type: string
+    example: person_1341

@@ -53,31 +53,50 @@ npx webpack
 
 (Requires [npx](https://www.npmjs.com/package/npx))
 
-#### Enable REST API
+## RESTful API
 
-Included are endpoints to obtain the schedule's sessions and people these endpoints are
-disabled by default. To enable one or both of these set an environmental variable `SCHEDULE_BUILDER_API`
-with a comma or space delimited value. 
+As of v5.0 this plugin is bundled with a **GET** only api. To enable this feature set the `SCHEDULE_BUILDER_API` 
+environmental variable `1`. For details on the endpoints provided please see the 
+[Schedule-Builder API documentation](docs/index.html) 
 
-```text
-# Either comment out or remove SCHEDULE_BUILDER_API to disable.
-# Use a common or space delimited value to indicate which API
-# endpoints to enable.
-#
-# This really should belong in the plugin's settings UI. Todo for another day.
-#
-# +-----------+-------------------------------------------------------------------------+
-# | post_type | endpoints                                                               |
-# +-----------|-------------------------------------------------------------------------|
-# | people    | schedule-builder/people                                                 |
-# |           | schedule-builder/people/(?P<post_id>[\d+])                              |
-# +-----------+-------------------------------------------------------------------------+
-# |           | /schedule-builder/sessions                                              |
-# | sessions  | /schedule-builder/sessions/(?P<session_id>[a-zA-Z0-9]+-[a-zA-Z0-9]+)    |
-# |           | /schedule-builder/sessions/(?P<post_id>[\d]+)                           |
-# +-----------+-------------------------------------------------------------------------+
-#SCHEDULE_BUILDER_API=people               # people endpoints only
-#SCHEDULE_BUILDER_API=sessions             # sessions endpoints only
-#SCHEDULE_BUILDER_API="people sessions"    # both people and sessions
+## Webhook
+
+With the RESTful API enable it is possible to report changes to session, abstract, and person post types by setting
+`SCHEDULE_BUILDER_WEBHOOK_URL` environmental variable to an absolute URL. The webhook MUST accept HTTP POST method with 
+a JSON body,
+
+```json
+{
+  "@type": "{post_type}",
+  "@id": "{post_type}/{post_id}",
+  "import_id": "{post_type}_{post_id}",
+  "update": true|false,
+  "status": publish|trash
+}
 ```
 
+> Where `{post_type}` is either `session|abstract|person`
+> and `{post_id}` is the Wordpress post id
+
+When sending the POST to the webhook, when added the environmental variable `SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION`
+is added to the request header as a bearer token. 
+
+### Example
+
+The application `.env` file as: 
+
+```text
+# .env
+SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION=the_webhooks_authorization_token_value
+```
+will translate to an HTTP authorization header:
+
+```text
+Authorization: Bearer the_webhooks_authorization_token_value
+```
+
+## Viewing API Documentation
+
+Once deployed to view the API documents navigate to `https://<meeting base url>/app/plugins/wp-schedule-builder/docs/` 
+where `<meetting base url>` is the meetings Wordpress site's FQDN. Information on compiling the API documentation see 
+[docs/open-api.md](./docs/open-api.md)

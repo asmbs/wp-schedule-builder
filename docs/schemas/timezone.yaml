@@ -1,0 +1,19 @@
+description: The current configured timezone value
+type: object
+properties:
+  '@id':
+    description: The current configured timezone iri
+    type: string
+    example: options/timezones/cdt
+  import_id:
+    description: A unique import id
+    type: string
+    example: options_timezones_cdt
+  label:
+    description: A label describing the timzone
+    type: string
+    example: CDT (Central Daylight Time | UTC−05)
+  offset:
+    description: The timezones UTC offset
+    type: string
+    example: -0500

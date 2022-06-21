@@ -1,0 +1,7 @@
+name: agenda_id
+in: path
+description: The agenda item's sequence value
+required: true
+schema:
+  type: integer
+  minimum: 0

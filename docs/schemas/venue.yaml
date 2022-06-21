@@ -1,0 +1,22 @@
+type: object
+properties:
+  '@id':
+    description: The venue's iri
+    type: string
+    example: options/venue/0
+  name:
+    description: The venue's common name
+    type: string
+    example: Kay Bailey Hutchison Convention Center Dallas
+  shortname:
+    description: The venue's short name
+    type: string
+    example: KBHCCD
+  import_id:
+    description: The venue's unique import id
+    type: string
+    example: options_venue_0
+  rooms:
+    type: array
+    items:
+      $ref: 'room_iri.yaml'

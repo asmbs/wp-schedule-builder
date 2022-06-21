@@ -1,0 +1,50 @@
+allOf:
+  - $ref: 'person_iri.yaml'
+  - type: object
+    properties:
+      '@type':
+        description: Always `person` the object type discriminator value
+        type: string
+      first_name:
+        description: The person's first name
+        type: string
+        example: Dana
+      last_name:
+        description: The person's last name
+        type: string
+        example: Portenier
+      title:
+        description: The person's professional tile
+        type: string
+        example: Division Chief
+      credentials:
+        description: >
+          The person's professional credentials. Comma or whitespace separated depending upon the initial 
+          input
+        type: string
+        example: MD PhD or MD, PhD
+      member_id:
+        description: The person's ASMBS member id
+        type: integer
+        example: 10788
+      organization:
+        description: The organization which the person is associated too
+        type: string
+        example: Duke University
+      city:
+        description: The orgainization's city
+        type: string
+        example: Durham
+      state:
+        description: The orgainization's state (region)
+        type: string
+        example: NC
+      country:
+        description: The orgainization's country
+        type: string
+        example: USA
+      bio:
+        description: The person's biography
+        type: string
+      image:
+        $ref: 'image.yaml'

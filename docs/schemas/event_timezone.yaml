@@ -1,0 +1,10 @@
+type: object
+properties:
+  '@id':
+    description: Timzone iri (always, `options/timezone`)
+    type: string
+  label:
+    description: A basic options label (always, `Timezone`)
+    type: string
+  value:
+    $ref: 'timezone.yaml'

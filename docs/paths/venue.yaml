@@ -1,0 +1,11 @@
+get:
+  description: Get a venue by its id
+  operationId: venue
+  parameters:
+    - $ref: '../parameters/venue.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/venue.yaml'

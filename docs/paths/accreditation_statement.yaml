@@ -1,0 +1,23 @@
+get:
+  description: Get the event's accrediation statement
+  operationId: accrediationStatement
+  responses:
+    '200':
+      description: Successfully retieved the accrediation statement assocated with the event
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              '@id':
+                description: The accrediation statement iri
+                type: string
+              import_id:
+                description: The accrediation statement import id
+                type: string
+              label:
+                description: A basic label for the accrediation statement (always, `Statement`)
+                type: string
+              value:
+                description: The actual accrediation statement
+                type: string

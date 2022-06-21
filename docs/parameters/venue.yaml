@@ -1,0 +1,7 @@
+name: venue
+in: path
+description: The venue's sequence value
+required: true
+schema:
+  type: integer
+  minimum: 0
