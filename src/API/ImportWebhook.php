@@ -18,15 +18,9 @@ class ImportWebhook
 
     public static function load(): void
     {
-        if(!isset($_ENV['GUIDEBOOK_WEBHOOK_URL'])) {
+        if(!isset($_ENV['SCHEDULE_BUILDER_WEBHOOK_URL'])) {
             return;
         }
-
-        if(!isset($_ENV['GUIDEBOOK_WEBHOOK_TOKEN'])) {
-            error_log("Please provide the GUIDEBOOK_WEBHOOK_TOKEN environment variable.");
-            return;
-        }
-        error_log($_ENV['GUIDEBOOK_WEBHOOK_URL']);
 
         $instance = new ImportWebhook();
 
@@ -49,13 +43,19 @@ class ImportWebhook
 
     private function notify(array $notice): void
     {
+        $headers = [];
+        if(isset($_ENV['SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION'])) {
+            $headers = ['Authorization' => 'Bearer ' .  $_ENV['SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION']];
+        }
         $response = wp_remote_post(
-            $_ENV['GUIDEBOOK_WEBHOOK_URL'],
-            [
-                'method' => 'POST',
-                'headers' => ['Authorization' => 'Bearer ' .  $_ENV['GUIDEBOOK_WEBHOOK_TOKEN']],
-                'body' => json_encode($notice)
-            ]
+            $_ENV['SCHEDULE_BUILDER_WEBHOOK_URL'],
+            array_merge(
+                [
+                    'method' => 'POST',
+                    'body' => json_encode($notice)
+                ],
+                $headers
+            )
         );
 
         if($response instanceof \WP_Error) {

@@ -17,6 +17,8 @@ use WP_REST_Response;
 
 /**
  * API endpoints for the "session" post_type.
+ *
+ * If this grows much more it would be best to follow a more SRP design for each endpoint.
  */
 class RestService
 {
@@ -28,13 +30,14 @@ class RestService
     }
 
     /**
-     * Loads the rest api routes if `$_ENV['SCHEDULE_BUILDER_API']`.
+     * Loads the schedule builder api by initializing the required endpoints.
      *
      * @return void
      */
     public static function load()
     {
 
+        // register the api
         add_action('rest_api_init', function () {
 
             // singleton instance
@@ -155,7 +158,19 @@ class RestService
                 ]
             );
 
-            // match schedule-builder/options/venue/[\d]+/room/[\d]+
+            // match schedule-builder/options/timezones
+            register_rest_route(
+                '/schedule-builder/',
+                'options/timezones',
+                [
+                    'methods' => 'GET',
+                    'callback' => function(WP_REST_Request $request): WP_REST_Response {
+                        return new WP_REST_Response(array_values(Timezones::ZONES));
+                    }
+                ]
+            );
+
+            // match schedule-builder/options/timezone/(edt|et|est|cdt|ct|cst|mdt|mst|pdt|pst|akdt|akst|hdt|hst)
             register_rest_route(
                 '/schedule-builder/',
                 '/options/timezone/(?P<tz>(edt|et|est|cdt|ct|cst|mdt|mst|pdt|pst|akdt|akst|hdt|hst))',
@@ -203,6 +218,11 @@ class RestService
         });
     }
 
+    /**
+     * The callback used to retrieve the schedule's timezone
+     * @param WP_REST_Response $response
+     * @return void
+     */
     public function timezone(WP_REST_Response $response): void
     {
         if(null === $data = $this->getTimezone()) {
@@ -212,6 +232,11 @@ class RestService
         $response->set_data($data);
     }
 
+    /**
+     * The callback to retrieve the event's venue(s)
+     * @param WP_REST_Response $response
+     * @return void
+     */
     public function venues(WP_REST_Response $response): void
     {
         if(null === $data = $this->getVenues()) {
@@ -274,6 +299,10 @@ class RestService
         ];
     }
 
+    /**
+     * Retrieves the event's venues and maps to an array used to serialize as json
+     * @return array|null
+     */
     public function getVenues(): ?array
     {
         if(false === $data = get_field_object('logistics--locations', 'sb_options')) {
