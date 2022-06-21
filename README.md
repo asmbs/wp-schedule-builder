@@ -77,9 +77,9 @@ a JSON body,
 
 > Where `{post_type}` is either `session|abstract|person`
 > and `{post_id}` is the Wordpress post id
-
-When sending the POST to the webhook, when added the environmental variable `SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION`
-is added to the request header as a bearer token. 
+ 
+When sending the POST request to the webhook, if the environmental variable `SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION` is
+configured its value is added as a bearer token in the request Authorization header. 
 
 ### Example
 
