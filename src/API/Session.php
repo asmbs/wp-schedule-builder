@@ -44,7 +44,7 @@ class Session extends AbstractPost
 
     private function societies(): ?array
     {
-        $societies = $this->postMetadata['society']['value'];
+        $societies = $this->postMetadata['society']['value'] ?? [];
 
         if(empty($societies)) {
             return null;
@@ -61,7 +61,9 @@ class Session extends AbstractPost
     }
 
     private function facultyGroups(): ?array {
-        if(null === $facultyGroups = ($this->postMetadata['faculty_groups']['value'] ?? null)) {
+        $facultyGroups = $this->postMetadata['faculty_groups']['value'] ?? [];
+
+        if(empty($facultyGroups)) {
             return null;
         }
 
@@ -110,7 +112,7 @@ class Session extends AbstractPost
 
     private function findVenueObject(): ?array
     {
-        if(false === $data = get_field_object('logistics--locations', 'sb_options')) {
+        if(false == $data = get_field_object('logistics--locations', 'sb_options')) {
             return null;
         }
 
