@@ -9,6 +9,8 @@
 
 namespace ASMBS\ScheduleBuilder\API;
 
+use Exception;
+
 class ImportWebhook
 {
 
@@ -47,15 +49,14 @@ class ImportWebhook
         if(isset($_ENV['SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION'])) {
             $headers = ['Authorization' => 'Bearer ' .  $_ENV['SCHEDULE_BUILDER_WEBHOOK_AUTHORIZATION']];
         }
+
         $response = wp_remote_post(
             $_ENV['SCHEDULE_BUILDER_WEBHOOK_URL'],
-            array_merge(
-                [
-                    'method' => 'POST',
-                    'body' => json_encode($notice)
-                ],
-                $headers
-            )
+            [
+                'method' => 'POST',
+                'body' => json_encode($notice),
+                'headers' => $headers
+            ]
         );
 
         if($response instanceof \WP_Error) {
