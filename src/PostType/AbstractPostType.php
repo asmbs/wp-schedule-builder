@@ -233,10 +233,10 @@ abstract class AbstractPostType implements PostTypeInterface {
             printf( '<b>%s</b> %s', $date->format( 'm/d/Y' ), $date->format( 'g:iA' ) );
 
             // Get and print author if applicable
-            if ( static::supports( 'author' ) ) {
-                $author = get_user_by( 'id', $post->post_author );
-                printf( '<br><span class="author">by %s</span>', $author->display_name );
-            }
+//            if ( static::supports( 'author' ) ) {
+//                $author = get_user_by( 'id', $post->post_author );
+//                printf( '<br><span class="author">by %s</span>', $author->display_name );
+//            }
         }
     }
 
